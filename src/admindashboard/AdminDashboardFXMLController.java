@@ -134,6 +134,7 @@ public class AdminDashboardFXMLController implements Initializable
     private ChoiceBox<String> manageUserCombobox;
     @FXML
     private ChoiceBox<String> searchByLogChoiceBox;
+    private int userId;
     private String email;
     private String username;
     private String firstName;
@@ -162,24 +163,14 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
     
-    public void setUserDetails(String username) {
+    
+    public void setUserDetails(int userId, String username, String password, String email, String firstName, String surname) {
+        this.userId = userId;
         this.username = username;
-        String query = "SELECT * FROM Login_Credentials"; //Selects data from Login Credentials
-
-        try {
-            PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString("u_username").equals(username)) {
-                    this.email = rs.getString("u_email");
-                    this.firstName = rs.getString("u_fname");
-                    this.surname = rs.getString("u_sname");
-                    this.password = rs.getString("u_password");
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.surname = surname;
     }
 
     public void setTableViewManageUsers() {        

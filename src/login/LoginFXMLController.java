@@ -76,7 +76,13 @@ public class LoginFXMLController implements Initializable {
             LoginDbManager login = new LoginDbManager();
             String userType = login.connection(username, password); //starts the connection, returns userType if user found
             if (userType != null) {
-                dashboard(userType, username, stage);
+                int userId = login.userId();
+                username = login.username();
+                password = login.password();
+                String email = login.email();
+                String firstName = login.firstName();
+                String surname = login.surname();
+                dashboard(userType, userId, username, password, email, firstName, surname, stage);
             }   else {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
@@ -87,7 +93,7 @@ public class LoginFXMLController implements Initializable {
         }
      }
      
-     void dashboard(String userType, String username, Stage stage) { //switches to either admin or user dashboard
+     void dashboard(String userType, int userId, String username, String password, String email, String firstName, String surname, Stage stage) { //switches to either admin or user dashboard
         FXMLLoader loader = new FXMLLoader();
             if (userType.equals("A")){ //if the userType is admin
                 String url = "/admindashboard/AdminDashboardFXML.fxml"; //gets the file path
@@ -95,7 +101,7 @@ public class LoginFXMLController implements Initializable {
                 try {
                     Parent adminDashboard = loader.load();
                     AdminDashboardFXMLController adminController = loader.getController();
-                    adminController.setUserDetails(username);
+                    adminController.setUserDetails(userId, username, password, email, firstName, surname);
                     Scene adminScene = new Scene(adminDashboard);
                     stage.setScene(adminScene); //sets new scene for admin dashboard
                     stage.show();
@@ -108,7 +114,7 @@ public class LoginFXMLController implements Initializable {
                 try {
                     Parent userDashboard = loader.load();
                     UserDashboardFXMLController userController = loader.getController();
-                    userController.setUserDetails(username);
+                    userController.setUserDetails(userId, username, password, email, firstName, surname);
                     Scene userScene = new Scene(userDashboard); //sets new scene for user dashboard
                     stage.setScene(userScene);
                     stage.show();

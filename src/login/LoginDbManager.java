@@ -30,7 +30,12 @@ import javafx.stage.Stage;
  */
 public class LoginDbManager {
 
+    private int userId;
     private String username;
+    private String firstName;
+    private String surname;
+    private String password;
+    private String email;
     
     String connection(String username, String password) {
         PreparedStatement ps;
@@ -53,7 +58,12 @@ public class LoginDbManager {
                         alert.setContentText("Log In successful!");
                         alert.showAndWait();
                         userType = rs.getString("u_type");
+                        this.userId = rs.getInt("u_id");
+                        this.email = rs.getString("u_email");
                         this.username = rs.getString("u_username");
+                        this.password = rs.getString("u_password");
+                        this.firstName = rs.getString("u_fname");
+                        this.surname = rs.getString("u_sname");  
                     }
                 }
                 return userType;
@@ -63,11 +73,29 @@ public class LoginDbManager {
             return null;
         }
     
+    public int userId() {
+        return userId;
+    }
+    
+    public String email() {
+        return email;
+    }
+    
     public String username() {
         return username;
     }
     
+    public String password() {
+        return password;
+    }
     
+    public String firstName() {
+        return firstName;
+    }
+    
+    public String surname() {
+        return surname;
+    }
     
 }
 
