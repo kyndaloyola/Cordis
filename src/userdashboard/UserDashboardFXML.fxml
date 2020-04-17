@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<?import com.jfoenix.controls.JFXCheckBox?>-->
+<!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.BubbleChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedAreaChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1000.0" stylesheets="@userDashboardCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userdashboard.UserDashboardFXMLController">
+   <children>
+      <BorderPane prefHeight="900.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefHeight="56.0" prefWidth="1003.0" style="-fx-background-color: #7DB1D1;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane prefHeight="52.0" prefWidth="135.0">
+                     <children>
+                        <Text layoutX="22.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis" textAlignment="CENTER" wrappingWidth="71.22900390625">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font></Text>
+                     </children>
+                  </Pane>
+                  <Label fx:id="homeBtn" alignment="CENTER" onMouseClicked="#changeGraph" prefHeight="56.0" prefWidth="75.0" text="Home">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Separator prefHeight="53.0" prefWidth="396.0" visible="false" />
+                  <HBox prefHeight="56.0" prefWidth="334.0">
+                     <children>
+                        <Pane fx:id="statisticsMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="100.0">
+                           <children>
+                              <Text layoutX="23.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="orgMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="98.0">
+                           <children>
+                              <Text layoutX="11.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="projectMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
+                           <children>
+                              <Text layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+                  <MenuBar prefHeight="56.0" prefWidth="106.0" style="-fx-background-color: #7DB1D1;">
+                    <menus>
+                      <Menu mnemonicParsing="false">
+                           <graphic>
+                              <ImageView id="userDashboardIcon" fitHeight="46.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 30%;">
+                                 <image>
+                                    <Image url="@iconfinder_InterfaceExpendet-09_592608.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <items>
+                              <MenuItem id="settingsItem" fx:id="settingsItem" mnemonicParsing="false" style="-fx-border-radius: 20%;" text="Settings" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem mnemonicParsing="false" style="-fx-border-radius: 20%;" text="Log Out" />
+                           </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </HBox>
+         </top>
+         <left>
+            <VBox prefHeight="693.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="kyndaBtn" mnemonicParsing="false" onAction="#onKyndaBtn" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Projects Per Year">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="issamBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-radius: 0; -fx-background-color: grey;" text="Amnt Per Country">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="trungBtn" layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Average">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="104.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="122.0" style="-fx-background-radius: 0; -fx-background-color: grey;" text="Button">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <AnchorPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;">
+                     <children>
+                        <Text layoutX="374.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="organisationsTableView" layoutX="16.0" layoutY="270.0" onMouseClicked="#displayOrganisationValues" prefHeight="382.0" prefWidth="872.0">
+                          <columns>
+                            <TableColumn fx:id="idOrgColumn" prefWidth="75.0" text="Id" />
+                            <TableColumn fx:id="endOfPartOrgColumn" prefWidth="75.0" text="EndOfPart" />
+                              <TableColumn fx:id="shortNameOrgColumn" prefWidth="75.0" text="shortName" />
+                              <TableColumn fx:id="nameOrgColumn" prefWidth="75.0" text="Name" />
+                              <TableColumn fx:id="urlOrgColumn" prefWidth="75.0" text="URL" />
+                              <TableColumn fx:id="vatOrgColumn" prefWidth="75.0" text="VATNum" />
+                              <TableColumn fx:id="aTypeOrgColumn" prefWidth="75.0" text="activityType" />
+                              <TableColumn fx:id="pCodeOrgColumn" prefWidth="75.0" text="postCode" />
+                              <TableColumn fx:id="streetOrgColumn" prefWidth="75.0" text="Street" />
+                              <TableColumn fx:id="cityOrgColumn" prefWidth="75.0" text="city" />
+                              <TableColumn fx:id="countryOrgColumn" prefWidth="75.0" text="Country" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="72.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="69.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="69.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity Type: ">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="456.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="456.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="457.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="460.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textOrgId" layoutX="101.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="textOrgName" layoutX="124.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="textOrgActivityType" layoutX="169.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="textOrgPostCode" layoutX="528.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="textOrgStreet" layoutX="505.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="textOrgCity" layoutX="494.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="textOrgCountry" layoutX="528.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="issamPane" layoutY="1.0" prefHeight="646.0" prefWidth="900.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <BubbleChart fx:id="bubbleChartIssam" layoutX="53.0" layoutY="64.0" prefHeight="537.0" prefWidth="717.0" title="Number of project per countries and their funding">
+                          <xAxis>
+                            <NumberAxis fx:id="numOfOrg" label="Total number of participating organisations per country" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="numOfPro" label="Total number of project per country" side="LEFT" />
+                          </yAxis>
+                        </BubbleChart>
+                        <Pane layoutX="769.0" layoutY="95.0" prefHeight="444.0" prefWidth="123.0">
+                           <children>
+                              <Text layoutX="19.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funding range (in millions of Euros)" textAlignment="CENTER" wrappingWidth="95.53131103515625">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Text>
+                              <RadioButton fx:id="sup75M" layoutX="30.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#applyChangesToBubbleChart" text="50 - MAX">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="fundRangeToggleGroup" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="sup50M" layoutX="30.0" layoutY="129.0" mnemonicParsing="false" onMouseClicked="#applyChangesToBubbleChart" text="20 - 49.99" toggleGroup="$fundRangeToggleGroup" />
+                              <RadioButton fx:id="sup25M" layoutX="31.0" layoutY="169.0" mnemonicParsing="false" onMouseClicked="#applyChangesToBubbleChart" text="5 - 19.99" toggleGroup="$fundRangeToggleGroup" />
+                              <RadioButton fx:id="sup15M" layoutX="32.0" layoutY="213.0" mnemonicParsing="false" onMouseClicked="#applyChangesToBubbleChart" text="0 - 4.99" toggleGroup="$fundRangeToggleGroup" />
+                              <RadioButton fx:id="allFund" layoutX="33.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#applyChangesToBubbleChart" selected="true" text="All" toggleGroup="$fundRangeToggleGroup" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="kyndaPane" prefHeight="343.0" prefWidth="500.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+
+                        <BarChart id="projectsPerYearChart" fx:id="projectsPerYearChart" layoutX="105.0" layoutY="149.0" prefHeight="371.0" prefWidth="694.0">
+                          <xAxis>
+                            <CategoryAxis fx:id="yearsYAxis" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="NoOfProjectsXAxis" label="Total Projects" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <Button fx:id="SubmitKyndaGraph" layoutX="379.0" layoutY="574.0" mnemonicParsing="false" onAction="#OnSubmitKynda" prefHeight="11.0" prefWidth="55.0" style="-fx-background-color: #7DB1D1; -fx-background-radius: 0;" text="submit">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <ComboBox fx:id="yearSelectorKynda" layoutX="197.0" layoutY="571.0" prefWidth="150.0" promptText="Select Year" />
+                        <Text fill="#226e9e" layoutX="330.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL PROJECTS  PER TIME PERIOD " textAlignment="CENTER" wrappingWidth="207.2978515625">
+                           <font>
+                              <Font name="Arial Bold" size="21.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="trungPane" prefHeight="646.0" prefWidth="900.0" style="-fx-background-color: white;" visible="false">
+                     <children>
+                        <Button fx:id="refreshBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="428.0" layoutY="578.0" mnemonicParsing="false" onAction="#refreshAreaChart" prefHeight="27.0" prefWidth="74.0" style="-fx-background-color: #F0F0F0; -fx-border-color: #E0E0E0; -fx-border-radius: 6; -fx-border-width: 1;" text="Refresh" />
+                        <StackedAreaChart fx:id="areaChart" layoutX="157.0" layoutY="92.0" prefHeight="476.0" prefWidth="587.0" title="The Average Total Project Costs and Max EC Contributions Per Year">
+                          <xAxis>
+                            <NumberAxis autoRanging="false" label="Year" lowerBound="2014.0" minorTickCount="2" side="BOTTOM" tickLabelGap="2.0" tickUnit="2.0" upperBound="2026.0" fx:id="xAxis" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="yAxis" label="Average Per Year (€)" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickUnit="2000000.0" upperBound="4.0E7" />
+                          </yAxis>
+                        </StackedAreaChart>
+                        <FontAwesomeIconView glyphName="REFRESH" layoutX="437.0" layoutY="596.0" />
+                        <JFXCheckBox fx:id="costs" layoutX="421.0" layoutY="36.0" onAction="#refreshButtonEnabled" text="Project Total Costs" unCheckedColor="#e0e0e0" />
+                        <JFXCheckBox fx:id="contributions" layoutX="421.0" layoutY="59.0" onAction="#refreshButtonEnabled" text="Max EC Contributions" unCheckedColor="#e0e0e0" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0" visible="false">
+                     <children>
+                        <Label fx:id="welcomeText" layoutX="21.0" layoutY="14.0" text="Welcome Username!">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children></Pane>
+                  <Pane fx:id="statisticsPane" prefHeight="694.0" prefWidth="902.0" style="-fx-background-color: white;" visible="false">
+                     <children>
+                        <Text layoutX="393.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="projectsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;" visible="false">
+                     <children>
+                        <Text layoutX="403.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="projectTableView" layoutX="45.0" layoutY="269.0" onMouseClicked="#displayProjectValues" prefHeight="371.0" prefWidth="827.0">
+                          <columns>
+                            <TableColumn fx:id="projectIdColumn" prefWidth="39.0" text="Id" />
+                            <TableColumn fx:id="projectRCNColumn" prefWidth="51.0" text="RCN" />
+                              <TableColumn fx:id="projectAcronymColumn" prefWidth="35.0" text="Acronym" />
+                              <TableColumn fx:id="projectStatusColumn" prefWidth="50.333343505859375" text="status" />
+                              <TableColumn fx:id="projectTitleColumn" prefWidth="47.33331298828125" text="Title" />
+                              <TableColumn fx:id="projectStartDateColumn" prefWidth="56.0" text="startDate" />
+                              <TableColumn fx:id="projectEndDateColumn" prefWidth="57.333343505859375" text="EndDate" />
+                              <TableColumn fx:id="projectURLColumn" prefWidth="64.33331298828125" text="URL" />
+                              <TableColumn fx:id="projectObjectiveColumn" prefWidth="54.33331298828125" text="Objective" />
+                              <TableColumn fx:id="projectTotalCostColumn" prefWidth="64.0" text="TotalCost" />
+                              <TableColumn fx:id="projectSubjectColumn" prefWidth="62.66668701171875" text="Subject" />
+                              <TableColumn fx:id="projectMaxEcContribution" prefWidth="54.0" text="MaxEcContribution" />
+                              <TableColumn fx:id="projectFSchemeColumn" prefWidth="57.33331298828125" text="fundingScheme" />
+                              <TableColumn fx:id="topicProjectColumn" prefWidth="59.0" text="topic" />
+                              <TableColumn fx:id="projectCoordinatorColumn" prefWidth="70.0" text="Coordinator" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="53.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID: ">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="52.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acronym:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="53.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" wrappingWidth="44.3037109375">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="49.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="52.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="49.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Cost:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="52.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ec Contribution:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="612.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Objective:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="projectObjective" editable="false" layoutX="427.0" layoutY="96.0" prefHeight="166.0" prefWidth="444.0" wrapText="true" />
+                        <Text fx:id="textId" layoutX="75.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="textId" wrappingWidth="229.13671875">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textAcronym" layoutX="119.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textTitle" layoutX="97.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="324.13671875">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textSDate" layoutX="130.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textEDate" layoutX="119.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textTotalCost" layoutX="129.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="231.13671875">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textEcC" layoutX="164.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <AnchorPane layoutY="58.0" prefHeight="390.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+         <children>
+            <TabPane prefHeight="390.0" prefWidth="601.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Untitled Tab 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Text layoutX="12.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email :" wrappingWidth="45.845741271972656">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="userEmailTextField" layoutX="54.0" layoutY="22.0" style="-fx-background-radius: 0; -fx-background-color: white;" />
+                              <Button fx:id="editEmailButton" layoutX="511.0" layoutY="23.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="53.0" style="-fx-background-radius: 0; -fx-background-color: #7DB1D1;" text="Edit">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
