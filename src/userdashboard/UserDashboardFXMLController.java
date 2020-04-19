@@ -317,8 +317,10 @@ public class UserDashboardFXMLController implements Initializable
         createChartIssam(0, Integer.MAX_VALUE);
         setOrganisationTableValues();
         setProjectTableValues();
+
         initaliseHomeCharts();
        
+
             searchByProjects.getItems().addAll("All","ID","RCN","Acronym");
             homePane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -351,6 +353,7 @@ public class UserDashboardFXMLController implements Initializable
         
     }
     
+
     public void setSettingsText(){
         userEmailTextField.setText(email);
         fnameTextField.setText(firstName);
@@ -369,7 +372,7 @@ public class UserDashboardFXMLController implements Initializable
         this.firstName = firstName;
         this.surname = surname;
     }
-    
+
     
     private void createChartKyndas(){
         UserDashboardDbManager manager = new UserDashboardDbManager();

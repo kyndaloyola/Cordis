@@ -11,63 +11,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="bluepane" prefHeight="510.0" prefWidth="955.0" style="-fx-background-color: #7FBAD9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginFXMLController">
+<AnchorPane id="bluepane" prefHeight="607.0" prefWidth="753.0" style="-fx-background-color: #7FBAD9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginFXMLController">
    <children>
-      <Label alignment="CENTER" layoutX="629.0" layoutY="334.0" prefHeight="28.0" prefWidth="270.0" text="Log In to the view the dashboard!" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Book" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="592.0" layoutY="304.0" text="Welcome to Cordis Application" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Medium" size="26.0" />
-         </font>
-      </Label>
-      <AnchorPane id="whitepane" prefHeight="510.0" prefWidth="560.0" style="-fx-background-color: #fcfcfc;">
+      <AnchorPane id="whitepane" layoutX="97.0" layoutY="49.0" prefHeight="510.0" prefWidth="560.0" style="-fx-background-radius: 8px; -fx-background-color: #ffffff;">
          <children>
-            <ImageView fitHeight="156.0" fitWidth="185.0" layoutX="171.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/planet.png" />
-               </image>
-            </ImageView>
-            <JFXButton id="lgnBtn" fx:id="Login" buttonType="RAISED" layoutX="128.0" layoutY="386.0" onAction="#LogInButtonPressed" prefHeight="40.0" prefWidth="270.0" style="-fx-background-color: #7FBAD9;" text="Log In" textFill="WHITE">
+            <JFXButton id="lgnBtn" fx:id="Login" buttonType="RAISED" layoutX="154.0" layoutY="395.0" onAction="#LogInButtonPressed" prefHeight="40.0" prefWidth="270.0" style="-fx-background-color: #7FBAD9;" text="Log In" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Bold" size="16.0" />
                </font>
             </JFXButton>
-            <Label layoutX="180.0" layoutY="450.0" text="New User?" textFill="#707070">
+            <Label layoutX="206.0" layoutY="459.0" text="New User?" textFill="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="16.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="usernameField" focusColor="#0080ff" labelFloat="true" layoutX="129.0" layoutY="232.0" onKeyPressed="#enterKeyPressed" prefHeight="30.0" prefWidth="270.0" promptText="Username/Email" unFocusColor="#707070">
+            <JFXTextField fx:id="usernameField" focusColor="#0080ff" labelFloat="true" layoutX="155.0" layoutY="241.0" onKeyPressed="#enterKeyPressed" prefHeight="30.0" prefWidth="270.0" promptText="Username/Email" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField fx:id="password" focusColor="#0080ff" labelFloat="true" layoutX="130.0" layoutY="286.0" onKeyPressed="#enterKeyPressed" prefHeight="28.0" prefWidth="270.0" promptText="Password" unFocusColor="#707070">
+            <JFXPasswordField fx:id="password" focusColor="#0080ff" labelFloat="true" layoutX="156.0" layoutY="295.0" onKeyPressed="#enterKeyPressed" prefHeight="28.0" prefWidth="270.0" promptText="Password" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
             </JFXPasswordField>
-            <Hyperlink layoutX="253.0" layoutY="446.0" onAction="#SignUpLinkPressed" stylesheets="@stylesheet.css" text="Sign Up" textFill="#7fbad9">
+            <Hyperlink layoutX="279.0" layoutY="455.0" onAction="#SignUpLinkPressed" text="Sign Up" textFill="#7fbad9">
                <font>
                   <Font name="Franklin Gothic Book" size="16.0" />
                </font>
             </Hyperlink>
-            <Hyperlink layoutX="270.0" layoutY="329.0" stylesheets="@stylesheet.css" text="Forgot Password?" textFill="#7fbad9" textOverrun="CLIP">
+            <Hyperlink layoutX="296.0" layoutY="338.0" text="Forgot Password?" textFill="#7fbad9" textOverrun="CLIP">
                <font>
                   <Font name="Franklin Gothic Book" size="16.0" />
                </font>
             </Hyperlink>
-            <FontAwesomeIconView fill="#707070" glyphName="USER" layoutX="108.0" layoutY="253.0" size="14" />
-            <FontAwesomeIconView fill="#707070" glyphName="LOCK" layoutX="109.0" layoutY="306.0" size="14" />
+            <FontAwesomeIconView fill="#707070" glyphName="USER" layoutX="134.0" layoutY="262.0" size="14" />
+            <FontAwesomeIconView fill="#707070" glyphName="LOCK" layoutX="135.0" layoutY="315.0" size="14" />
+            <ImageView fitHeight="183.0" fitWidth="204.0" layoutX="188.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Cordis-logo.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="183.0" fitWidth="204.0" layoutX="672.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Cordis-logo.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

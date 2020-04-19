@@ -92,15 +92,10 @@ public class LoginFXMLController implements Initializable {
             alert.showAndWait();
         } else {
             LoginDbManager login = new LoginDbManager();
-            String userType = login.connection(username, password); //starts the connection, returns userType if user found
-            if (userType != null) {
-                int userId = login.userId();
-                username = login.username();
-                password = login.password();
-                String email = login.email();
-                String firstName = login.firstName();
-                String surname = login.surname();
-                dashboard(userType, userId, username, password, email, firstName, surname, stage);
+            boolean userFound = login.connection(username, password); //starts the connection, returns userType if user found
+            if (userFound) {
+                dashboard(login.getUserType(), login.getUserId(), login.getUsername(), login.getPassword(),
+                login.getEmail(), login.getFirstName(), login.getSurname(), stage);
             }   else {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
@@ -132,7 +127,7 @@ public class LoginFXMLController implements Initializable {
                 try {
                     Parent userDashboard = loader.load();
                     UserDashboardFXMLController userController = loader.getController();
-                    userController.setUserDetails(userId, username, password, email, firstName, surname);
+                    //userController.setUserDetails(userId, username, password, email, firstName, surname);
                     Scene userScene = new Scene(userDashboard); //sets new scene for user dashboard
                     stage.setScene(userScene);
                     stage.show();

@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import databaseconnection.DbConnection;
+import encryption.BCrypt;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,8 +37,9 @@ public class LoginDbManager {
     private String surname;
     private String password;
     private String email;
+    private String userType;
     
-    String connection(String username, String password) {
+    boolean connection(String username, String password) {
         PreparedStatement ps;
         ResultSet rs;
 
@@ -45,56 +47,59 @@ public class LoginDbManager {
         Alert alert;
 
             query = "SELECT * FROM Login_Credentials"; //Selects data from Login Credentials
-            String userType = null;
             
             try {
                 ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    if ((rs.getString("u_username").equals(username) || rs.getString("u_email").equals(username)) && (rs.getString("u_password").equals(password))) {
+                    if ((rs.getString("u_username").equals(username) || rs.getString("u_email").equals(username)) && BCrypt.checkpw(password, rs.getString("u_password"))) {
                         alert = new Alert(AlertType.INFORMATION); //if user credentials are found, creates an alert
                         alert.setTitle("Information Dialog");
                         alert.setHeaderText(null);
                         alert.setContentText("Log In successful!");
                         alert.showAndWait();
-                        userType = rs.getString("u_type");
+                        this.userType = rs.getString("u_type");
                         this.userId = rs.getInt("u_id");
                         this.email = rs.getString("u_email");
                         this.username = rs.getString("u_username");
                         this.password = rs.getString("u_password");
                         this.firstName = rs.getString("u_fname");
                         this.surname = rs.getString("u_sname");  
+                        return true;
                     }
                 }
-                return userType;
             } catch (SQLException ex) {
                 Logger.getLogger(LoginFXMain.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return null;
+            return false;
         }
     
-    public int userId() {
+    public int getUserId() {
         return userId;
     }
     
-    public String email() {
+    public String getEmail() {
         return email;
     }
     
-    public String username() {
+    public String getUsername() {
         return username;
     }
     
-    public String password() {
+    public String getPassword() {
         return password;
     }
     
-    public String firstName() {
+    public String getFirstName() {
         return firstName;
     }
     
-    public String surname() {
+    public String getSurname() {
         return surname;
+    }
+    
+    public String getUserType() {
+        return userType;
     }
     
 }
