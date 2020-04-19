@@ -6,6 +6,7 @@
 package signup;
 
 import databaseconnection.DbConnection;
+import encryption.BCrypt;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,6 +52,7 @@ public class SignUpDbManager
     }
 
     void insertData(String username, String email, String password, String fname, String lname) {
+        password = BCrypt.hashpw(password, BCrypt.gensalt(12));
         String query = "INSERT INTO Login_Credentials (u_username, u_email, u_password, u_fname, u_sname, u_type)"
         + " values (?, ?, ?, ?, ?, ?)";
         try {

@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import databaseconnection.DbConnection;
+import encryption.BCrypt;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -51,7 +52,7 @@ public class LoginDbManager {
                 ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    if ((rs.getString("u_username").equals(username) || rs.getString("u_email").equals(username)) && (rs.getString("u_password").equals(password))) {
+                    if ((rs.getString("u_username").equals(username) || rs.getString("u_email").equals(username)) && BCrypt.checkpw(password, rs.getString("u_password"))) {
                         alert = new Alert(AlertType.INFORMATION); //if user credentials are found, creates an alert
                         alert.setTitle("Information Dialog");
                         alert.setHeaderText(null);

@@ -50,12 +50,12 @@
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
             </JFXPasswordField>
-            <Hyperlink layoutX="253.0" layoutY="446.0" onAction="#SignUpLinkPressed" stylesheets="@stylesheet.css" text="Sign Up" textFill="#7fbad9">
+            <Hyperlink layoutX="253.0" layoutY="446.0" onAction="#SignUpLinkPressed" text="Sign Up" textFill="#7fbad9">
                <font>
                   <Font name="Franklin Gothic Book" size="16.0" />
                </font>
             </Hyperlink>
-            <Hyperlink layoutX="270.0" layoutY="329.0" stylesheets="@stylesheet.css" text="Forgot Password?" textFill="#7fbad9" textOverrun="CLIP">
+            <Hyperlink layoutX="270.0" layoutY="329.0" text="Forgot Password?" textFill="#7fbad9" textOverrun="CLIP">
                <font>
                   <Font name="Franklin Gothic Book" size="16.0" />
                </font>
