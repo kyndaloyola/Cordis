@@ -132,7 +132,7 @@ public class LoginFXMLController implements Initializable {
                 try {
                     Parent userDashboard = loader.load();
                     UserDashboardFXMLController userController = loader.getController();
-                    //userController.setUserDetails(userId, username, password, email, firstName, surname);
+                    userController.setUserDetails(userId, username, password, email, firstName, surname);
                     Scene userScene = new Scene(userDashboard); //sets new scene for user dashboard
                     stage.setScene(userScene);
                     stage.show();
