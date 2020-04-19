@@ -76,14 +76,14 @@
                   <Image url="@../images/Cordis-logo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="167.0" fitWidth="206.0" layoutX="465.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="167.0" fitWidth="206.0" layoutX="465.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/planet.png" />
                </image>
             </ImageView>
-            <Label layoutX="455.0" layoutY="344.0" text="Already have an account?">
+            <Label layoutX="455.0" layoutY="348.0" text="Already have an account?">
                <font>
-                  <Font name="Franklin Gothic Book" size="16.0" />
+                  <Font name="Franklin Gothic Book" size="15.0" />
                </font>
             </Label>
             <JFXButton layoutX="218.0" layoutY="499.0" onAction="#validateDetails" prefHeight="36.0" prefWidth="125.0" style="-fx-background-color: #7FBAD9; -fx-background-radius: 8px;" text="Submit" textFill="WHITE">
@@ -96,9 +96,9 @@
                   <Font name="Franklin Gothic Book" size="16.0" />
                </font>
             </JFXButton>
-            <Hyperlink layoutX="628.0" layoutY="340.0" onAction="#LogInLinkPressed" text="Log In">
+            <Hyperlink layoutX="618.0" layoutY="344.0" onAction="#LogInLinkPressed" text="Log In">
                <font>
-                  <Font name="Franklin Gothic Book" size="16.0" />
+                  <Font name="Franklin Gothic Book" size="15.0" />
                </font>
             </Hyperlink>
          </children></AnchorPane>

@@ -11,18 +11,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="bluepane" prefHeight="607.0" prefWidth="753.0" style="-fx-background-color: #7FBAD9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginFXMLController">
+<AnchorPane id="bluepane" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #7FBAD9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginFXMLController">
    <children>
-      <AnchorPane id="whitepane" layoutX="97.0" layoutY="49.0" prefHeight="510.0" prefWidth="560.0" style="-fx-background-radius: 8px; -fx-background-color: #ffffff;">
+      <AnchorPane id="whitepane" layoutX="70.0" layoutY="45.0" prefHeight="510.0" prefWidth="560.0" style="-fx-background-radius: 8px; -fx-background-color: #ffffff;">
          <children>
             <JFXButton id="lgnBtn" fx:id="Login" buttonType="RAISED" layoutX="154.0" layoutY="395.0" onAction="#LogInButtonPressed" prefHeight="40.0" prefWidth="270.0" style="-fx-background-color: #7FBAD9;" text="Log In" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Bold" size="16.0" />
                </font>
             </JFXButton>
-            <Label layoutX="206.0" layoutY="459.0" text="New User?" textFill="#707070">
+            <Label layoutX="212.0" layoutY="459.0" text="New User?" textFill="#707070">
                <font>
-                  <Font name="Franklin Gothic Book" size="16.0" />
+                  <Font name="Franklin Gothic Book" size="15.0" />
                </font>
             </Label>
             <JFXTextField fx:id="usernameField" focusColor="#0080ff" labelFloat="true" layoutX="155.0" layoutY="241.0" onKeyPressed="#enterKeyPressed" prefHeight="30.0" prefWidth="270.0" promptText="Username/Email" unFocusColor="#707070">
@@ -35,14 +35,14 @@
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
             </JFXPasswordField>
-            <Hyperlink layoutX="279.0" layoutY="455.0" onAction="#SignUpLinkPressed" text="Sign Up" textFill="#7fbad9">
+            <Hyperlink layoutX="278.0" layoutY="455.0" onAction="#SignUpLinkPressed" text="Sign Up" textFill="#7fbad9">
                <font>
-                  <Font name="Franklin Gothic Book" size="16.0" />
+                  <Font name="Franklin Gothic Book" size="15.0" />
                </font>
             </Hyperlink>
-            <Hyperlink layoutX="296.0" layoutY="338.0" text="Forgot Password?" textFill="#7fbad9" textOverrun="CLIP">
+            <Hyperlink layoutX="303.0" layoutY="338.0" text="Forgot Password?" textFill="#7fbad9" textOverrun="CLIP">
                <font>
-                  <Font name="Franklin Gothic Book" size="16.0" />
+                  <Font name="Franklin Gothic Book" size="15.0" />
                </font>
             </Hyperlink>
             <FontAwesomeIconView fill="#707070" glyphName="USER" layoutX="134.0" layoutY="262.0" size="14" />
