@@ -37,8 +37,9 @@ public class LoginDbManager {
     private String surname;
     private String password;
     private String email;
+    private String userType;
     
-    String connection(String username, String password) {
+    boolean connection(String username, String password) {
         PreparedStatement ps;
         ResultSet rs;
 
@@ -58,7 +59,7 @@ public class LoginDbManager {
                         alert.setHeaderText(null);
                         alert.setContentText("Log In successful!");
                         alert.showAndWait();
-                        userType = rs.getString("u_type");
+                        this.userType = rs.getString("u_type");
                         this.userId = rs.getInt("u_id");
                         this.email = rs.getString("u_email");
                         this.username = rs.getString("u_username");
@@ -67,11 +68,11 @@ public class LoginDbManager {
                         this.surname = rs.getString("u_sname");  
                     }
                 }
-                return userType;
+                return true;
             } catch (SQLException ex) {
                 Logger.getLogger(LoginFXMain.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return null;
+            return false;
         }
     
     public int userId() {
@@ -98,5 +99,8 @@ public class LoginDbManager {
         return surname;
     }
     
+    public String userType() {
+        return userType;
+    }
 }
 

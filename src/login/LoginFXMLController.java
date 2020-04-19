@@ -92,14 +92,15 @@ public class LoginFXMLController implements Initializable {
             alert.showAndWait();
         } else {
             LoginDbManager login = new LoginDbManager();
-            String userType = login.connection(username, password); //starts the connection, returns userType if user found
-            if (userType != null) {
+            boolean userFound = login.connection(username, password); //starts the connection, returns userType if user found
+            if (userFound) {
                 int userId = login.userId();
                 username = login.username();
                 password = login.password();
                 String email = login.email();
                 String firstName = login.firstName();
                 String surname = login.surname();
+                String userType = login.userType();
                 dashboard(userType, userId, username, password, email, firstName, surname, stage);
             }   else {
                 alert = new Alert(Alert.AlertType.ERROR);
@@ -139,6 +140,12 @@ public class LoginFXMLController implements Initializable {
                 } catch (IOException ex) {
                 Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+            try {
+                throw new Exception("User Type not defined in database!");
+            } catch (Exception ex) {
+                Logger.getLogger(LoginFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
      }
      
