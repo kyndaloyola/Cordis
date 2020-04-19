@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import userdashboard.UserDashboardFXMLController;
 
@@ -54,6 +55,23 @@ public class LoginFXMLController implements Initializable {
         username = username.trim(); //removes unneeded spaces on the username field
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Login(username, password.getText(), stage); //passes the username and password to the login manager class
+    }
+    
+    
+    @FXML
+    void SignUpLinkPressed(ActionEvent event) {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        String url = "/signup/SignUpFXML.fxml";  //gets the file path
+        loader.setLocation(getClass().getResource(url));
+        try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
      void Login(String username, String password, Stage stage) {
