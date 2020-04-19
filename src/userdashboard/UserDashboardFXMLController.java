@@ -317,6 +317,7 @@ public class UserDashboardFXMLController implements Initializable
         createChartIssam(0, Integer.MAX_VALUE);
         setOrganisationTableValues();
         setProjectTableValues();
+        initaliseHomeCharts();
             searchByProjects.getItems().addAll("All","ID","RCN","Acronym");
             homePane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -328,6 +329,8 @@ public class UserDashboardFXMLController implements Initializable
             graphMenuItems.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
+            projectDetailsPane.setVisible(false);
+            
     }
     
     public void initaliseHomeCharts(){
@@ -501,6 +504,7 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
+            projectDetailsPane.setVisible(false);
         } else if (event.getSource()==issamBtn) {
             issamPane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -512,6 +516,7 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
+            projectDetailsPane.setVisible(false);
         } else if (event.getSource() == trungBtn) {
             trungPane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -523,6 +528,7 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
+            projectDetailsPane.setVisible(false);
         } else if(event.getSource()==statisticsMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -534,6 +540,7 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
+            projectDetailsPane.setVisible(false);
         } else if (event.getSource()==orgMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -545,6 +552,7 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(false);
+            projectDetailsPane.setVisible(false);
         } else if (event.getSource()==projectMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -556,6 +564,7 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(false);
+            projectDetailsPane.setVisible(false);
         } else if (event.getSource() == HomeBtn) {
             homePane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -567,18 +576,7 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(false);
-        }else if (event.getSource() == settingsItem) {
-            settingsPane.setVisible(true);
-            settingsAnchorPane.setVisible(true);
-            
-            homePane.setVisible(false);
-            kyndaPane.setVisible(false);
-            issamPane.setVisible(false);
-            trungPane.setVisible(false);
-            statisticsPane.setVisible(false);
-            OrganisationsPane.setVisible(false);
-            projectsPane.setVisible(false);
-            graphMenuItems.setVisible(false);
+            projectDetailsPane.setVisible(false);
         }
     }
    
@@ -589,13 +587,7 @@ public class UserDashboardFXMLController implements Initializable
         organisationsPane1.toFront();
     }
 
-    private void onSettingsClick(ActionEvent event)
-    {
-       
-        
-        settingsMainPane.toFront();
-        
-    }
+
 
     @FXML
     private void changeColorBackgroundExited(MouseEvent event) {
@@ -830,5 +822,22 @@ public class UserDashboardFXMLController implements Initializable
         
         
         }
+    }
+
+    @FXML
+    private void OnSettingsClick(ActionEvent event)
+    {
+        homePane.setVisible(false);
+            kyndaPane.setVisible(false);
+            issamPane.setVisible(false);
+            trungPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            projectsPane.setVisible(false);
+            graphMenuItems.setVisible(false);
+            projectDetailsPane.setVisible(false);
+            settingsPane.setVisible(true);
+            settingsAnchorPane.setVisible(true);
+        
     }
 }
