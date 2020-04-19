@@ -644,12 +644,21 @@ public class UserDashboardFXMLController implements Initializable
     
     @FXML
     public void displayProjectValues() {
+        kyndaPane.setVisible(false);
+            issamPane.setVisible(false);
+            trungPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            homePane.setVisible(false);
+            projectsPane.setVisible(false);
+            projectDetailsPane.setVisible(true);
+        
         int selection = projectTableView.getSelectionModel().getSelectedCells().get(0).getRow();
         
         UserDashboardDbManager manager = new UserDashboardDbManager();
         ArrayList<ArrayList<String>> data = manager.getProjectDetails();
         
-        textId.setText(data.get(selection).get(0));
+        //textId.setText(data.get(selection).get(0));
         projectAcronymText.setText(data.get(selection).get(2));
         projectTitleText.setText(data.get(selection).get(4));
         projectStartDatetext.setText(data.get(selection).get(5));
