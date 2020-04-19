@@ -64,6 +64,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -230,22 +231,6 @@ public class UserDashboardFXMLController implements Initializable
     @FXML
     private TableColumn<ArrayList<String>, String> projectCoordinatorColumn;
     
-    @FXML
-    private Text textId;
-    @FXML
-    private Text textAcronym;
-    @FXML
-    private Text textTitle;
-    @FXML
-    private Text textSDate;
-    @FXML
-    private Text textEDate;
-    @FXML
-    private Text textTotalCost;
-    @FXML
-    private Text textEcC;
-    @FXML
-    private TextArea projectObjective;
 
     @FXML
     private Text textOrgId;
@@ -278,8 +263,6 @@ public class UserDashboardFXMLController implements Initializable
     @FXML
     private Text projectEcContributionText;
     @FXML
-    private Pane projectMenuButton1;
-    @FXML
     private Text fnameTextField;
     @FXML
     private Text lNameTextField;
@@ -305,6 +288,20 @@ public class UserDashboardFXMLController implements Initializable
     private BarChart<?, ?> kyndaReducedGraph;
     @FXML
     private BubbleChart<?, ?> issamReducedGraph;
+    @FXML
+    private ImageView searchProjectBtn;
+    @FXML
+    private ComboBox<String> searchByProjects;
+    @FXML
+    private TextField inputTextSearchProj;
+    @FXML
+    private VBox graphMenuItems;
+    @FXML
+    private Pane HomeBtn;
+    @FXML
+    private AnchorPane settingsAnchorPane;
+    @FXML
+    private Pane settingsPane;
 
 
 
@@ -320,6 +317,17 @@ public class UserDashboardFXMLController implements Initializable
         createChartIssam(0, Integer.MAX_VALUE);
         setOrganisationTableValues();
         setProjectTableValues();
+            searchByProjects.getItems().addAll("All","ID","RCN","Acronym");
+            homePane.setVisible(true);
+            kyndaPane.setVisible(false);
+            issamPane.setVisible(false);
+            trungPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            projectsPane.setVisible(false);
+            graphMenuItems.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
     }
     
     public void initaliseHomeCharts(){
@@ -490,6 +498,9 @@ public class UserDashboardFXMLController implements Initializable
             projectsPane.setVisible(false);
             statisticsPane.setVisible(false);
             homePane.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(true);
         } else if (event.getSource()==issamBtn) {
             issamPane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -498,6 +509,9 @@ public class UserDashboardFXMLController implements Initializable
             projectsPane.setVisible(false);
             statisticsPane.setVisible(false);
             homePane.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(true);
         } else if (event.getSource() == trungBtn) {
             trungPane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -506,6 +520,9 @@ public class UserDashboardFXMLController implements Initializable
             projectsPane.setVisible(false);
             statisticsPane.setVisible(false);
             homePane.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(true);
         } else if(event.getSource()==statisticsMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -514,6 +531,9 @@ public class UserDashboardFXMLController implements Initializable
             projectsPane.setVisible(false);
             homePane.setVisible(false);
             statisticsPane.setVisible(true);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(true);
         } else if (event.getSource()==orgMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -522,6 +542,9 @@ public class UserDashboardFXMLController implements Initializable
             statisticsPane.setVisible(false);
             homePane.setVisible(false);
             OrganisationsPane.setVisible(true);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(false);
         } else if (event.getSource()==projectMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -530,7 +553,10 @@ public class UserDashboardFXMLController implements Initializable
             OrganisationsPane.setVisible(false);
             homePane.setVisible(false);
             projectsPane.setVisible(true);
-        } else if (event.getSource() == homeBtn) {
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(false);
+        } else if (event.getSource() == HomeBtn) {
             homePane.setVisible(true);
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -538,6 +564,21 @@ public class UserDashboardFXMLController implements Initializable
             statisticsPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(false);
+        }else if (event.getSource() == settingsItem) {
+            settingsPane.setVisible(true);
+            settingsAnchorPane.setVisible(true);
+            
+            homePane.setVisible(false);
+            kyndaPane.setVisible(false);
+            issamPane.setVisible(false);
+            trungPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            projectsPane.setVisible(false);
+            graphMenuItems.setVisible(false);
         }
     }
    
@@ -644,7 +685,7 @@ public class UserDashboardFXMLController implements Initializable
     
     @FXML
     public void displayProjectValues() {
-        kyndaPane.setVisible(false);
+            kyndaPane.setVisible(false);
             issamPane.setVisible(false);
             trungPane.setVisible(false);
             statisticsPane.setVisible(false);
@@ -689,15 +730,105 @@ public class UserDashboardFXMLController implements Initializable
     @FXML
     private void onTrungClick(MouseEvent event)
     {
+            trungPane.setVisible(true);
+            kyndaPane.setVisible(false);
+            issamPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            projectsPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            homePane.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(true);
     }
 
     @FXML
     private void OnKyndaClick(MouseEvent event)
     {
+            kyndaPane.setVisible(true);
+            issamPane.setVisible(false);
+            trungPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            projectsPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            homePane.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(true);
+        
     }
 
     @FXML
     private void onIssamClick(MouseEvent event)
     {
+            issamPane.setVisible(true);
+            kyndaPane.setVisible(false);
+            trungPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            projectsPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            homePane.setVisible(false);
+            graphMenuItems.setVisible(true);
+    }
+
+    @FXML
+    private void onProjectSearch(MouseEvent event)
+    {
+        String sel;
+        String userInput;
+        Alert a = new Alert(AlertType.NONE); 
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        
+        UserDashboardDbManager manager = new UserDashboardDbManager();
+        
+        sel       =searchByProjects.getSelectionModel().getSelectedItem();
+        userInput = inputTextSearchProj.getText();
+        
+        if(sel.equals("")){
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Invalid Selection !");
+            a.show();
+        }else if(userInput.equals("")&&sel.equals("")){
+             a.setAlertType(AlertType.ERROR);
+            a.setContentText("Invalid Input !");
+            a.show();
+        }else if(sel.equals("All")){
+          setProjectTableValues();
+        }else{
+         projectTableView.getItems().clear();
+        
+        
+        if(manager.searchProj(sel, userInput, data)){
+            
+       
+        
+        setCellValue(projectIdColumn, 0);
+        setCellValue(projectRCNColumn, 1);
+        setCellValue(projectAcronymColumn, 2);
+        setCellValue(projectStatusColumn, 3);
+        setCellValue(projectTitleColumn, 4);
+        setCellValue(projectStartDateColumn, 5);
+        setCellValue(projectEndDateColumn, 6);
+        setCellValue(projectURLColumn, 7);
+        setCellValue(projectObjectiveColumn, 8);
+        setCellValue(projectTotalCostColumn, 9);
+        setCellValue(projectSubjectColumn, 10);
+        setCellValue(projectMaxEcContribution, 11);
+        setCellValue(projectFSchemeColumn, 12);
+        setCellValue(topicProjectColumn, 13);
+        setCellValue(projectCoordinatorColumn, 14);
+        
+        projectTableView.getItems().addAll(data);  
+        }else{
+             a.setAlertType(AlertType.ERROR);
+            a.setContentText("Invalid user Input !");
+            a.show();
+        }
+       
+        //data = manager.getProjectDetails();
+       
+        
+        
+        }
     }
 }

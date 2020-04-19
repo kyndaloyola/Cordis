@@ -20,7 +20,6 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
@@ -50,7 +49,7 @@
                   <Separator prefHeight="53.0" prefWidth="396.0" visible="false" />
                   <HBox prefHeight="56.0" prefWidth="334.0">
                      <children>
-                        <Pane fx:id="projectMenuButton1" layoutX="208.0" layoutY="10.0" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
+                        <Pane fx:id="HomeBtn" layoutX="208.0" layoutY="10.0" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
                            <children>
                               <Text layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" />
                            </children>
@@ -94,7 +93,7 @@
             </HBox>
          </top>
          <left>
-            <VBox prefHeight="693.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+            <VBox fx:id="graphMenuItems" prefHeight="693.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="kyndaBtn" mnemonicParsing="false" onAction="#onKyndaBtn" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Projects Per Year">
                      <font>
@@ -206,10 +205,13 @@
                                           <Insets left="20.0" top="20.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="16.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <HBox.margin>
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
+                                       <image>
+                                          <Image url="@iconfinder_Euro_5925610.png" />
+                                       </image>
                                     </ImageView>
                                  </children>
                               </HBox>
@@ -231,10 +233,13 @@
                                           <Insets left="20.0" top="20.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="16.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <HBox.margin>
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
+                                       <image>
+                                          <Image url="@iconfinder_Euro_5925610.png" />
+                                       </image>
                                     </ImageView>
                                  </children>
                               </HBox>
@@ -378,7 +383,7 @@
                         <JFXCheckBox fx:id="contributions" layoutX="421.0" layoutY="59.0" onAction="#refreshButtonEnabled" text="Max EC Contributions" unCheckedColor="#e0e0e0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0">
+                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0" visible="false">
                      <children>
                         <Text layoutX="319.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis Statistics " textAlignment="CENTER" wrappingWidth="264.00001719594">
                            <font>
@@ -435,13 +440,31 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="projectsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;" visible="false">
+                  <Pane fx:id="projectsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;">
                      <children>
                         <Text layoutX="403.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
                            <font>
                               <Font size="27.0" />
                            </font>
                         </Text>
+                        <HBox layoutX="54.0" layoutY="145.0" prefHeight="57.0" prefWidth="405.0">
+                           <children>
+                              <ComboBox fx:id="searchByProjects" prefWidth="150.0" promptText="Search by" />
+                              <TextField fx:id="inputTextSearchProj">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <ImageView fx:id="searchProjectBtn" fitHeight="25.0" fitWidth="29.0" onMouseClicked="#onProjectSearch" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@searchicon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
                         <TableView fx:id="projectTableView" layoutX="45.0" layoutY="269.0" onMouseClicked="#displayProjectValues" prefHeight="371.0" prefWidth="827.0">
                           <columns>
                             <TableColumn fx:id="projectIdColumn" prefWidth="39.0" text="Id" />
@@ -461,91 +484,15 @@
                               <TableColumn fx:id="projectCoordinatorColumn" prefWidth="70.0" text="Coordinator" />
                           </columns>
                         </TableView>
-                        <Text layoutX="53.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID: ">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="52.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acronym:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="53.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" wrappingWidth="44.3037109375">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="49.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="52.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="49.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Cost:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="52.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ec Contribution:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="612.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Objective:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <TextArea fx:id="projectObjective" editable="false" layoutX="427.0" layoutY="96.0" prefHeight="166.0" prefWidth="444.0" wrapText="true" />
-                        <Text fx:id="textId" layoutX="75.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="textId" wrappingWidth="229.13671875">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="textAcronym" layoutX="119.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="textTitle" layoutX="97.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="324.13671875">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="textSDate" layoutX="130.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="textEDate" layoutX="119.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="textTotalCost" layoutX="129.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="231.13671875">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="textEcC" layoutX="164.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="229.13671875">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Text>
                      </children>
                   </Pane>
                </children>
             </AnchorPane>
          </center>
       </BorderPane>
-      <AnchorPane layoutY="56.0" prefHeight="700.0" prefWidth="1003.0" style="-fx-background-color: white;" visible="false">
+      <AnchorPane fx:id="settingsAnchorPane" layoutY="56.0" prefHeight="700.0" prefWidth="1003.0" style="-fx-background-color: white;" visible="false">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane fx:id="settingsPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox layoutX="92.0" layoutY="71.0" prefHeight="82.0" prefWidth="173.0">
                      <children>

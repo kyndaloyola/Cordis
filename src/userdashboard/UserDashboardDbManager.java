@@ -141,9 +141,6 @@ public class UserDashboardDbManager
         return bubbleChartSeries;
     }
     
-    
-    
-    
     public XYChart.Series AreaChartSeries1() {
         String query = "SELECT strftime('%Y' ,projectEndDate) AS endDate, AVG(projectTotalCost), AVG(projectMaxEcContribution) FROM Project  WHERE endDate <> '' GROUP by endDate;";
         XYChart.Series series1 = new XYChart.Series<>(); //creates a new series for the costs line
@@ -405,5 +402,193 @@ public class UserDashboardDbManager
         
     }
     
+    public String getRowProj(String selection){
+        
+        String row ;
+        if(selection.equals("ID")){
+            row = "Project.projectId";
+        }else if(selection.equals("RCN")){
+            row="Project.projectRCN";
+        }else if(selection.equals("Acronym")){
+            row="Project.projectAcronym";
+        }else{
+            row= null;
+        }
+        
+        return row;
+    }
     
+    public boolean searchProj(String selection ,String values,ArrayList<ArrayList<String>> d){
+           //String table = getRowLog(selection);
+         Statement stmt;
+         DbConnection connection = new DbConnection();
+         
+         String sel;
+         sel = getRowProj(selection);
+         
+    try
+    {
+        
+         stmt =connection.getConnectionDataDB().createStatement(); 
+        // String sql = "SELECT * FROM logFile WHERE "+table+"='"+values+"';"; 
+         String sqlSelect ="SELECT Project.projectId," +
+                            " Project.projectRCN," +
+                            " Project.projectAcronym," +
+                            " Project.projectStatus," +
+                            " Project.projectTitle," +
+                            " Project.projectStartDate," +
+                            " Project.projectEndDate," +
+                            " Project.projectURL," +
+                            " Project.projectObjective," +
+                            " Project.projectTotalCost," +
+                            " Project.projectSubject," +
+                            " Project.projectMaxEcContribution," +
+                            " FundingScheme.fundingSchemeName," +
+                            " Topic.topicName," +
+                            " OrgParticipant.orgShortName" +
+                            " FROM Project" +
+                            " JOIN FundingScheme" +
+                            " ON Project.fundingSchemeId=FundingScheme.fundingSchemeId" +
+                            " JOIN Topic" +
+                            " ON Project.topicId=Topic.topicId" +
+                            " JOIN OrgParticipant" +
+                            " ON Project.orgId=OrgParticipant.orgId"+" Where "+sel+"='"+values+"';";
+         String sqlID="SELECT Project.projectId," +
+                            " Project.projectRCN," +
+                            " Project.projectAcronym," +
+                            " Project.projectStatus," +
+                            " Project.projectTitle," +
+                            " Project.projectStartDate," +
+                            " Project.projectEndDate," +
+                            " Project.projectURL," +
+                            " Project.projectObjective," +
+                            " Project.projectTotalCost," +
+                            " Project.projectSubject," +
+                            " Project.projectMaxEcContribution," +
+                            " FundingScheme.fundingSchemeName," +
+                            " Topic.topicName," +
+                            " OrgParticipant.orgShortName" +
+                            " FROM Project" +
+                            " JOIN FundingScheme" +
+                            " ON Project.fundingSchemeId=FundingScheme.fundingSchemeId" +
+                            " JOIN Topic" +
+                            " ON Project.topicId=Topic.topicId" +
+                            " JOIN OrgParticipant" +
+                            " ON Project.orgId=OrgParticipant.orgId"+" Where "+sel+" ="+values+";";
+       ResultSet rs;
+         if(selection.equals("ID")){
+             stmt.execute(sqlID);
+           rs = stmt.getResultSet();
+         }else{
+              stmt.execute(sqlSelect);
+           rs = stmt.getResultSet();
+         }
+           
+           
+        try{
+         while(rs.next()){
+          
+              ArrayList<String> user = new ArrayList<>();
+                    user.add(String.valueOf(rs.getInt("projectId")));
+                    
+                    try {
+                        user.add(rs.getString("projectRCN"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("projectAcronym"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+                    
+                    try {
+                        user.add(rs.getString("projectStatus"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("projectTitle"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("projectStartDate"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("projectEndDate"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }                    
+                    
+                    try {
+                        user.add(rs.getString("projectURL"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("projectObjective"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    } 
+ 
+                    try {
+                        user.add(String.valueOf(rs.getDouble("projectTotalCost")));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("projectSubject"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+                    
+                    try {
+                        user.add(String.valueOf(rs.getDouble("projectMaxEcContribution")));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+ 
+                    
+                    try {
+                        user.add(rs.getString("fundingSchemeName"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("topicName"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    try {
+                        user.add(rs.getString("orgShortName"));
+                    } catch (NullPointerException e) {
+                        user.add("NULL");
+                    }
+
+                    d.add(user);
+             
+         }
+        }finally{
+                  stmt.close();
+             }
+        
+         connection.getConnectionLoginDB().close();
+         return true;
+    } catch (SQLException ex)
+    {
+        Logger.getLogger(UserDashboardDbManager.class.getName()).log(Level.SEVERE, null, ex);
+        return false;
+    }
+    }
 }
