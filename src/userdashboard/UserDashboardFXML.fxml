@@ -2,8 +2,6 @@
 
 <!--<?import com.jfoenix.controls.JFXCheckBox?>-->
 <!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
-<?import com.jfoenix.controls.JFXCheckBox?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
@@ -13,15 +11,13 @@
 <?import javafx.scene.chart.StackedAreaChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -39,7 +35,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1000.0" stylesheets="@userDashboardCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userdashboard.UserDashboardFXMLController">
    <children>
-      <BorderPane prefHeight="900.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox prefHeight="56.0" prefWidth="1003.0" style="-fx-background-color: #7DB1D1;" BorderPane.alignment="CENTER">
                <children>
@@ -51,14 +47,14 @@
                            </font></Text>
                      </children>
                   </Pane>
-                  <Label fx:id="homeBtn" alignment="CENTER" onMouseClicked="#changeGraph" prefHeight="56.0" prefWidth="75.0" text="Home">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
                   <Separator prefHeight="53.0" prefWidth="396.0" visible="false" />
                   <HBox prefHeight="56.0" prefWidth="334.0">
                      <children>
+                        <Pane fx:id="projectMenuButton1" layoutX="208.0" layoutY="10.0" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
+                           <children>
+                              <Text layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" />
+                           </children>
+                        </Pane>
                         <Pane fx:id="statisticsMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="100.0">
                            <children>
                               <Text layoutX="23.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" />
@@ -82,7 +78,7 @@
                            <graphic>
                               <ImageView id="userDashboardIcon" fitHeight="46.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 30%;">
                                  <image>
-                                    <Image url="@iconfinder_InterfaceExpendet-09_592608.png" />
+                                    <Image url="@UserIcon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -129,7 +125,124 @@
          <center>
             <AnchorPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;">
+                  <Pane fx:id="projectDetailsPane" layoutX="-1.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Pane layoutX="59.0" layoutY="55.0" prefHeight="79.0" prefWidth="399.0">
+                           <children>
+                              <Text fx:id="projectTitleText" layoutX="11.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="382.435546875">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <ScrollPane layoutX="16.0" layoutY="164.0" prefHeight="443.0" prefWidth="485.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="441.0" prefWidth="483.0">
+                                 <children>
+                                    <Text fx:id="projectDescripText" layoutX="2.0" layoutY="20.0" lineSpacing="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" wrappingWidth="476.22900390625" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <VBox layoutX="524.0" layoutY="55.0" prefHeight="564.0" prefWidth="330.0" style="-fx-border-radius: 20; -fx-border-color: grey;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project Information" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="projectAcronymText" strokeType="OUTSIDE" strokeWidth="0.0" text="Project acronym">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="20.0" top="30.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <HBox prefHeight="55.0" prefWidth="328.0">
+                                 <children>
+                                    <Text fx:id="projectStartDatetext" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text fx:id="projectEndDatetext" layoutX="10.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="180.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <Separator prefHeight="13.0" prefWidth="288.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: #7DB1D1;">
+                                 <VBox.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </VBox.margin>
+                              </Separator>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Budget">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="30.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <HBox layoutX="11.0" layoutY="115.0" prefHeight="55.0" prefWidth="328.0">
+                                 <children>
+                                    <Text fx:id="projectBudgetText" strokeType="OUTSIDE" strokeWidth="0.0" text="Budget">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="20.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <Text layoutX="31.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ec Contribution">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <HBox layoutX="11.0" layoutY="231.0" prefHeight="55.0" prefWidth="328.0">
+                                 <children>
+                                    <Text fx:id="projectEcContributionText" strokeType="OUTSIDE" strokeWidth="0.0" text="Budget">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="20.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;" visible="false">
                      <children>
                         <Text layoutX="374.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations">
                            <font>
@@ -265,13 +378,53 @@
                         <JFXCheckBox fx:id="contributions" layoutX="421.0" layoutY="59.0" onAction="#refreshButtonEnabled" text="Max EC Contributions" unCheckedColor="#e0e0e0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0" visible="false">
+                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0">
                      <children>
-                        <Label fx:id="welcomeText" layoutX="21.0" layoutY="14.0" text="Welcome Username!">
+                        <Text layoutX="319.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis Statistics " textAlignment="CENTER" wrappingWidth="264.00001719594">
                            <font>
                               <Font size="18.0" />
-                           </font>
-                        </Label>
+                           </font></Text>
+                        <VBox layoutY="110.0" prefHeight="590.0" prefWidth="903.0">
+                           <children>
+                              <HBox prefHeight="268.0" prefWidth="850.0">
+                                 <children>
+                                    <StackedAreaChart fx:id="trungReducedGraph" onMouseClicked="#onTrungClick" prefHeight="272.0" prefWidth="455.0">
+                                      <xAxis>
+                                        <NumberAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                    </StackedAreaChart>
+                                    <BarChart fx:id="kyndaReducedGraph" onMouseClicked="#OnKyndaClick" prefHeight="268.0" prefWidth="410.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </BarChart>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <BubbleChart fx:id="issamReducedGraph" onMouseClicked="#onIssamClick" prefHeight="310.0" prefWidth="861.0">
+                                <xAxis>
+                                  <NumberAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </BubbleChart>
+                           </children>
+                        </VBox>
                      </children></Pane>
                   <Pane fx:id="statisticsPane" prefHeight="694.0" prefWidth="902.0" style="-fx-background-color: white;" visible="false">
                      <children>
@@ -390,36 +543,139 @@
             </AnchorPane>
          </center>
       </BorderPane>
-      <AnchorPane layoutY="58.0" prefHeight="390.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+      <AnchorPane layoutY="56.0" prefHeight="700.0" prefWidth="1003.0" style="-fx-background-color: white;" visible="false">
          <children>
-            <TabPane prefHeight="390.0" prefWidth="601.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Untitled Tab 1">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <Pane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox layoutX="92.0" layoutY="71.0" prefHeight="82.0" prefWidth="173.0">
+                     <children>
+                        <HBox prefHeight="55.0" prefWidth="213.0">
                            <children>
-                              <Text layoutX="12.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email :" wrappingWidth="45.845741271972656">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First  Name">
+                                 <HBox.margin>
+                                    <Insets left="25.0" right="15.0" top="20.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+                                 <HBox.margin>
+                                    <Insets left="45.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="213.0">
+                           <children>
+                              <Text fx:id="fnameTextField" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="18.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="userEmailTextField" layoutX="54.0" layoutY="22.0" style="-fx-background-radius: 0; -fx-background-color: white;" />
-                              <Button fx:id="editEmailButton" layoutX="511.0" layoutY="23.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="53.0" style="-fx-background-radius: 0; -fx-background-color: #7DB1D1;" text="Edit">
+                              <Text fx:id="lNameTextField" strokeType="OUTSIDE" strokeWidth="0.0" text="LastName">
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font size="18.0" />
                                  </font>
-                              </Button>
+                              </Text>
+                              <ImageView fx:id="firstNameLastEditBtn" fitHeight="24.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@Edit.png" />
+                                 </image>
+                              </ImageView>
                            </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Untitled Tab 2">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="165.0" fitWidth="194.0" layoutX="382.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@UserIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Separator layoutX="28.0" layoutY="222.0" prefHeight="8.0" prefWidth="474.0" />
+                  <VBox layoutX="28.0" layoutY="250.0" prefHeight="308.0" prefWidth="480.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                        <HBox prefHeight="49.0" prefWidth="474.0">
+                           <children>
+                              <TextField fx:id="userEmailTextField">
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <ImageView fx:id="emailEditBtn" fitHeight="26.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@Edit.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <HBox layoutX="10.0" layoutY="27.0" prefHeight="47.0" prefWidth="480.0">
+                           <children>
+                              <TextField fx:id="userUsernameTextField">
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <ImageView fx:id="usernameEditButton" fitHeight="26.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@Edit.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <Text layoutX="10.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <HBox layoutX="10.0" layoutY="93.0" prefHeight="43.0" prefWidth="480.0">
+                           <children>
+                              <TextField fx:id="userPasswordTextField">
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <ImageView fx:id="passwordEditBtn" fitHeight="26.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@Edit.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="saveSettingsBtn" layoutX="28.0" layoutY="580.0" mnemonicParsing="false" style="-fx-background-color: #7DB1D1;" text="save">
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@iconfinder_interface-90_4634476.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

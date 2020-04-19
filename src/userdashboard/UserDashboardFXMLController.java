@@ -103,10 +103,6 @@ public class UserDashboardFXMLController implements Initializable
     private Button SubmitKyndaGraph;
     @FXML
     private Pane issamPane;
-    @FXML
-    private TextField userEmailTextField;
-    @FXML
-    private Button editEmailButton;
     private LineChart<?, ?> lineChartIssam;
     @FXML
     private Button issamBtn;
@@ -163,11 +159,9 @@ public class UserDashboardFXMLController implements Initializable
     private Pane projectMenuButton;
     @FXML
     private ComboBox<String> yearSelectorKynda;
-    @FXML
     private Label homeBtn;
     @FXML
     private Pane homePane;
-    @FXML
     private Label welcomeText;
     private int userId;
     private String email;
@@ -267,6 +261,50 @@ public class UserDashboardFXMLController implements Initializable
     private Text textOrgCity;
     @FXML
     private Text textOrgCountry;
+    @FXML
+    private Pane projectDetailsPane;
+    @FXML
+    private Text projectTitleText;
+    @FXML
+    private Text projectDescripText;
+    @FXML
+    private Text projectAcronymText;
+    @FXML
+    private Text projectStartDatetext;
+    @FXML
+    private Text projectEndDatetext;
+    @FXML
+    private Text projectBudgetText;
+    @FXML
+    private Text projectEcContributionText;
+    @FXML
+    private Pane projectMenuButton1;
+    @FXML
+    private Text fnameTextField;
+    @FXML
+    private Text lNameTextField;
+    @FXML
+    private ImageView firstNameLastEditBtn;
+    @FXML
+    private TextField userEmailTextField;
+    @FXML
+    private ImageView emailEditBtn;
+    @FXML
+    private TextField userUsernameTextField;
+    @FXML
+    private ImageView usernameEditButton;
+    @FXML
+    private TextField userPasswordTextField;
+    @FXML
+    private ImageView passwordEditBtn;
+    @FXML
+    private Button saveSettingsBtn;
+    @FXML
+    private StackedAreaChart<BigDecimal, Double> trungReducedGraph;
+    @FXML
+    private BarChart<?, ?> kyndaReducedGraph;
+    @FXML
+    private BubbleChart<?, ?> issamReducedGraph;
 
 
 
@@ -282,6 +320,23 @@ public class UserDashboardFXMLController implements Initializable
         createChartIssam(0, Integer.MAX_VALUE);
         setOrganisationTableValues();
         setProjectTableValues();
+    }
+    
+    public void initaliseHomeCharts(){
+        UserDashboardDbManager manager = new UserDashboardDbManager();
+        kyndaReducedGraph.getData().addAll(manager.intialiseChartKyndas("All"));
+        
+        ArrayList<XYChart.Series> bubbleChartSeries = manager.intialiseChartIssam(0, Integer.MAX_VALUE);
+        for(int i = 0; i < bubbleChartSeries.size(); i++)
+            issamReducedGraph.getData().add(bubbleChartSeries.get(i));  
+        
+        
+        XYChart.Series<BigDecimal, Double> averageCost = manager.AreaChartSeries1();
+        XYChart.Series<BigDecimal, Double> averageContribution = manager.AreaChartSeries2();
+        trungReducedGraph.getData().addAll(averageCost,averageContribution);
+        createCostNodes(averageCost);
+        createContributionNodes(averageContribution);
+        
     }
     
     public void setUserDetails(int userId, String username, String password, String email, String firstName, String surname) {
@@ -595,13 +650,15 @@ public class UserDashboardFXMLController implements Initializable
         ArrayList<ArrayList<String>> data = manager.getProjectDetails();
         
         textId.setText(data.get(selection).get(0));
-        textAcronym.setText(data.get(selection).get(2));
-        textTitle.setText(data.get(selection).get(4));
-        textSDate.setText(data.get(selection).get(5));
-        textEDate.setText(data.get(selection).get(6));
-        projectObjective.setText(data.get(selection).get(8));
-        textTotalCost.setText(data.get(selection).get(9));
-        textEcC.setText(data.get(selection).get(11));
+        projectAcronymText.setText(data.get(selection).get(2));
+        projectTitleText.setText(data.get(selection).get(4));
+        projectStartDatetext.setText(data.get(selection).get(5));
+        projectEndDatetext.setText(data.get(selection).get(6));
+        projectDescripText.setText(data.get(selection).get(8));
+        projectBudgetText.setText(data.get(selection).get(9));
+        projectEcContributionText.setText(data.get(selection).get(11));
+        
+        
     }
     
     @FXML
@@ -618,5 +675,20 @@ public class UserDashboardFXMLController implements Initializable
         textOrgStreet.setText(data.get(selection).get(8));
         textOrgCity.setText(data.get(selection).get(9));
         textOrgCountry.setText(data.get(selection).get(10));
+    }
+
+    @FXML
+    private void onTrungClick(MouseEvent event)
+    {
+    }
+
+    @FXML
+    private void OnKyndaClick(MouseEvent event)
+    {
+    }
+
+    @FXML
+    private void onIssamClick(MouseEvent event)
+    {
     }
 }
