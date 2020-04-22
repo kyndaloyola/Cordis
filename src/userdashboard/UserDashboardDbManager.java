@@ -6,6 +6,7 @@
 package userdashboard;
 
 import databaseconnection.DbConnection;
+import encryption.BCrypt;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -641,8 +642,8 @@ public class UserDashboardDbManager
         return false;
     }
 
-    void insertData(int userId, String fname, String lname, String username, String email) {
-        String query = "UPDATE Login_Credentials SET u_fname = ?, u_sname =?, u_username = ?, u_email =  ? " + "WHERE u_id = ?";
+    void updateProfile(int userId, String fname, String lname, String username, String email) {
+        String query = "UPDATE Login_Credentials SET u_fname = ?, u_sname = ?, u_username = ?, u_email =  ? WHERE u_id = ?";
         try {
             PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
             ps.setString(1, fname);
@@ -650,6 +651,20 @@ public class UserDashboardDbManager
             ps.setString(3, username);
             ps.setString(4, email);
             ps.setInt(5, userId);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void updatePassword(int userId, String password) {
+        String query = "UPDATE Login_Credentials SET u_password = ? WHERE u_id = ?";
+        password = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        try {
+            PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
+            ps.setString(1, password);
+            ps.setInt(2, userId);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {

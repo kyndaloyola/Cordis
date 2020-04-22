@@ -6,6 +6,7 @@
 package userdashboard;
 
 import admindashboard.AdminDashboardDbManager;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import databaseconnection.DbConnection;
 import java.math.BigDecimal;
@@ -168,6 +169,7 @@ public class UserDashboardFXMLController implements Initializable
     private int userId;
     private String email;
     private String username;
+    private String password;
     private String fname;
     private String lname;
     
@@ -189,7 +191,7 @@ public class UserDashboardFXMLController implements Initializable
 
     @FXML
     private PasswordField password1Field;
-    
+
     @FXML
     private TableView<ArrayList<String>> organisationsTableView;
     @FXML
@@ -352,16 +354,19 @@ public class UserDashboardFXMLController implements Initializable
         
     }
     
-    public void setUserDetails(int userId, String username, String email, String fname, String lname) {
+    public void setUserDetails(int userId, String username, String email, String password, String fname, String lname) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.fname = fname;
         this.lname = lname;
+        this.password = password;
         fnameTextfield.setText(fname);
         lnameTextfield.setText(lname);
         usernameTextfield.setText(username);
         emailTextfield.setText(email);
+        password1Field.setText(password);
+        password2Field.setText(password);
     }
     
 
@@ -888,23 +893,23 @@ public class UserDashboardFXMLController implements Initializable
             return;
         }
         
-        UserDashboardDbManager update = new UserDashboardDbManager();
+        UserDashboardDbManager DbManager = new UserDashboardDbManager();
         boolean usernameFound;
         boolean emailFound;
         if (!usernameTextfield.getText().equals(username)) {
-            usernameFound = update.checkUsername(usernameTextfield.getText());
+            usernameFound = DbManager.checkUsername(usernameTextfield.getText());
             if (usernameFound) {
                 return;
             }
         }
         if (!emailTextfield.getText().equals(email)) {
-            emailFound = update.checkEmail(emailTextfield.getText());
+            emailFound = DbManager.checkEmail(emailTextfield.getText());
             if (emailFound) {
                 return;
             }
         }
         //Else, if updated fields pass validation tests
-        update.insertData(userId, fnameTextfield.getText(), lnameTextfield.getText(),
+        DbManager.updateProfile(userId, fnameTextfield.getText(), lnameTextfield.getText(),
         usernameTextfield.getText(), emailTextfield.getText());
         
         alert = new Alert(AlertType.INFORMATION);
@@ -917,7 +922,6 @@ public class UserDashboardFXMLController implements Initializable
         this.lname = lnameTextfield.getText();
         this.username = usernameTextfield.getText();
         this.email = emailTextfield.getText();
-        
     }
     
     @FXML
@@ -927,19 +931,32 @@ public class UserDashboardFXMLController implements Initializable
         alert.setHeaderText(null);
         StringBuilder errorMessage = new StringBuilder();
         
+        if ((password1Field.getText().isEmpty() && password2Field.getText().isEmpty()) || (password1Field.getText().equals(password) && password2Field.getText().equals(password))) {
+            return;
+        }
+        
         if (!password1Field.getText().equals(password2Field.getText())) {
             alert.setContentText("Passwords do not match. Please re-check your password.");
             alert.showAndWait();
             return;
         }
         if (!password1Field.getText().matches(passwordPattern) || !password2Field.getText().matches(passwordPattern)) {
-            errorMessage.append("Your password must contain:\n");
+            alert.setHeaderText("Your password must contain:");
             errorMessage.append("At least 1 uppercase letter (A-Z)\n");
             errorMessage.append("At least one number (0-9\n)");
             errorMessage.append("At least 6 characters");
             alert.setContentText(errorMessage.toString());
             alert.showAndWait();
+            return;
         }
+        
+        UserDashboardDbManager DbManager = new UserDashboardDbManager();
+        DbManager.updatePassword(userId, password1Field.getText());
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Your password has been changed!");
+        alert.setContentText("Your new password is: " + password1Field.getText());
+        alert.showAndWait();
+        this.password = password1Field.getText();
     }
    
 }

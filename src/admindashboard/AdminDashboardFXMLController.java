@@ -134,12 +134,6 @@ public class AdminDashboardFXMLController implements Initializable
     private ChoiceBox<String> manageUserCombobox;
     @FXML
     private ChoiceBox<String> searchByLogChoiceBox;
-    private int userId;
-    private String email;
-    private String username;
-    private String firstName;
-    private String surname;
-    private String password;
 
     /**
      * Initializes the controller class.
@@ -161,16 +155,6 @@ public class AdminDashboardFXMLController implements Initializable
         searchByLogChoiceBox.getItems().addAll("ID","Email","Username");
         searchByLogChoiceBox.setValue("Search by");
         
-    }
-    
-    
-    public void setUserDetails(int userId, String username, String email, String firstName, String surname) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.surname = surname;
     }
 
     public void setTableViewManageUsers() {        

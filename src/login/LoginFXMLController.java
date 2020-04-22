@@ -94,8 +94,12 @@ public class LoginFXMLController implements Initializable {
             LoginDbManager login = new LoginDbManager();
             boolean userFound = login.connection(username, password); //starts the connection, returns userType if user found
             if (userFound) {
-                dashboard(login.getUserType(), login.getUserId(), login.getUsername(),
-                login.getEmail(), login.getFirstName(), login.getSurname(), stage);
+                if (login.getUserType().equals("U")) {
+                    userDashboard(login.getUserType(), login.getUserId(), login.getUsername(),
+                    login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
+                } else if (login.getUserType().equals("A")) {
+                    adminDashboard(stage);
+                }
             }   else {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
@@ -106,35 +110,32 @@ public class LoginFXMLController implements Initializable {
         }
      }
      
-     void dashboard(String userType, int userId, String username, String email, String firstName, String surname, Stage stage) { //switches to either admin or user dashboard
+     void userDashboard(String userType, int userId, String username, String email, String password, String firstName, String surname, Stage stage) { //switches to either admin or user dashboard
         FXMLLoader loader = new FXMLLoader();
-            if (userType.equals("A")){ //if the userType is admin
-                String url = "/admindashboard/AdminDashboardFXML.fxml"; //gets the file path
-                loader.setLocation(getClass().getResource(url));
-                try {
-                    Parent adminDashboard = loader.load();
-                    AdminDashboardFXMLController adminController = loader.getController();
-                    adminController.setUserDetails(userId, username, email, firstName, surname);
-                    Scene adminScene = new Scene(adminDashboard);
-                    stage.setScene(adminScene); //sets new scene for admin dashboard
-                    stage.show();
-                } catch (IOException ex) {
-                Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (userType.equals("U")){ //if the userType is user
-                String url = "/userdashboard/UserDashboardFXML.fxml";  //gets the file path
-                loader.setLocation(getClass().getResource(url));
-                try {
-                    Parent userDashboard = loader.load();
-                    UserDashboardFXMLController userController = loader.getController();
-                    userController.setUserDetails(userId, username, email, firstName, surname);
-                    Scene userScene = new Scene(userDashboard); //sets new scene for user dashboard
-                    stage.setScene(userScene);
-                    stage.show();
-                } catch (IOException ex) {
-                Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        loader.setLocation(getClass().getResource("/userdashboard/UserDashboardFXML.fxml"));
+        try {
+            Parent userDashboard = loader.load();
+            UserDashboardFXMLController userController = loader.getController();
+            userController.setUserDetails(userId, username, email, password, firstName, surname);
+            Scene userScene = new Scene(userDashboard); //sets new scene for user dashboard
+            stage.setScene(userScene);
+            stage.show();
+        } catch (IOException ex) {
+        Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     void adminDashboard(Stage stage) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/admindashboard/AdminDashboardFXML.fxml"));
+        try {
+            Parent adminDashboard = loader.load();
+            Scene adminScene = new Scene(adminDashboard);
+            stage.setScene(adminScene); //sets new scene for admin dashboard
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
      }
      
     
