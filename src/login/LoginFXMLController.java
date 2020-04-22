@@ -5,7 +5,6 @@
  */
 package login;
 
-import admindashboard.AdminDashboardFXMLController;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -23,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import userdashboard.UserDashboardFXMLController;
 
@@ -32,35 +30,34 @@ import userdashboard.UserDashboardFXMLController;
  * @author 44796
  */
 public class LoginFXMLController implements Initializable {
-    
+
     @FXML
     private JFXTextField usernameField;
-    
+
     @FXML
     private JFXPasswordField password;
-    
+
     @FXML
-    void enterKeyPressed(KeyEvent event) {  
+    void enterKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             String username = usernameField.getText(); //gets text from username field
             username = username.trim(); //removes unneeded spaces on the username field
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Login(username, password.getText(), stage); //passes the username and password to the login manager class
         }
     }
-    
+
     @FXML
     void LogInButtonPressed(ActionEvent event) { //if the log in button is pressed
         String username = usernameField.getText(); //gets text from username field
         username = username.trim(); //removes unneeded spaces on the username field
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Login(username, password.getText(), stage); //passes the username and password to the login manager class
     }
-    
-    
+
     @FXML
     void SignUpLinkPressed(ActionEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         String url = "/signup/SignUpFXML.fxml";  //gets the file path
         loader.setLocation(getClass().getResource(url));
@@ -73,11 +70,11 @@ public class LoginFXMLController implements Initializable {
             Logger.getLogger(LoginFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     void Login(String username, String password, Stage stage) {
+
+    void Login(String username, String password, Stage stage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
- 
+
         if (username.isEmpty() && password.isEmpty()) {  //if both username and password fields are empty
             alert.setHeaderText("Username/Email and Password fields are empty!");
             alert.setContentText("Please enter your login details!");
@@ -96,21 +93,21 @@ public class LoginFXMLController implements Initializable {
             if (userFound) {
                 if (login.getUserType().equals("U")) {
                     userDashboard(login.getUserType(), login.getUserId(), login.getUsername(),
-                    login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
+                            login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
                 } else if (login.getUserType().equals("A")) {
                     adminDashboard(stage);
                 }
-            }   else {
+            } else {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setHeaderText("Username/Password is incorrect");
                 alert.setContentText("Please check your user details!");
                 alert.showAndWait();
-                }
+            }
         }
-     }
-     
-     void userDashboard(String userType, int userId, String username, String email, String password, String firstName, String surname, Stage stage) { //switches to either admin or user dashboard
+    }
+
+    void userDashboard(String userType, int userId, String username, String email, String password, String firstName, String surname, Stage stage) { //switches to either admin or user dashboard
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/userdashboard/UserDashboardFXML.fxml"));
         try {
@@ -121,11 +118,11 @@ public class LoginFXMLController implements Initializable {
             stage.setScene(userScene);
             stage.show();
         } catch (IOException ex) {
-        Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-     }
-     
-     void adminDashboard(Stage stage) {
+    }
+
+    void adminDashboard(Stage stage) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/admindashboard/AdminDashboardFXML.fxml"));
         try {
@@ -136,12 +133,11 @@ public class LoginFXMLController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(LoginDbManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-     }
-     
-    
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
