@@ -725,8 +725,7 @@ public class UserDashboardFXMLController implements Initializable
     }
 
     @FXML
-    private void onTrungClick(MouseEvent event)
-    {
+    private void onTrungClick(MouseEvent event) {
             trungPane.setVisible(true);
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -740,8 +739,7 @@ public class UserDashboardFXMLController implements Initializable
     }
 
     @FXML
-    private void OnKyndaClick(MouseEvent event)
-    {
+    private void OnKyndaClick(MouseEvent event) {
             kyndaPane.setVisible(true);
             issamPane.setVisible(false);
             trungPane.setVisible(false);
@@ -752,12 +750,10 @@ public class UserDashboardFXMLController implements Initializable
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
-        
     }
 
     @FXML
-    private void onIssamClick(MouseEvent event)
-    {
+    private void onIssamClick(MouseEvent event) {
             issamPane.setVisible(true);
             kyndaPane.setVisible(false);
             trungPane.setVisible(false);
@@ -830,21 +826,18 @@ public class UserDashboardFXMLController implements Initializable
     }
 
     @FXML
-    private void OnSettingsClick(ActionEvent event)
-    {
-
+    private void OnSettingsClick(ActionEvent event) {
         homePane.setVisible(false);
-            kyndaPane.setVisible(false);
-            issamPane.setVisible(false);
-            trungPane.setVisible(false);
-            statisticsPane.setVisible(false);
-            OrganisationsPane.setVisible(false);
-            projectsPane.setVisible(false);
-            graphMenuItems.setVisible(false);
-            projectDetailsPane.setVisible(false);
-            settingsPane.setVisible(true);
-            settingsAnchorPane.setVisible(true);
-        
+        kyndaPane.setVisible(false);
+        issamPane.setVisible(false);
+        trungPane.setVisible(false);
+        statisticsPane.setVisible(false);
+        OrganisationsPane.setVisible(false);
+        projectsPane.setVisible(false);
+        graphMenuItems.setVisible(false);
+        projectDetailsPane.setVisible(false);
+        settingsPane.setVisible(true);
+        settingsAnchorPane.setVisible(true);
     }
     
     @FXML
@@ -868,7 +861,6 @@ public class UserDashboardFXMLController implements Initializable
         usernameTextfield.getText().equals(username) && emailTextfield.getText().equals(email)) {
             return;
         }
-        
         if (!fnameTextfield.getText().matches(namePattern) || !lnameTextfield.getText().matches(namePattern) 
         || !usernameTextfield.getText().matches(usernamePattern) || !emailTextfield.getText().matches(emailPattern)) {
             
@@ -899,14 +891,12 @@ public class UserDashboardFXMLController implements Initializable
         UserDashboardDbManager update = new UserDashboardDbManager();
         boolean usernameFound;
         boolean emailFound;
-        
         if (!usernameTextfield.getText().equals(username)) {
             usernameFound = update.checkUsername(usernameTextfield.getText());
             if (usernameFound) {
                 return;
             }
         }
-        
         if (!emailTextfield.getText().equals(email)) {
             emailFound = update.checkEmail(emailTextfield.getText());
             if (emailFound) {
@@ -928,6 +918,28 @@ public class UserDashboardFXMLController implements Initializable
         this.username = usernameTextfield.getText();
         this.email = emailTextfield.getText();
         
+    }
+    
+    @FXML
+    void changePassword(ActionEvent event) {
+        String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
+        Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
+        alert.setHeaderText(null);
+        StringBuilder errorMessage = new StringBuilder();
+        
+        if (!password1Field.getText().equals(password2Field.getText())) {
+            alert.setContentText("Passwords do not match. Please re-check your password.");
+            alert.showAndWait();
+            return;
+        }
+        if (!password1Field.getText().matches(passwordPattern) || !password2Field.getText().matches(passwordPattern)) {
+            errorMessage.append("Your password must contain:\n");
+            errorMessage.append("At least 1 uppercase letter (A-Z)\n");
+            errorMessage.append("At least one number (0-9\n)");
+            errorMessage.append("At least 6 characters");
+            alert.setContentText(errorMessage.toString());
+            alert.showAndWait();
+        }
     }
    
 }
