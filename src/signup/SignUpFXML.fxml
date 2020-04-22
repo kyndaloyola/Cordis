@@ -21,7 +21,7 @@
                   <Font name="Franklin Gothic Medium" size="30.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="fname" labelFloat="true" layoutX="73.0" layoutY="110.0" prefHeight="28.0" prefWidth="270.0" promptText="First Name" unFocusColor="#707070">
+            <JFXTextField fx:id="fnameTextField" labelFloat="true" layoutX="73.0" layoutY="110.0" prefHeight="28.0" prefWidth="270.0" promptText="First Name" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
@@ -29,7 +29,7 @@
                   <Tooltip text="First Name must be between 1 and 50 characters long and cannot contain any special characters including [\^$.|?*+()." />
                </tooltip>
             </JFXTextField>
-            <JFXTextField fx:id="lname" labelFloat="true" layoutX="73.0" layoutY="165.0" prefHeight="28.0" prefWidth="270.0" promptText="Last Name" unFocusColor="#707070">
+            <JFXTextField fx:id="lnameTextField" labelFloat="true" layoutX="73.0" layoutY="165.0" prefHeight="28.0" prefWidth="270.0" promptText="Last Name" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
@@ -37,7 +37,7 @@
                   <Tooltip text="Last Name must be between 1 and 50 characters long and cannot contain any special characters including [\^$.|?*+()." />
                </tooltip>
             </JFXTextField>
-            <JFXTextField fx:id="username" labelFloat="true" layoutX="73.0" layoutY="220.0" prefHeight="28.0" prefWidth="270.0" promptText="Username" unFocusColor="#707070">
+            <JFXTextField fx:id="usernameTextField" labelFloat="true" layoutX="73.0" layoutY="220.0" prefHeight="28.0" prefWidth="270.0" promptText="Username" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
@@ -45,7 +45,7 @@
                   <Tooltip text="Username must be between 6-25 characters long and can only contain alphanumeric characters + underscores. The first character must be an alphabetic character." />
                </tooltip>
             </JFXTextField>
-            <JFXTextField fx:id="email" labelFloat="true" layoutX="73.0" layoutY="275.0" prefHeight="28.0" prefWidth="270.0" promptText="Email" unFocusColor="#707070">
+            <JFXTextField fx:id="emailTextField" labelFloat="true" layoutX="73.0" layoutY="275.0" prefHeight="28.0" prefWidth="270.0" promptText="Email" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Tooltip text="Email must follow the RFC 5322 standard. " />
                </tooltip>
             </JFXTextField>
-            <JFXPasswordField fx:id="password1" layoutX="73.0" layoutY="330.0" prefHeight="28.0" prefWidth="270.0" promptText="Password" unFocusColor="#707070">
+            <JFXPasswordField fx:id="password1Field" layoutX="73.0" layoutY="330.0" prefHeight="28.0" prefWidth="270.0" promptText="Password" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
@@ -61,7 +61,7 @@
                   <Tooltip text="Password must be at least 6 characters long and must contain at least one uppercase character, lowercase character and digit (0-9). No special characters are allowed. " />
                </tooltip>
             </JFXPasswordField>
-            <JFXPasswordField fx:id="password2" layoutX="73.0" layoutY="385.0" prefHeight="28.0" prefWidth="270.0" promptText="Confirm Password" unFocusColor="#707070">
+            <JFXPasswordField fx:id="password2Field" layoutX="73.0" layoutY="385.0" prefHeight="28.0" prefWidth="270.0" promptText="Confirm Password" unFocusColor="#707070">
                <font>
                   <Font name="Franklin Gothic Book" size="14.0" />
                </font>
@@ -76,12 +76,12 @@
                   <Image url="@../images/Cordis-logo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="167.0" fitWidth="206.0" layoutX="465.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="167.0" fitWidth="206.0" layoutX="464.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/planet.png" />
                </image>
             </ImageView>
-            <Label layoutX="455.0" layoutY="348.0" text="Already have an account?">
+            <Label layoutX="454.0" layoutY="369.0" text="Already have an account?">
                <font>
                   <Font name="Franklin Gothic Book" size="15.0" />
                </font>
@@ -96,7 +96,7 @@
                   <Font name="Franklin Gothic Book" size="16.0" />
                </font>
             </JFXButton>
-            <Hyperlink layoutX="618.0" layoutY="344.0" onAction="#LogInLinkPressed" text="Log In">
+            <Hyperlink layoutX="617.0" layoutY="365.0" onAction="#LogInLinkPressed" text="Log In">
                <font>
                   <Font name="Franklin Gothic Book" size="15.0" />
                </font>

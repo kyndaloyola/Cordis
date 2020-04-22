@@ -164,7 +164,7 @@ public class AdminDashboardFXMLController implements Initializable
     }
     
     
-    public void setUserDetails(int userId, String username, String password, String email, String firstName, String surname) {
+    public void setUserDetails(int userId, String username, String email, String firstName, String surname) {
         this.userId = userId;
         this.username = username;
         this.password = password;

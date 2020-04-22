@@ -34,12 +34,12 @@ public class SignUpDbManager
                 while (rs.next()) {
                     if (rs.getString(1).equals(username)) {
                         alert.setHeaderText("Username already exists!");
-                        alert.setContentText("Please re-enter a different username");
+                        alert.setContentText("Please re-enter a different username.");
                         alert.showAndWait();
                         return true;
                     } else if (rs.getString(2).equals(email)) {
                         alert.setHeaderText("Email already exists!");
-                        alert.setContentText("Please re-enter a different email");
+                        alert.setContentText("Please re-enter a different email.");
                         alert.showAndWait();
                         return true;
                     }

@@ -48,6 +48,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -167,9 +168,27 @@ public class UserDashboardFXMLController implements Initializable
     private int userId;
     private String email;
     private String username;
-    private String firstName;
-    private String surname;
-    private String password;
+    private String fname;
+    private String lname;
+    
+    @FXML
+    private TextField emailTextfield;
+
+    @FXML
+    private TextField usernameTextfield;
+
+    @FXML
+    private TextField fnameTextfield;
+
+    @FXML
+    private TextField lnameTextfield;
+    
+    
+    @FXML
+    private PasswordField password2Field;
+
+    @FXML
+    private PasswordField password1Field;
     
     @FXML
     private TableView<ArrayList<String>> organisationsTableView;
@@ -263,26 +282,6 @@ public class UserDashboardFXMLController implements Initializable
     @FXML
     private Text projectEcContributionText;
     @FXML
-    private Text fnameTextField;
-    @FXML
-    private Text lNameTextField;
-    @FXML
-    private ImageView firstNameLastEditBtn;
-    @FXML
-    private TextField userEmailTextField;
-    @FXML
-    private ImageView emailEditBtn;
-    @FXML
-    private TextField userUsernameTextField;
-    @FXML
-    private ImageView usernameEditButton;
-    @FXML
-    private TextField userPasswordTextField;
-    @FXML
-    private ImageView passwordEditBtn;
-    @FXML
-    private Button saveSettingsBtn;
-    @FXML
     private StackedAreaChart<BigDecimal, Double> trungReducedGraph;
     @FXML
     private BarChart<?, ?> kyndaReducedGraph;
@@ -353,25 +352,18 @@ public class UserDashboardFXMLController implements Initializable
         
     }
     
-
-    public void setSettingsText(){
-        userEmailTextField.setText(email);
-        fnameTextField.setText(firstName);
-        userUsernameTextField.setText(username);
-        lNameTextField.setText(surname);
-        userPasswordTextField.setText(password);
-        
-    }
-    
-    public void setUserDetails(int userId, String username, String password, String email, String firstName, String surname) {
-        //welcomeText.setText("Welcome " + username + " to the User Dashboard!");
+    public void setUserDetails(int userId, String username, String email, String fname, String lname) {
         this.userId = userId;
         this.username = username;
-        this.password = password;
         this.email = email;
-        this.firstName = firstName;
-        this.surname = surname;
+        this.fname = fname;
+        this.lname = lname;
+        fnameTextfield.setText(fname);
+        lnameTextfield.setText(lname);
+        usernameTextfield.setText(username);
+        emailTextfield.setText(email);
     }
+    
 
     
     private void createChartKyndas(){
@@ -840,7 +832,7 @@ public class UserDashboardFXMLController implements Initializable
     @FXML
     private void OnSettingsClick(ActionEvent event)
     {
-        setSettingsText();
+
         homePane.setVisible(false);
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -854,4 +846,88 @@ public class UserDashboardFXMLController implements Initializable
             settingsAnchorPane.setVisible(true);
         
     }
+    
+    @FXML
+    void resetDetails(ActionEvent event) {
+        fnameTextfield.setText(fname);
+        lnameTextfield.setText(lname);
+        usernameTextfield.setText(username);
+        emailTextfield.setText(email);
+    }
+    
+    @FXML
+    void saveProfile(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
+        alert.setTitle("Error Dialog");
+        StringBuilder errorMessage = new StringBuilder();
+        String namePattern = "(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,50}$"; //validation for first/last name
+        String usernamePattern = "^[a-zA-Z][a-zA-Z0-9_]{6,25}$"; //validation for username
+        String emailPattern = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"; //validation for email
+        
+        if (fnameTextfield.getText().equals(fname) && lnameTextfield.getText().equals(lname) &&
+        usernameTextfield.getText().equals(username) && emailTextfield.getText().equals(email)) {
+            return;
+        }
+        
+        if (!fnameTextfield.getText().matches(namePattern) || !lnameTextfield.getText().matches(namePattern) 
+        || !usernameTextfield.getText().matches(usernamePattern) || !emailTextfield.getText().matches(emailPattern)) {
+            
+            alert.setHeaderText("The following field(s) have invalid characters:");
+            
+            if (!fnameTextfield.getText().matches(namePattern)) {
+                errorMessage.append("First Name");
+                errorMessage.append("\n");
+            }
+            if (!lnameTextfield.getText().matches(namePattern)) {
+                errorMessage.append("Last Name");
+                errorMessage.append("\n");
+            }
+            if (!usernameTextfield.getText().matches(usernamePattern)) {
+                errorMessage.append("Username");
+                errorMessage.append("\n");
+            }
+            if (!emailTextfield.getText().matches(emailPattern)) {
+                errorMessage.append("Email");
+                errorMessage.append("\n");
+            }
+            
+            alert.setContentText(errorMessage.toString());
+            alert.showAndWait();
+            return;
+        }
+        
+        UserDashboardDbManager update = new UserDashboardDbManager();
+        boolean usernameFound;
+        boolean emailFound;
+        
+        if (!usernameTextfield.getText().equals(username)) {
+            usernameFound = update.checkUsername(usernameTextfield.getText());
+            if (usernameFound) {
+                return;
+            }
+        }
+        
+        if (!emailTextfield.getText().equals(email)) {
+            emailFound = update.checkEmail(emailTextfield.getText());
+            if (emailFound) {
+                return;
+            }
+        }
+        //Else, if updated fields pass validation tests
+        update.insertData(userId, fnameTextfield.getText(), lnameTextfield.getText(),
+        usernameTextfield.getText(), emailTextfield.getText());
+        
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("User Profile has been updated!");
+        alert.showAndWait();
+        
+        this.fname = fnameTextfield.getText();
+        this.lname = lnameTextfield.getText();
+        this.username = usernameTextfield.getText();
+        this.email = emailTextfield.getText();
+        
+    }
+   
 }

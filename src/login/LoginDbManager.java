@@ -35,7 +35,6 @@ public class LoginDbManager {
     private String username;
     private String firstName;
     private String surname;
-    private String password;
     private String email;
     private String userType;
     
@@ -62,7 +61,6 @@ public class LoginDbManager {
                         this.userId = rs.getInt("u_id");
                         this.email = rs.getString("u_email");
                         this.username = rs.getString("u_username");
-                        this.password = rs.getString("u_password");
                         this.firstName = rs.getString("u_fname");
                         this.surname = rs.getString("u_sname");  
                         return true;
@@ -84,10 +82,6 @@ public class LoginDbManager {
     
     public String getUsername() {
         return username;
-    }
-    
-    public String getPassword() {
-        return password;
     }
     
     public String getFirstName() {
