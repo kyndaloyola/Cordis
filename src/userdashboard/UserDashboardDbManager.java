@@ -231,6 +231,41 @@ public class UserDashboardDbManager
         return data;      
     }
     
+    public String getCoordinator (int pid){
+        DbConnection connection = new DbConnection();
+        Statement stmt;
+        String cordiname = null;
+        try {
+            stmt = connection.getConnectionDataDB().createStatement(); 
+            String sql = "SELECT Project.projectId,"+"OrgParticipant.orgName"+
+                         " FROM Project" +
+                            " JOIN OrgParticipant" +
+                            " ON Project.orgid=OrgParticipant.orgid "+"Where Project.projectId = "+pid+" " ;
+                          
+                    
+            stmt.execute(sql);
+            ResultSet rs = stmt.getResultSet();
+            
+            try {
+                while(rs.next()) {
+                    
+                      cordiname  = rs.getString("orgName");
+                    
+                    
+                }
+            } finally {
+                rs.close();
+            }
+            
+            stmt.close(); 
+            connection.getConnectionDataDB().close();
+        } catch (SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+       return cordiname;
+    }
+    
     public ArrayList getProjectDetails() {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();        
