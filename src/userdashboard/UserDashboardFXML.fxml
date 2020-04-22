@@ -400,7 +400,7 @@
                         <JFXCheckBox fx:id="contributions" layoutX="421.0" layoutY="59.0" onAction="#refreshButtonEnabled" text="Max EC Contributions" unCheckedColor="#e0e0e0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0" visible="false">
+                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0">
                      <children>
                         <Text layoutX="319.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis Statistics " textAlignment="CENTER" wrappingWidth="264.00001719594">
                            <font>
@@ -412,10 +412,10 @@
                                  <children>
                                     <StackedAreaChart fx:id="trungReducedGraph" onMouseClicked="#onTrungClick" prefHeight="272.0" prefWidth="455.0">
                                       <xAxis>
-                                        <NumberAxis side="BOTTOM" />
+                                        <NumberAxis autoRanging="false" lowerBound="2014.0" minorTickCount="2" minorTickLength="1.0" side="BOTTOM" tickUnit="2.0" upperBound="2026.0" />
                                       </xAxis>
                                       <yAxis>
-                                        <NumberAxis side="LEFT" />
+                                        <NumberAxis side="LEFT" style="-fx-background-color: #ffffff;" />
                                       </yAxis>
                                        <HBox.margin>
                                           <Insets right="20.0" />
@@ -507,7 +507,7 @@
             </AnchorPane>
          </center>
       </BorderPane>
-      <AnchorPane fx:id="settingsAnchorPane" layoutY="56.0" prefHeight="700.0" prefWidth="1003.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="settingsAnchorPane" layoutY="56.0" prefHeight="700.0" prefWidth="1003.0" style="-fx-background-color: white;" visible="false">
          <children>
             <Pane fx:id="settingsPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
