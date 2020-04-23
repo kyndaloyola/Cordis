@@ -41,6 +41,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -698,14 +699,19 @@ public class UserDashboardFXMLController implements Initializable {
              orgCoordinName.setText(coordinator);
          }
         
+        double ecCon  = Double.parseDouble(data.get(selection).get(11));
+        double budget = Double.parseDouble(data.get(selection).get(9));
+        String bg = ""+String.valueOf(budget);
+        String ec = ""+String.valueOf(ecCon);
         projectAcronymText.setText(data.get(selection).get(2));
         projectTitleText.setText(data.get(selection).get(4));
         projectStartDatetext.setText(data.get(selection).get(5));
         projectEndDatetext.setText(data.get(selection).get(6));
         projectDescripText.setText(data.get(selection).get(8));
-        projectBudgetText.setText(data.get(selection).get(9));
-        projectEcContributionText.setText(data.get(selection).get(11));
-
+        projectBudgetText.setText(bg);
+        projectEcContributionText.setText(ec);
+        
+        
     }
 
     @FXML
