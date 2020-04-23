@@ -90,14 +90,14 @@ public class LoginFXMLController implements Initializable {
         } else {
             LoginDbManager login = new LoginDbManager();
             boolean userFound = login.connection(username, password); //starts the connection, returns userType if user found
-            if (userFound) {
-                if (login.getUserType().equals("U")) {
+            if (userFound) { //if user has been found
+                if (login.getUserType().equals("U")) { //if the user is a user, go to user dashboard
                     userDashboard(login.getUserType(), login.getUserId(), login.getUsername(),
-                            login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
-                } else if (login.getUserType().equals("A")) {
+                    login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
+                } else if (login.getUserType().equals("A")) { //if the user is an admin, go to admin dashboard
                     adminDashboard(stage);
                 }
-            } else {
+            } else { //if user hasnt been found, username/password is incorrect
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setHeaderText("Username/Password is incorrect");

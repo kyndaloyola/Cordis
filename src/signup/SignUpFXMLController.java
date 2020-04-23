@@ -93,10 +93,9 @@ public class SignUpFXMLController implements Initializable {
         String password2 = password2Field.getText();
 
         if (fname.isEmpty() || lname.isEmpty() || username.isEmpty() || email.isEmpty()
-                || password1.isEmpty() || password2.isEmpty() || !checkbox.isSelected()) { //if any fields are empty
+            || password1.isEmpty() || password2.isEmpty() || !checkbox.isSelected()) { //if any fields are empty
 
             alert.setHeaderText("The following field(s) are missing:");
-
             if (fname.isEmpty()) {
                 errorMessage.append("The First Name field is empty!");
                 errorMessage.append("\n");
@@ -126,14 +125,10 @@ public class SignUpFXMLController implements Initializable {
             }
             alert.setContentText(errorMessage.toString());
             alert.showAndWait();
-            return; //will only show one error at a time
-        }
-        //if the fields contain any illegal characters or in an incorrect format
-        if (!fname.matches(namePattern) || !lname.matches(namePattern) || !username.matches(usernamePattern)
+        } else if (!fname.matches(namePattern) || !lname.matches(namePattern) || !username.matches(usernamePattern)
                 || !email.matches(emailPattern) || !password1.matches(passwordPattern) || !password2.matches(passwordPattern)) {
 
             alert.setHeaderText("The following field(s) have invalid characters:");
-
             if (!fname.matches(namePattern)) {
                 errorMessage.append("First Name");
                 errorMessage.append("\n");
@@ -161,27 +156,23 @@ public class SignUpFXMLController implements Initializable {
 
             alert.setContentText(errorMessage.toString());
             alert.showAndWait();
-            return; //will only show an error at a time
-        }
-
-        if (!password1.equals(password2)) { //if both entered passwords are not the same
-            alert.setHeaderText(null);
-            alert.setContentText("Passwords do not match. Please re-check your password.");
+        } else if (!password1.equals(password2)) { //if both entered passwords are not the same
+            alert.setHeaderText("Passwords do not match!");
+            alert.setContentText("Please re-check your password.");
             alert.showAndWait();
-            return;
-        }
-
-        SignUpDbManager register = new SignUpDbManager();
-        Boolean found = register.checkDuplicates(username, email); //checks to see if username/email already exists
-        if (!found) { //if username/email are unique
-            register.insertData(username, email, password1, fname, lname); //inserts data into database
-            alert = new Alert(Alert.AlertType.INFORMATION); //if user credentials are found, creates an alert
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText("Sign-Up successful!");
-            alert.setContentText("Welcome " + fname + " " + lname + "!");
-            alert.showAndWait();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            LoginPanel(stage); //redirects to login Panel
+        } else {
+            SignUpDbManager register = new SignUpDbManager();
+            Boolean found = register.checkDuplicates(username, email); //checks to see if username/email already exists
+            if (!found) { //if username/email are unique
+                register.insertData(username, email, password1, fname, lname); //inserts data into database
+                alert = new Alert(Alert.AlertType.INFORMATION); //if user credentials are found, creates an alert
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sign-Up successful!");
+                alert.setContentText("Welcome " + fname + " " + lname + "!");
+                alert.showAndWait();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                LoginPanel(stage); //redirects to login Panel
+            }
         }
     }
 

@@ -816,10 +816,8 @@ public class UserDashboardFXMLController implements Initializable {
         String emailPattern = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"; //validation for email
 
         if (fnameTextfield.getText().equals(fname) && lnameTextfield.getText().equals(lname)
-                && usernameTextfield.getText().equals(username) && emailTextfield.getText().equals(email)) {
-            return;
-        }
-        if (!fnameTextfield.getText().matches(namePattern) || !lnameTextfield.getText().matches(namePattern)
+                && usernameTextfield.getText().equals(username) && emailTextfield.getText().equals(email)) { //if fields havent been changed, do nothing
+        } else if (!fnameTextfield.getText().matches(namePattern) || !lnameTextfield.getText().matches(namePattern) //if the fields contain invalid characters
                 || !usernameTextfield.getText().matches(usernamePattern) || !emailTextfield.getText().matches(emailPattern)) {
 
             alert.setHeaderText("The following field(s) have invalid characters:");
@@ -841,72 +839,67 @@ public class UserDashboardFXMLController implements Initializable {
                 errorMessage.append("\n");
             }
 
-            alert.setContentText(errorMessage.toString());
+            alert.setContentText(errorMessage.toString()); //prints out names of fields with invalid characters
             alert.showAndWait();
-            return;
-        }
-
-        UserDashboardDbManager DbManager = new UserDashboardDbManager();
-        boolean usernameFound;
-        boolean emailFound;
-        if (!usernameTextfield.getText().equals(username)) {
-            usernameFound = DbManager.checkUsername(usernameTextfield.getText());
-            if (usernameFound) {
-                return;
+        } else {
+            UserDashboardDbManager DbManager = new UserDashboardDbManager();
+            boolean usernameFound;
+            boolean emailFound;
+            if (!usernameTextfield.getText().equals(username)) { //checks if username already exists
+                usernameFound = DbManager.checkUsername(usernameTextfield.getText());
+                if (usernameFound) {
+                    return;
+                }
             }
+            if (!emailTextfield.getText().equals(email)) { //checks if email already exists
+                emailFound = DbManager.checkEmail(emailTextfield.getText());
+                if (emailFound) {
+                    return;
+                }
+            } //will update profile from new fields
+            DbManager.updateProfile(userId, fnameTextfield.getText(), lnameTextfield.getText(), usernameTextfield.getText(), emailTextfield.getText());
+            alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("User Profile has been updated!");
+            alert.showAndWait();
+            this.fname = fnameTextfield.getText();
+            this.lname = lnameTextfield.getText();
+            this.username = usernameTextfield.getText();
+            this.email = emailTextfield.getText();
         }
-        if (!emailTextfield.getText().equals(email)) {
-            emailFound = DbManager.checkEmail(emailTextfield.getText());
-            if (emailFound) {
-                return;
-            }
-        }
-        //Else, if updated fields pass validation tests
-        DbManager.updateProfile(userId, fnameTextfield.getText(), lnameTextfield.getText(),
-                usernameTextfield.getText(), emailTextfield.getText());
-
-        alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("User Profile has been updated!");
-        alert.showAndWait();
-
-        this.fname = fnameTextfield.getText();
-        this.lname = lnameTextfield.getText();
-        this.username = usernameTextfield.getText();
-        this.email = emailTextfield.getText();
     }
 
     @FXML
     void changePassword(ActionEvent event) {
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
-        alert.setHeaderText(null);
         StringBuilder errorMessage = new StringBuilder();
 
-        if ((password1Field.getText().isEmpty() && password2Field.getText().isEmpty()) || (password1Field.getText().equals(password) && password2Field.getText().equals(password))) {
-            return;
-        } else if (!password1Field.getText().equals(password2Field.getText())) {
-            alert.setContentText("Passwords do not match. Please re-check your password.");
+        if (password1Field.getText().equals(password) && password2Field.getText().equals(password)) { //if password fields are empty
+            alert.setHeaderText("You cannot change your password!");
+            alert.setContentText("The password is the same for your login credentials.");
+            alert.show();
+        } else if (!password1Field.getText().equals(password2Field.getText())) { //if password fields dont match
+            alert.setHeaderText("Passwords do not match!");
+            alert.setContentText("Please re-check your password.");
             alert.showAndWait();
-            return;
-        } else if (!password1Field.getText().matches(passwordPattern) || !password2Field.getText().matches(passwordPattern)) {
+        } else if (!password1Field.getText().matches(passwordPattern) || !password2Field.getText().matches(passwordPattern)) { //if password is in a invalid format
             alert.setHeaderText("Your password must contain:");
             errorMessage.append("At least 1 uppercase letter (A-Z)\n");
             errorMessage.append("At least one number (0-9\n)");
             errorMessage.append("At least 6 characters");
             alert.setContentText(errorMessage.toString());
             alert.showAndWait();
-            return;
+        } else { //passes validation test
+            UserDashboardDbManager DbManager = new UserDashboardDbManager();
+            DbManager.updatePassword(userId, password1Field.getText()); //updates password in database
+            alert = new Alert(Alert.AlertType.INFORMATION); //new alert
+            alert.setHeaderText("Your password has been changed!");
+            alert.setContentText("Your new password is: " + password1Field.getText());
+            alert.showAndWait();
+            this.password = password1Field.getText();
         }
-
-        UserDashboardDbManager DbManager = new UserDashboardDbManager();
-        DbManager.updatePassword(userId, password1Field.getText());
-        alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText("Your password has been changed!");
-        alert.setContentText("Your new password is: " + password1Field.getText());
-        alert.showAndWait();
-        this.password = password1Field.getText();
     }
 
 }

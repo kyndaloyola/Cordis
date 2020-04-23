@@ -586,7 +586,7 @@ public class UserDashboardDbManager {
             PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getString(1).equals(username)) {
+                if (rs.getString(1).equals(username)) { //if username xists
                     alert.setHeaderText("Username already exists!");
                     alert.setContentText("Please re-enter a different username.");
                     alert.showAndWait();
@@ -609,7 +609,7 @@ public class UserDashboardDbManager {
             PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getString(1).equals(email)) {
+                if (rs.getString(1).equals(email)) { //if email exists
                     alert.setHeaderText("Email already exists!");
                     alert.setContentText("Please re-enter a different email.");
                     alert.showAndWait();
@@ -625,7 +625,7 @@ public class UserDashboardDbManager {
 
     void updateProfile(int userId, String fname, String lname, String username, String email) {
         String query = "UPDATE Login_Credentials SET u_fname = ?, u_sname = ?, u_username = ?, u_email =  ? WHERE u_id = ?";
-        try {
+        try { //updates data using user id
             PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
             ps.setString(1, fname);
             ps.setString(2, lname);
@@ -641,8 +641,8 @@ public class UserDashboardDbManager {
 
     void updatePassword(int userId, String password) {
         String query = "UPDATE Login_Credentials SET u_password = ? WHERE u_id = ?";
-        password = BCrypt.hashpw(password, BCrypt.gensalt(12));
-        try {
+        password = BCrypt.hashpw(password, BCrypt.gensalt(12)); //hashes password
+        try { //updates data using user id
             PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
             ps.setString(1, password);
             ps.setInt(2, userId);

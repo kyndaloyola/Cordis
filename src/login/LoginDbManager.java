@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import databaseconnection.DbConnection;
 import encryption.BCrypt;
 
@@ -34,24 +33,13 @@ public class LoginDbManager {
     private String userType;
 
     boolean connection(String username, String password) {
-        PreparedStatement ps;
-        ResultSet rs;
-
-        String query;
-        Alert alert;
-
-        query = "SELECT * FROM Login_Credentials"; //Selects data from Login Credentials
+        String query = "SELECT * FROM Login_Credentials"; //Selects data from Login Credentials
 
         try {
-            ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
-            rs = ps.executeQuery();
-            while (rs.next()) {
+            PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) { //goes through database
                 if ((rs.getString("u_username").equals(username) || rs.getString("u_email").equals(username)) && BCrypt.checkpw(password, rs.getString("u_password"))) {
-                    alert = new Alert(AlertType.INFORMATION); //if user credentials are found, creates an alert
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Log In successful!");
-                    alert.showAndWait();
                     this.userType = rs.getString("u_type");
                     this.userId = rs.getInt("u_id");
                     this.email = rs.getString("u_email");

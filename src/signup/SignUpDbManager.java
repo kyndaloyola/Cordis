@@ -31,12 +31,12 @@ public class SignUpDbManager {
             PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query); //prepares query in SQL
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getString(1).equals(username)) {
+                if (rs.getString(1).equals(username)) { //if username already exists
                     alert.setHeaderText("Username already exists!");
                     alert.setContentText("Please re-enter a different username.");
                     alert.showAndWait();
                     return true;
-                } else if (rs.getString(2).equals(email)) {
+                } else if (rs.getString(2).equals(email)) { //if email already exists
                     alert.setHeaderText("Email already exists!");
                     alert.setContentText("Please re-enter a different email.");
                     alert.showAndWait();
@@ -46,15 +46,14 @@ public class SignUpDbManager {
         } catch (SQLException ex) {
             Logger.getLogger(LoginFXMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return false;
+        return false; //return false if there are no duplicates already in database
     }
 
     void insertData(String username, String email, String password, String fname, String lname) {
-        password = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        password = BCrypt.hashpw(password, BCrypt.gensalt(12)); //hashes password
         String query = "INSERT INTO Login_Credentials (u_username, u_email, u_password, u_fname, u_sname, u_type)"
                 + " values (?, ?, ?, ?, ?, ?)";
-        try {
+        try { //inserts the data into database
             PreparedStatement ps = DbConnection.getConnectionLoginDB().prepareStatement(query);
             ps.setString(1, username);
             ps.setString(2, email);
