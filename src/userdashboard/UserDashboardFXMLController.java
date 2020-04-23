@@ -737,14 +737,17 @@ public class UserDashboardFXMLController implements Initializable
              orgCoordinName.setVisible(true);
              orgCoordinName.setText(coordinator);
          }
-        
+        long ecCon = Long.parseLong(data.get(selection).get(11));
+        long budget = Long.parseLong(data.get(selection).get(9));
+        String bg = ""+budget;
+        String ec = ""+ecCon;
         projectAcronymText.setText(data.get(selection).get(2));
         projectTitleText.setText(data.get(selection).get(4));
         projectStartDatetext.setText(data.get(selection).get(5));
         projectEndDatetext.setText(data.get(selection).get(6));
         projectDescripText.setText(data.get(selection).get(8));
-        projectBudgetText.setText(data.get(selection).get(9));
-        projectEcContributionText.setText(data.get(selection).get(11));
+        projectBudgetText.setText(bg);
+        projectEcContributionText.setText(ec);
         
         
     }
