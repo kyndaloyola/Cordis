@@ -28,6 +28,8 @@ import javafx.scene.shape.Ellipse;
  *
  * @author kynda
  */
+
+
 public class UserDashboardDbManager
 {
      private XYChart.Series series = new XYChart.Series();

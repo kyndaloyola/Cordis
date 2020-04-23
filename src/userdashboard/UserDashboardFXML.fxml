@@ -3,6 +3,9 @@
 <!--<?import com.jfoenix.controls.JFXCheckBox?>-->
 <!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
