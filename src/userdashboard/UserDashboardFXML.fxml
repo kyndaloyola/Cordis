@@ -419,10 +419,10 @@
                                  <children>
                                     <StackedAreaChart fx:id="trungReducedGraph" onMouseClicked="#onTrungClick" prefHeight="272.0" prefWidth="455.0">
                                       <xAxis>
-                                        <NumberAxis side="BOTTOM" />
+                                        <NumberAxis autoRanging="false" lowerBound="2014.0" minorTickCount="2" minorTickLength="1.0" side="BOTTOM" tickUnit="2.0" upperBound="2026.0" />
                                       </xAxis>
                                       <yAxis>
-                                        <NumberAxis side="LEFT" />
+                                        <NumberAxis side="LEFT" style="-fx-background-color: #ffffff;" />
                                       </yAxis>
                                        <HBox.margin>
                                           <Insets right="20.0" />
