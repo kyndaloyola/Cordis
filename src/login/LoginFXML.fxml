@@ -17,7 +17,7 @@
          <children>
             <JFXButton id="lgnBtn" fx:id="Login" buttonType="RAISED" layoutX="154.0" layoutY="395.0" onAction="#LogInButtonPressed" prefHeight="40.0" prefWidth="270.0" style="-fx-background-color: #7FBAD9;" text="Log In" textFill="WHITE">
                <font>
-                  <Font name="Segoe UI Bold" size="16.0" />
+                  <Font name="Franklin Gothic Book" size="18.0" />
                </font>
             </JFXButton>
             <Label layoutX="212.0" layoutY="459.0" text="New User?" textFill="#707070">

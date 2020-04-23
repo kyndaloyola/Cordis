@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.BubbleChart?>
@@ -15,9 +16,11 @@
 <?import javafx.scene.chart.StackedAreaChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -46,7 +49,7 @@
                      <children>
                         <Text layoutX="22.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis" textAlignment="CENTER" wrappingWidth="71.22900390625">
                            <font>
-                              <Font name="Times New Roman" size="19.0" />
+                              <Font name="Franklin Gothic Medium" size="22.0" />
                            </font></Text>
                      </children>
                   </Pane>
@@ -55,22 +58,34 @@
                      <children>
                         <Pane fx:id="HomeBtn" layoutX="208.0" layoutY="10.0" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
                            <children>
-                              <Text layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" />
+                              <Text layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
+                                 <font>
+                                    <Font name="Franklin Gothic Book" size="12.0" />
+                                 </font></Text>
                            </children>
                         </Pane>
                         <Pane fx:id="statisticsMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="100.0">
                            <children>
-                              <Text layoutX="23.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" />
+                              <Text layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics">
+                                 <font>
+                                    <Font name="Franklin Gothic Book" size="12.0" />
+                                 </font></Text>
                            </children>
                         </Pane>
                         <Pane fx:id="orgMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="98.0">
                            <children>
-                              <Text layoutX="11.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations" />
+                              <Text layoutX="11.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations">
+                                 <font>
+                                    <Font name="Franklin Gothic Book" size="12.0" />
+                                 </font></Text>
                            </children>
                         </Pane>
                         <Pane fx:id="projectMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
                            <children>
-                              <Text layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects" />
+                              <Text layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
+                                 <font>
+                                    <Font name="Franklin Gothic Book" size="12.0" />
+                                 </font></Text>
                            </children>
                         </Pane>
                      </children>
@@ -400,7 +415,7 @@
                         <JFXCheckBox fx:id="contributions" layoutX="421.0" layoutY="59.0" onAction="#refreshButtonEnabled" text="Max EC Contributions" unCheckedColor="#e0e0e0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0" visible="false">
+                  <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0">
                      <children>
                         <Text layoutX="319.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis Statistics " textAlignment="CENTER" wrappingWidth="264.00001719594">
                            <font>
@@ -412,10 +427,10 @@
                                  <children>
                                     <StackedAreaChart fx:id="trungReducedGraph" onMouseClicked="#onTrungClick" prefHeight="272.0" prefWidth="455.0">
                                       <xAxis>
-                                        <NumberAxis side="BOTTOM" />
+                                        <NumberAxis autoRanging="false" lowerBound="2014.0" minorTickCount="2" minorTickLength="1.0" side="BOTTOM" tickUnit="2.0" upperBound="2026.0" />
                                       </xAxis>
                                       <yAxis>
-                                        <NumberAxis side="LEFT" />
+                                        <NumberAxis side="LEFT" style="-fx-background-color: #ffffff;" />
                                       </yAxis>
                                        <HBox.margin>
                                           <Insets right="20.0" />
@@ -509,135 +524,127 @@
       </BorderPane>
       <AnchorPane fx:id="settingsAnchorPane" layoutY="56.0" prefHeight="700.0" prefWidth="1003.0" style="-fx-background-color: white;" visible="false">
          <children>
-            <Pane fx:id="settingsPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane fx:id="settingsPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox layoutX="92.0" layoutY="71.0" prefHeight="82.0" prefWidth="173.0">
-                     <children>
-                        <HBox prefHeight="55.0" prefWidth="213.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First  Name">
-                                 <HBox.margin>
-                                    <Insets left="25.0" right="15.0" top="20.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
-                                 <HBox.margin>
-                                    <Insets left="45.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="213.0">
-                           <children>
-                              <Text fx:id="fnameTextField" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text fx:id="lNameTextField" strokeType="OUTSIDE" strokeWidth="0.0" text="LastName">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Text>
-                              <ImageView fx:id="firstNameLastEditBtn" fitHeight="24.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets top="20.0" />
-                                 </HBox.margin>
-                                 <image>
-                                    <Image url="@Edit.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <ImageView fitHeight="165.0" fitWidth="194.0" layoutX="382.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="700.0" fitWidth="923.0" layoutX="87.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@UserIcon.png" />
+                        <Image url="@../images/europe-map.png" />
                      </image>
                   </ImageView>
-                  <Separator layoutX="28.0" layoutY="222.0" prefHeight="8.0" prefWidth="474.0" />
-                  <VBox layoutX="28.0" layoutY="250.0" prefHeight="308.0" prefWidth="480.0">
+                  <AnchorPane layoutX="187.0" layoutY="56.0" prefHeight="294.0" prefWidth="630.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-color: #C0C0C0; -fx-border-radius: 15px;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                        <HBox prefHeight="49.0" prefWidth="474.0">
-                           <children>
-                              <TextField fx:id="userEmailTextField">
-                                 <HBox.margin>
-                                    <Insets top="20.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <ImageView fx:id="emailEditBtn" fitHeight="26.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="20.0" />
-                                 </HBox.margin>
-                                 <image>
-                                    <Image url="@Edit.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Text>
-                        <HBox layoutX="10.0" layoutY="27.0" prefHeight="47.0" prefWidth="480.0">
-                           <children>
-                              <TextField fx:id="userUsernameTextField">
-                                 <HBox.margin>
-                                    <Insets top="20.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <ImageView fx:id="usernameEditButton" fitHeight="26.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="20.0" />
-                                 </HBox.margin>
-                                 <image>
-                                    <Image url="@Edit.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <Text layoutX="10.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Text>
-                        <HBox layoutX="10.0" layoutY="93.0" prefHeight="43.0" prefWidth="480.0">
-                           <children>
-                              <TextField fx:id="userPasswordTextField">
-                                 <HBox.margin>
-                                    <Insets top="20.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <ImageView fx:id="passwordEditBtn" fitHeight="26.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="20.0" />
-                                 </HBox.margin>
-                                 <image>
-                                    <Image url="@Edit.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
+                        <TextField fx:id="emailTextfield" layoutX="341.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="341.0" layoutY="164.0" text="Email">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="usernameTextfield" layoutX="25.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="25.0" layoutY="164.0" text="Username">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="25.0" layoutY="25.0" text="Account Information">
+                           <font>
+                              <Font name="Franklin Gothic Medium" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="fnameTextfield" layoutX="25.0" layoutY="100.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="25.0" layoutY="80.0" text="First Name">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="lnameTextfield" layoutX="341.0" layoutY="100.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="341.0" layoutY="80.0" text="Last Name">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="13.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView glyphName="EDIT" layoutX="603.0" layoutY="30.0" size="16" />
+                        <JFXButton layoutX="486.0" layoutY="244.0" onAction="#saveProfile" prefHeight="36.0" prefWidth="125.0" style="-fx-background-color: #7FBAD9; -fx-background-radius: 8px;" text="Save Profile" textFill="WHITE">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="16.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton layoutX="372.0" layoutY="244.0" onAction="#resetDetails" prefHeight="36.0" prefWidth="100.0" style="-fx-border-color: #707070; -fx-border-radius: 8px;" text="Reset" textFill="#707070">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="16.0" />
+                           </font>
+                        </JFXButton>
                      </children>
-                  </VBox>
-                  <Button fx:id="saveSettingsBtn" layoutX="28.0" layoutY="580.0" mnemonicParsing="false" style="-fx-background-color: #7DB1D1;" text="save">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@iconfinder_interface-90_4634476.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  </AnchorPane>
+                  <Label layoutX="189.0" layoutY="14.0" text="Edit Profile">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="25.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane layoutX="183.0" layoutY="405.0" prefHeight="285.0" prefWidth="630.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #C0C0C0;">
+                     <children>
+                        <PasswordField fx:id="password2Field" layoutX="25.0" layoutY="173.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;" />
+                        <Label layoutX="25.0" layoutY="23.0" text="Change Password">
+                           <font>
+                              <Font name="Franklin Gothic Medium" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="25.0" layoutY="69.0" text="Password">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="25.0" layoutY="151.0" text="Confirm Password">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="387.0" layoutY="71.0" text="Password must contain:">
+                           <font>
+                              <Font name="Franklin Gothic Medium" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="387.0" layoutY="102.0" text="At least 1 upper case letter (A-Z)">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="387.0" layoutY="128.0" text="At least one number (0-9)">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="387.0" layoutY="154.0" text="At least 6 characters">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView glyphName="EDIT" layoutX="603.0" layoutY="28.0" size="16" />
+                        <PasswordField fx:id="password1Field" layoutX="25.0" layoutY="90.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;" />
+                        <JFXButton layoutX="25.0" layoutY="225.0" onAction="#changePassword" prefHeight="36.0" prefWidth="270.0" style="-fx-background-color: #7FBAD9; -fx-background-radius: 8px;" text="Change My Password" textFill="WHITE">
+                           <font>
+                              <Font name="Franklin Gothic Book" size="16.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+                  <Separator layoutX="189.0" layoutY="376.0" prefHeight="2.0" prefWidth="618.0" />
+                  <AnchorPane prefHeight="700.0" prefWidth="207.0" />
                </children>
             </Pane>
          </children>

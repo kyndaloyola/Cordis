@@ -23,47 +23,45 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-
 /**
  * @author Trung Le
  */
 public class SignUpFXMLController implements Initializable {
-    
-    @FXML
-    private JFXTextField fname;
 
     @FXML
-    private JFXTextField lname;
+    private JFXTextField fnameTextField;
 
     @FXML
-    private JFXTextField username;
+    private JFXTextField lnameTextField;
 
     @FXML
-    private JFXTextField email;
+    private JFXTextField usernameTextField;
 
     @FXML
-    private JFXPasswordField password1;
+    private JFXTextField emailTextField;
 
     @FXML
-    private JFXPasswordField password2;
+    private JFXPasswordField password1Field;
+
+    @FXML
+    private JFXPasswordField password2Field;
 
     @FXML
     private JFXCheckBox checkbox;
-    
-    
+
     @FXML
     void resetDetails(ActionEvent event) { //when pressed, all fields will become empty
-        fname.setText(null);
-        lname.setText(null);
-        username.setText(null);
-        email.setText(null);
-        password1.setText(null);
-        password2.setText(null);
+        fnameTextField.setText(null);
+        lnameTextField.setText(null);
+        usernameTextField.setText(null);
+        emailTextField.setText(null);
+        password1Field.setText(null);
+        password2Field.setText(null);
     }
-    
+
     @FXML
     void LogInLinkPressed(ActionEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         String url = "/login/LoginFXML.fxml";  //gets the file path
         loader.setLocation(getClass().getResource(url));
@@ -76,44 +74,49 @@ public class SignUpFXMLController implements Initializable {
             Logger.getLogger(SignUpFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     void validateDetails(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         alert.setTitle("Error Dialog");
         StringBuilder errorMessage = new StringBuilder(); //used to append error messages
         String namePattern = "(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,50}$"; //validation for first/last name
-        String usernamePattern = "^[a-zA-Z][a-zA-Z0-9_]{6,25}$"; //validation for username
-        String emailPattern = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"; //validation for email
+        String usernamePattern = "^[a-zA-Z][a-zA-Z0-9_]{6,25}$"; //validation for usernameTextField
+        String emailPattern = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"; //validation for emailTextField
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
-        
-        if (fname.getText().isEmpty() || lname.getText().isEmpty() || username.getText().isEmpty() ||
-        email.getText().isEmpty() || password1.getText().isEmpty() || password2.getText().isEmpty() ||
-        !checkbox.isSelected()) { //if any fields are empty
-            
+
+        String fname = fnameTextField.getText();
+        String lname = lnameTextField.getText();
+        String username = usernameTextField.getText();
+        String email = emailTextField.getText();
+        String password1 = password1Field.getText();
+        String password2 = password2Field.getText();
+
+        if (fname.isEmpty() || lname.isEmpty() || username.isEmpty() || email.isEmpty()
+            || password1.isEmpty() || password2.isEmpty() || !checkbox.isSelected()) { //if any fields are empty
+
             alert.setHeaderText("The following field(s) are missing:");
-        
-            if (fname.getText().isEmpty()) {
+            if (fname.isEmpty()) {
                 errorMessage.append("The First Name field is empty!");
                 errorMessage.append("\n");
             }
-            if (lname.getText().isEmpty()) {
+            if (lname.isEmpty()) {
                 errorMessage.append("The Last Name field is empty!");
                 errorMessage.append("\n");
             }
-            if (username.getText().isEmpty()) {
+            if (username.isEmpty()) {
                 errorMessage.append("The Username field is empty!");
                 errorMessage.append("\n");
             }
-            if (email.getText().isEmpty()) {
+            if (email.isEmpty()) {
                 errorMessage.append("The Email field is empty!");
                 errorMessage.append("\n");
             }
-            if (password1.getText().isEmpty()) {
+            if (password1.isEmpty()) {
                 errorMessage.append("The Password field is empty!");
                 errorMessage.append("\n");
             }
-            if (password2.getText().isEmpty()) {
+            if (password2.isEmpty()) {
                 errorMessage.append("The Confirm Password field is empty!");
                 errorMessage.append("\n");
             }
@@ -122,60 +125,57 @@ public class SignUpFXMLController implements Initializable {
             }
             alert.setContentText(errorMessage.toString());
             alert.showAndWait();
-            return; //will only show one error at a time
-        }
-        //if the fields contain any illegal characters or in an incorrect format
-        if (!fname.getText().matches(namePattern) || !lname.getText().matches(namePattern) || !username.getText().matches(usernamePattern) ||
-        !email.getText().matches(emailPattern) || !password1.getText().matches(passwordPattern) || !password2.getText().matches(passwordPattern)) {
-        
-            if (!fname.getText().matches(namePattern)) {
+        } else if (!fname.matches(namePattern) || !lname.matches(namePattern) || !username.matches(usernamePattern)
+                || !email.matches(emailPattern) || !password1.matches(passwordPattern) || !password2.matches(passwordPattern)) {
+
+            alert.setHeaderText("The following field(s) have invalid characters:");
+            if (!fname.matches(namePattern)) {
                 errorMessage.append("First Name");
                 errorMessage.append("\n");
             }
-            if (!lname.getText().matches(namePattern)) {
+            if (!lname.matches(namePattern)) {
                 errorMessage.append("Last Name");
                 errorMessage.append("\n");
             }
-            if (!username.getText().matches(usernamePattern)) {
+            if (!username.matches(usernamePattern)) {
                 errorMessage.append("Username");
                 errorMessage.append("\n");
             }
-            if (!email.getText().matches(emailPattern)) {
+            if (!email.matches(emailPattern)) {
                 errorMessage.append("Email");
                 errorMessage.append("\n");
             }
-            if (!password1.getText().matches(passwordPattern)) {
+            if (!password1.matches(passwordPattern)) {
                 errorMessage.append("Password");
                 errorMessage.append("\n");
             }
-            if (!password2.getText().matches(passwordPattern)) {
+            if (!password2.matches(passwordPattern)) {
                 errorMessage.append("Confirm Password");
                 errorMessage.append("\n");
             }
-            
-            alert.setHeaderText("The following field(s) have invalid characters:");
+
             alert.setContentText(errorMessage.toString());
             alert.showAndWait();
-            return; //will only show an error at a time
-        }
-        
-        if (!password1.getText().equals(password2.getText())) { //if both entered passwords are not the same
-            alert.setHeaderText(null);
-            alert.setContentText("Passwords do not match. Please re-check your password.");
+        } else if (!password1.equals(password2)) { //if both entered passwords are not the same
+            alert.setHeaderText("Passwords do not match!");
+            alert.setContentText("Please re-check your password.");
             alert.showAndWait();
-            return;
-        }
-        
-        SignUpDbManager register = new SignUpDbManager();
-        Boolean found = register.checkDuplicates(username.getText(), email.getText()); //checks to see if username/email already exists
-        if (!found) { //if username/email are unique
-            register.insertData(username.getText().trim(), email.getText().trim(), password1.getText().trim(),
-            fname.getText().trim(), lname.getText().trim()); //inserts data into database
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            LoginPanel(stage); //redirects to login Panel
+        } else {
+            SignUpDbManager register = new SignUpDbManager();
+            Boolean found = register.checkDuplicates(username, email); //checks to see if username/email already exists
+            if (!found) { //if username/email are unique
+                register.insertData(username, email, password1, fname, lname); //inserts data into database
+                alert = new Alert(Alert.AlertType.INFORMATION); //if user credentials are found, creates an alert
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sign-Up successful!");
+                alert.setContentText("Welcome " + fname + " " + lname + "!");
+                alert.showAndWait();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                LoginPanel(stage); //redirects to login Panel
+            }
         }
     }
-    
+
     private void LoginPanel(Stage stage) {
         FXMLLoader loader = new FXMLLoader();
         String url = "/login/LoginFXML.fxml";  //gets the file path
@@ -194,5 +194,5 @@ public class SignUpFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //TODO
     }
-    
+
 }
