@@ -46,6 +46,7 @@ public class LoginDbManager {
                     this.username = rs.getString("u_username");
                     this.firstName = rs.getString("u_fname");
                     this.surname = rs.getString("u_sname");
+                    ps.close();
                     return true;
                 }
             }

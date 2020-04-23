@@ -35,11 +35,13 @@ public class SignUpDbManager {
                     alert.setHeaderText("Username already exists!");
                     alert.setContentText("Please re-enter a different username.");
                     alert.showAndWait();
+                    ps.close();
                     return true;
                 } else if (rs.getString(2).equals(email)) { //if email already exists
                     alert.setHeaderText("Email already exists!");
                     alert.setContentText("Please re-enter a different email.");
                     alert.showAndWait();
+                    ps.close();
                     return true;
                 }
             }
@@ -62,6 +64,7 @@ public class SignUpDbManager {
             ps.setString(5, lname);
             ps.setString(6, "U");
             ps.execute();
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(SignUpDbManager.class.getName()).log(Level.SEVERE, null, ex);
         }

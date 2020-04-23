@@ -615,6 +615,7 @@ public class UserDashboardDbManager {
                     alert.showAndWait();
                     return true;
                 }
+            ps.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
