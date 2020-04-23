@@ -26,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -131,9 +132,10 @@ public class AdminDashboardFXMLController implements Initializable
 
     private Pane navigatorPanes;
     @FXML
-    private ChoiceBox<String> manageUserCombobox;
+    private ComboBox<String> manageUserCombobox;
     @FXML
-    private ChoiceBox<String> searchByLogChoiceBox;
+    private ComboBox<String
+            > searchByLogChoiceBox;
     private int userId;
     private String email;
     private String username;
