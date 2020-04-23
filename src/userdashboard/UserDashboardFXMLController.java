@@ -27,6 +27,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -277,6 +278,10 @@ public class UserDashboardFXMLController implements Initializable {
     private AnchorPane settingsAnchorPane;
     @FXML
     private Pane settingsPane;
+    @FXML
+    private Text orgCoordinName;
+    @FXML
+    private Text coordinatorText;
 
     /**
      * Initializes the controller class.
@@ -343,6 +348,14 @@ public class UserDashboardFXMLController implements Initializable {
         UserDashboardDbManager manager = new UserDashboardDbManager();
         yearSelectorKynda.getItems().addAll("All", "2014", "2015", "2016", "2017", "2018", "2019", "2020");
         projectsPerYearChart.getData().addAll(manager.intialiseChartKyndas("All"));
+         for (Series  <?, ?> serie: projectsPerYearChart.getData()){
+            for (Data<?, ?> item: serie.getData()){
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(item.getYValue().toString()+" Projects");
+                        Tooltip.install(item.getNode(), tooltip);
+               
+            }
+        }  
     }
 
     private void createChartIssam(int lowerBound, int upperBound) {
@@ -595,6 +608,16 @@ public class UserDashboardFXMLController implements Initializable {
         projectsPerYearChart.getData().clear();
         projectsPerYearChart.getData().addAll(manager.intialiseChartKyndas(choice));
 
+         for (Series  <?, ?> serie: projectsPerYearChart.getData()){
+            for (Data<?, ?> item: serie.getData()){
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(item.getYValue().toString()+" Projects");
+                        Tooltip.install(item.getNode(), tooltip);
+               
+            }
+        }  
+        
+
     }
 
     public void setOrganisationTableValues() {
@@ -663,6 +686,18 @@ public class UserDashboardFXMLController implements Initializable {
         ArrayList<ArrayList<String>> data = manager.getProjectDetails();
 
         //textId.setText(data.get(selection).get(0));
+        int id = Integer.parseInt(data.get(selection).get(0));
+        String coordinator= manager.getCoordinator(id);
+        
+        if(coordinator.equals(null)){
+             coordinatorText.setVisible(false);
+             orgCoordinName.setVisible(false);
+         }else{
+             coordinatorText.setVisible(true);
+             orgCoordinName.setVisible(true);
+             orgCoordinName.setText(coordinator);
+         }
+        
         projectAcronymText.setText(data.get(selection).get(2));
         projectTitleText.setText(data.get(selection).get(4));
         projectStartDatetext.setText(data.get(selection).get(5));
