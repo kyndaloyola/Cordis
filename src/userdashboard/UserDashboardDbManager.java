@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +24,9 @@ import javafx.scene.control.Alert;
  *
  * @author kynda
  */
-
 public class UserDashboardDbManager {
 
     private XYChart.Series series = new XYChart.Series();
-
     private XYChart.Series seriesLineChartHome = new XYChart.Series();
 
     public XYChart.Series intialiseChartKyndas(String year) {
@@ -221,7 +221,62 @@ public class UserDashboardDbManager {
         }
         return data;
     }
+    
+    public ArrayList searchOrganisation(String source, String filter) {
+        DbConnection connection = new DbConnection();
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        Statement stmt;
+        // SELECT username, MAX(logInDate) FROM logFile GROUP BY username;
+        try {
+            stmt = connection.getConnectionDataDB().createStatement();
+            String sql = "SELECT OrgParticipant.orgId,"
+                    + " OrgParticipant.orgEndOfPart,"
+                    + " OrgParticipant.orgShortName,"
+                    + " OrgParticipant.orgName,"
+                    + " OrgParticipant.orgURL,"
+                    + " OrgParticipant.orgVATNum,"
+                    + " OrgParticipant.orgActivityType,"
+                    + " OrgParticipant.orgPostCode,"
+                    + " OrgParticipant.orgStreet,"
+                    + " OrgParticipant.orgCity,"
+                    + " Country.countryName"
+                    + " FROM OrgParticipant"
+                    + " JOIN Country"
+                    + " ON OrgParticipant.countryId=Country.countryId"
+                    + " AND "+source+"="+filter+";";
 
+            stmt.execute(sql);
+            ResultSet rs = stmt.getResultSet();
+
+            try {
+
+                while (rs.next()) {
+                    ArrayList<String> user = new ArrayList<>();
+                    user.add(String.valueOf(rs.getInt("orgId")));
+                    user.add(rs.getString("orgEndOfPart"));
+                    user.add(rs.getString("orgShortName"));
+                    user.add(rs.getString("orgName"));
+                    user.add(rs.getString("orgURL"));
+                    user.add(rs.getString("orgVATNum"));
+                    user.add(rs.getString("orgActivityType"));
+                    user.add(rs.getString("orgPostCode"));
+                    user.add(rs.getString("orgStreet"));
+                    user.add(rs.getString("orgCity"));
+                    user.add(rs.getString("countryName"));
+                    data.add(user);
+                }
+            } finally {
+                rs.close();
+            }
+
+            stmt.close();
+            connection.getConnectionDataDB().close();
+        } catch (SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return data;
+    }
     
     public String getCoordinator (int pid){
         DbConnection connection = new DbConnection();
@@ -691,6 +746,29 @@ public class UserDashboardDbManager {
         } catch (SQLException ex) {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void setLogOutUser(int userId) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatedDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateTime.format(formatedDateTime); 
+        try {
+            System.out.println("INSERT TRY");
+            Statement stmt = DbConnection.getConnectionLoginDB().createStatement();
+            String sql = "UPDATE logFile SET logOutDateTime='"+formattedDate+"' WHERE userId="+userId+" AND logInDate=(SELECT logInDate" +
+            " FROM logFile" +
+            " WHERE userId="+userId+"" +
+            " ORDER BY logInDate" +
+            " DESC LIMIT 1);";
+            // "UPDATE logFile SET logOutDateTime='"+formattedDate+"' WHERE userId="+userId+";";
+            stmt.execute(sql);
+            stmt.close();
+            DbConnection.getConnectionLoginDB().close();
+            System.out.println("INSERT DONE");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDashboardDbManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

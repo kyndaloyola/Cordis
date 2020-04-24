@@ -6,19 +6,23 @@
 package userdashboard;
 
 import com.jfoenix.controls.JFXCheckBox;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.CategoryAxis;
@@ -43,6 +47,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -51,6 +56,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -283,7 +289,14 @@ public class UserDashboardFXMLController implements Initializable {
     private Text orgCoordinName;
     @FXML
     private Text coordinatorText;
-
+    @FXML
+    private ComboBox<String> orgSearchSelector;
+    @FXML
+    private TextField searchFieldOrg;
+    @FXML
+    private MenuItem logOutItem;
+    @FXML
+    private Text textOrgVATNum;
     /**
      * Initializes the controller class.
      *
@@ -301,6 +314,7 @@ public class UserDashboardFXMLController implements Initializable {
         initaliseHomeCharts();
 
         searchByProjects.getItems().addAll("All", "ID", "RCN", "Acronym");
+        orgSearchSelector.getItems().addAll("Id", "Name", "Activity type", "VAT Number", "Country");
         homePane.setVisible(true);
         kyndaPane.setVisible(false);
         issamPane.setVisible(false);
@@ -922,6 +936,66 @@ public class UserDashboardFXMLController implements Initializable {
             alert.setContentText("Your new password is: " + password1Field.getText());
             alert.showAndWait();
             this.password = password1Field.getText();
+        }
+    }
+
+    @FXML
+    private void onSearchOrganisation(KeyEvent event) {
+        //orgSearchSelector.getItems().addAll("All", "Id", "Name", "Activity type", "VAT Number", "Country");
+        organisationsTableView.getItems().clear();
+        UserDashboardDbManager manager = new UserDashboardDbManager();
+        String selector = orgSearchSelector.getSelectionModel().getSelectedItem();
+        String filter = searchFieldOrg.getText();
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        
+        if(!filter.equals("")) {
+            if("Id".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgId", filter);
+            } else if ("Name".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgName", "'"+filter+"'");
+            } else if ("Activity type".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgActivityType", "'"+filter+"'");
+            } else if ("VAT Number".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgVATNum", "'"+filter+"'");
+            } else if ("Country".equals(selector)) {
+                data = manager.searchOrganisation("Country.countryName", "'"+filter+"'");
+            }
+            
+            setCellValue(idOrgColumn, 0);
+            setCellValue(endOfPartOrgColumn, 1);
+            setCellValue(shortNameOrgColumn, 2);
+            setCellValue(nameOrgColumn, 3);
+            setCellValue(urlOrgColumn, 4);
+            setCellValue(vatOrgColumn, 5);
+            setCellValue(aTypeOrgColumn, 6);
+            setCellValue(pCodeOrgColumn, 7);
+            setCellValue(streetOrgColumn, 8);
+            setCellValue(cityOrgColumn, 9);
+            setCellValue(countryOrgColumn, 10);
+            organisationsTableView.getItems().addAll(data);
+        } else {
+            setOrganisationTableValues();
+        }
+        
+    }
+
+    @FXML
+    private void OnLogOut(ActionEvent event) {
+        try {
+            System.out.println("LOG OUT");
+            UserDashboardDbManager manager = new UserDashboardDbManager();
+            manager.setLogOutUser(userId);
+            Stage stage = (Stage) ((Node)textOrgVATNum).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            String url = "/login/LoginFXML.fxml";  //gets the file path
+            loader.setLocation(getClass().getResource(url));
+            
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
