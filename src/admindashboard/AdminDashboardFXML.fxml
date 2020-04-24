@@ -5,13 +5,14 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -19,135 +20,147 @@
 
 <AnchorPane id="AnchorPane" fx:id="navigatorPane" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admindashboard.AdminDashboardFXMLController">
    <children>
-      <Pane id="LogoutPane" fx:id="logoutPane" layoutX="140.0" prefHeight="137.0" prefWidth="1060.0" style="-fx-background-color: #7FBAD9;" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Pane id="menuPane" fx:id="menuPane" prefHeight="902.0" prefWidth="141.0" style="-fx-background-color: #7FBAD9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Text layoutX="32.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CORDIS" textAlignment="CENTER" wrappingWidth="95.09360885620117">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <VBox id="navBarVbox" fx:id="navBarVbox" layoutY="243.0" onMouseClicked="#changePanel" prefHeight="658.0" prefWidth="141.0">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Pane id="LogoutPane" fx:id="logoutPane" prefHeight="135.0" prefWidth="1200.0" style="-fx-background-color: #7FBAD9;" BorderPane.alignment="CENTER">
                <children>
-                  <Pane id="homeBtn" fx:id="homeBtn" onMouseClicked="#changePanel" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: grey;">
+                  <ImageView fitHeight="106.0" fitWidth="108.0" layoutX="33.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Cordis-logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </top>
+         <left>
+            <Pane id="menuPane" fx:id="menuPane" prefHeight="920.0" prefWidth="141.0" style="-fx-background-color: #7FBAD9;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox id="navBarVbox" fx:id="navBarVbox" layoutY="135.0" onMouseClicked="#changePanel" prefHeight="225.0" prefWidth="141.0">
                      <children>
-                        <Text fx:id="homeText" fill="WHITE" layoutX="30.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="88.02617203395567">
-                           <font>
-                              <Font size="23.0" />
-                           </font>
-                        </Text>
+                        <Pane id="homeBtn" fx:id="homeBtn" onMouseClicked="#changePanel" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: grey;">
+                           <children>
+                              <Text fx:id="homeText" fill="WHITE" layoutX="30.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="88.02617203395567">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Pane>
+                        <Pane fx:id="manageUsersBtn" layoutX="10.0" layoutY="10.0" onMouseClicked="#changePanel" prefHeight="70.0" prefWidth="114.0" style="-fx-background-color: grey;">
+                           <children>
+                              <Text fx:id="manageUsersText" fill="WHITE" layoutX="24.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Manage Users" wrappingWidth="107.4522107760211">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Pane>
+                        <Pane fx:id="manageLogsBtn" layoutX="10.0" layoutY="80.0" onMouseClicked="#changePanel" prefHeight="64.0" prefWidth="114.0" style="-fx-background-color: grey;">
+                           <children>
+                              <Text fx:id="manageLogsText" fill="WHITE" layoutX="31.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Logs" textAlignment="CENTER" wrappingWidth="104.86207329433165">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
                      </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Pane>
-                  <Pane fx:id="manageUsersBtn" layoutX="10.0" layoutY="10.0" onMouseClicked="#changePanel" prefHeight="70.0" prefWidth="114.0" style="-fx-background-color: grey;">
+                  </VBox>
+               </children>
+            </Pane>
+         </left>
+         <center>
+            <Pane id="homePane" fx:id="homePane" prefHeight="762.0" prefWidth="1058.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="usersOnlineText" layoutX="228.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users Online" wrappingWidth="221.90396118164062">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="newUsersText" layoutX="584.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Users" wrappingWidth="221.90396118164062">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="userOnlineValue" layoutX="304.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="newUsersValue" layoutX="665.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <LineChart layoutX="83.0" layoutY="256.0" prefHeight="437.0" prefWidth="902.0" title="User Activity">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <Pane fx:id="manageLogPane" prefHeight="766.0" prefWidth="1060.0" style="-fx-background-color: white;" visible="false">
                      <children>
-                        <Text fx:id="manageUsersText" fill="WHITE" layoutX="24.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Manage Users" wrappingWidth="107.4522107760211">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Pane>
-                  <Pane fx:id="manageLogsBtn" layoutX="10.0" layoutY="80.0" onMouseClicked="#changePanel" prefHeight="64.0" prefWidth="114.0" style="-fx-background-color: grey;">
-                     <children>
-                        <Text fx:id="manageLogsText" fill="WHITE" layoutX="31.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Logs" textAlignment="CENTER" wrappingWidth="104.86207329433165">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
+                        <TableView fx:id="logTable" editable="true" layoutX="168.0" layoutY="169.0" prefHeight="380.0" prefWidth="759.0">
+                          <columns>
+                            <TableColumn id="idLog" fx:id="IdLogColumn" prefWidth="75.0" text="ID" />
+                            <TableColumn id="logInLog" fx:id="fNameLog" prefWidth="113.78524780273438" text="First Name" />
+                              <TableColumn id="sNameLog" fx:id="sNameLog" prefWidth="105.90231323242188" text="Last Name" />
+                              <TableColumn id="emailLog" fx:id="emailLog" prefWidth="148.75921630859375" text="Email" />
+                              <TableColumn id="unameLog" fx:id="unameLog" prefWidth="105.24078369140625" text="Username" />
+                              <TableColumn id="logInLogColumn" fx:id="logInLogColumn" prefWidth="96.28631591796875" text="Log In" />
+                              <TableColumn id="logOutLogColumn" fx:id="logOutLogColumn" prefWidth="115.277587890625" text="Log Out" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="searchByLogTextArea" layoutX="339.0" layoutY="86.0" />
+                        <ImageView fx:id="logSearchBrn" fitHeight="28.0" fitWidth="31.0" layoutX="521.0" layoutY="84.0" onMouseClicked="#onSearchLog" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@searchicon.png" />
+                           </image>
+                        </ImageView>
+                        <ComboBox fx:id="searchByLogChoiceBox" layoutX="172.0" layoutY="85.0" prefWidth="150.0" promptText="Search By" />
+                        <Pane id="manageUsersPane" fx:id="manageUsersPane" prefHeight="771.0" prefWidth="1060.0" style="-fx-background-color: white;" visible="false">
+                           <children>
+                              <TableView id="manageUsersTable" fx:id="usersTableView" layoutX="146.0" layoutY="143.0" prefHeight="372.0" prefWidth="782.0">
+                                <columns>
+                                  <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="fNameColumn" prefWidth="93.29925537109375" text="First Name" />
+                                    <TableColumn fx:id="lNamColumn" prefWidth="106.7008056640625" text="Last Name" />
+                                    <TableColumn fx:id="emailColumn" prefWidth="90.59182739257812" text="Email" />
+                                    <TableColumn fx:id="usernameColumn" prefWidth="104.95257568359375" text="Username" />
+                                    <TableColumn fx:id="typeColumn" prefWidth="97.673583984375" text="Type" />
+                                    <TableColumn fx:id="logInColumn" prefWidth="115.08172607421875" text="Log In" />
+                                    <TableColumn fx:id="logOutColumn" prefWidth="102.76190185546875" text="Log Out" />
+                                </columns>
+                              </TableView>
+                              <TextField fx:id="searchByTextArea" layoutX="365.0" layoutY="74.0" />
+                              <ImageView fx:id="searchUserBtn" fitHeight="23.0" fitWidth="23.0" layoutX="533.0" layoutY="76.0" onMouseClicked="#OnSearchUser" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@searchicon.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="deleteUserTextArea" layoutX="246.0" layoutY="576.0" prefHeight="30.0" prefWidth="160.0" />
+                              <Text layoutX="180.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User ID : ">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="deleteUserBtn" layoutX="442.0" layoutY="577.0" mnemonicParsing="false" onAction="#onUserDelete" text="Delete" />
+                              <ComboBox fx:id="manageUserCombobox" layoutX="192.0" layoutY="72.0" prefWidth="150.0" promptText="Search By" />
+                           </children>
+                        </Pane>
                      </children>
                   </Pane>
                </children>
-            </VBox>
-         </children>
-      </Pane>
-      <Pane id="homePane" fx:id="homePane" layoutX="141.0" layoutY="138.0" prefHeight="762.0" prefWidth="1058.0" style="-fx-background-color: white;">
-         <children>
-            <Text fx:id="usersOnlineText" layoutX="228.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users Online" wrappingWidth="221.90396118164062">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
-            <Text fx:id="newUsersText" layoutX="584.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Users" wrappingWidth="221.90396118164062">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
-            <Text fx:id="userOnlineValue" layoutX="304.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
-            <Text fx:id="newUsersValue" layoutX="665.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
-            <LineChart layoutX="83.0" layoutY="256.0" prefHeight="437.0" prefWidth="902.0" title="User Activity">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </Pane>
-      <Pane fx:id="manageLogPane" layoutX="140.0" layoutY="136.0" prefHeight="766.0" prefWidth="1060.0" style="-fx-background-color: white;">
-         <children>
-            <TableView fx:id="logTable" editable="true" layoutX="168.0" layoutY="169.0" prefHeight="380.0" prefWidth="759.0">
-              <columns>
-                <TableColumn id="idLog" fx:id="IdLogColumn" prefWidth="75.0" text="ID" />
-                <TableColumn id="logInLog" fx:id="fNameLog" prefWidth="113.78524780273438" text="First Name" />
-                  <TableColumn id="sNameLog" fx:id="sNameLog" prefWidth="105.90231323242188" text="Last Name" />
-                  <TableColumn id="emailLog" fx:id="emailLog" prefWidth="148.75921630859375" text="Email" />
-                  <TableColumn id="unameLog" fx:id="unameLog" prefWidth="105.24078369140625" text="Username" />
-                  <TableColumn id="logInLogColumn" fx:id="logInLogColumn" prefWidth="96.28631591796875" text="Log In" />
-                  <TableColumn id="logOutLogColumn" fx:id="logOutLogColumn" prefWidth="115.277587890625" text="Log Out" />
-              </columns>
-            </TableView>
-            <TextField fx:id="searchByLogTextArea" layoutX="339.0" layoutY="86.0" />
-            <ImageView fx:id="logSearchBrn" fitHeight="28.0" fitWidth="31.0" layoutX="521.0" layoutY="84.0" onMouseClicked="#onSearchLog" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@searchicon.png" />
-               </image>
-            </ImageView>
-            <ChoiceBox fx:id="searchByLogChoiceBox" accessibleText="Search by" layoutX="168.0" layoutY="86.0" prefWidth="150.0" />
-         </children></Pane>
-      <Pane id="manageUsersPane" fx:id="manageUsersPane" layoutX="140.0" layoutY="134.0" prefHeight="771.0" prefWidth="1060.0" style="-fx-background-color: white;">
-         <children>
-            <TableView id="manageUsersTable" fx:id="usersTableView" layoutX="146.0" layoutY="143.0" prefHeight="372.0" prefWidth="782.0">
-              <columns>
-                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="fNameColumn" prefWidth="93.29925537109375" text="First Name" />
-                  <TableColumn fx:id="lNamColumn" prefWidth="106.7008056640625" text="Last Name" />
-                  <TableColumn fx:id="emailColumn" prefWidth="90.59182739257812" text="Email" />
-                  <TableColumn fx:id="usernameColumn" prefWidth="104.95257568359375" text="Username" />
-                  <TableColumn fx:id="typeColumn" prefWidth="97.673583984375" text="Type" />
-                  <TableColumn fx:id="logInColumn" prefWidth="115.08172607421875" text="Log In" />
-                  <TableColumn fx:id="logOutColumn" prefWidth="102.76190185546875" text="Log Out" />
-              </columns>
-            </TableView>
-            <TextField fx:id="searchByTextArea" layoutX="286.0" layoutY="74.0" />
-            <ImageView fx:id="searchUserBtn" fitHeight="23.0" fitWidth="23.0" layoutX="454.0" layoutY="76.0" onMouseClicked="#OnSearchUser" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@searchicon.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="deleteUserTextArea" layoutX="246.0" layoutY="576.0" prefHeight="30.0" prefWidth="160.0" />
-            <Text layoutX="180.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User ID : ">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Button fx:id="deleteUserBtn" layoutX="442.0" layoutY="577.0" mnemonicParsing="false" onAction="#onUserDelete" text="Delete" />
-            <ChoiceBox fx:id="manageUserCombobox" layoutX="149.0" layoutY="74.0" prefHeight="27.0" prefWidth="119.0" />
-         </children>
-      </Pane>
+            </Pane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
