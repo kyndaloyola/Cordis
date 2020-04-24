@@ -81,20 +81,6 @@ public class DbConnection
         return typeUser;
     }
     
-    public void logFile(String username, String password) {
-        try {
-            System.out.println("INSERT TRY");
-            Statement stmt = getConnectionLoginDB().createStatement();
-            String sql = "INSERT INTO logFile (username, password) VALUES ('"+username+"', '"+password+"');"; 
-            stmt.execute(sql);
-            stmt.close(); 
-            getConnectionLoginDB().close();
-            System.out.println("INSERT DONE");
-        } catch (SQLException ex) {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     public HashMap getEcContributionByCountry(double filter) {
         HashMap<String, Double> map = new HashMap<>();
         Statement stmt;
