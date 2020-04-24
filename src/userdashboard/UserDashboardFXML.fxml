@@ -27,6 +27,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -511,17 +512,15 @@
          <children>
             <Pane fx:id="settingsPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="700.0" fitWidth="923.0" layoutX="87.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/europe-map.png" />
-                     </image>
-                  </ImageView>
                   <AnchorPane layoutX="187.0" layoutY="56.0" prefHeight="294.0" prefWidth="630.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-color: #C0C0C0; -fx-border-radius: 15px;">
                      <children>
                         <TextField fx:id="emailTextfield" layoutX="341.0" layoutY="186.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;">
                            <font>
                               <Font name="Franklin Gothic Book" size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Email must follow the RFC 5322 standard. " />
+                           </tooltip>
                         </TextField>
                         <Label layoutX="341.0" layoutY="164.0" text="Email">
                            <font>
@@ -532,6 +531,9 @@
                            <font>
                               <Font name="Franklin Gothic Book" size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Username must be between 6-25 characters long and can only contain alphanumeric characters + underscores. The first character must be an alphabetic character." />
+                           </tooltip>
                         </TextField>
                         <Label layoutX="25.0" layoutY="164.0" text="Username">
                            <font>
@@ -547,6 +549,9 @@
                            <font>
                               <Font name="Franklin Gothic Book" size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="First Name must be between 1 and 50 characters long and cannot contain any special characters including [\^$.|?*+()." />
+                           </tooltip>
                         </TextField>
                         <Label layoutX="25.0" layoutY="80.0" text="First Name">
                            <font>
@@ -557,6 +562,9 @@
                            <font>
                               <Font name="Franklin Gothic Book" size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Last Name must be between 1 and 50 characters long and cannot contain any special characters including [\^$.|?*+()." />
+                           </tooltip>
                         </TextField>
                         <Label layoutX="341.0" layoutY="80.0" text="Last Name">
                            <font>
@@ -581,7 +589,7 @@
                         <Font name="Franklin Gothic Medium" size="25.0" />
                      </font>
                   </Label>
-                  <AnchorPane layoutX="183.0" layoutY="405.0" prefHeight="285.0" prefWidth="630.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #C0C0C0;">
+                  <AnchorPane layoutX="183.0" layoutY="401.0" prefHeight="285.0" prefWidth="630.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #C0C0C0;">
                      <children>
                         <PasswordField fx:id="password2Field" layoutX="25.0" layoutY="173.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;" />
                         <Label layoutX="25.0" layoutY="23.0" text="Change Password">
@@ -620,7 +628,10 @@
                            </font>
                         </Label>
                         <FontAwesomeIconView glyphName="EDIT" layoutX="603.0" layoutY="28.0" size="16" />
-                        <PasswordField fx:id="password1Field" layoutX="25.0" layoutY="90.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;" />
+                        <PasswordField fx:id="password1Field" layoutX="25.0" layoutY="90.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-radius: 2px;">
+                           <tooltip>
+                              <Tooltip text="Password must be at least 6 characters long and must contain at least one uppercase character, lowercase character and digit (0-9). No special characters are allowed. " />
+                           </tooltip></PasswordField>
                         <JFXButton layoutX="25.0" layoutY="225.0" onAction="#changePassword" prefHeight="36.0" prefWidth="270.0" style="-fx-background-color: #7FBAD9; -fx-background-radius: 8px;" text="Change My Password" textFill="WHITE">
                            <font>
                               <Font name="Franklin Gothic Book" size="16.0" />
