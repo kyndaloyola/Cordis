@@ -40,6 +40,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -321,8 +322,8 @@ public class UserDashboardFXMLController implements Initializable {
         XYChart.Series<BigDecimal, Double> averageCost = manager.AreaChartSeries1();
         XYChart.Series<BigDecimal, Double> averageContribution = manager.AreaChartSeries2();
         trungReducedGraph.getData().addAll(averageCost, averageContribution);
-        createCostNodes(averageCost);
-        createContributionNodes(averageContribution);
+        createCostTooltips(averageCost);
+        createContributionTooltips(averageContribution);
 
     }
 
@@ -381,52 +382,34 @@ public class UserDashboardFXMLController implements Initializable {
         XYChart.Series<BigDecimal, Double> averageCost = manager.AreaChartSeries1();
         XYChart.Series<BigDecimal, Double> averageContribution = manager.AreaChartSeries2();
         areaChart.getData().addAll(averageCost, averageContribution);
-        createCostNodes(averageCost);
-        createContributionNodes(averageContribution);
+        createCostTooltips(averageCost);
+        createContributionTooltips(averageContribution);
 
     }
 
-    void createCostNodes(XYChart.Series averageCost) {
+    void createCostTooltips(XYChart.Series averageCost) {
         XYChart.Series<BigDecimal, Double> series = averageCost;
         for (Data<BigDecimal, Double> data : series.getData()) {
-            Node node = data.getNode();
-            node.setCursor(Cursor.HAND);
-            node.setOnMouseClicked(e -> {
-                Point2D pointInScene = new Point2D(e.getSceneX(), e.getSceneY());
-                double xAxisLoc = xAxis.sceneToLocal(pointInScene).getX();
-                double yAxisLoc = yAxis.sceneToLocal(pointInScene).getY();
-                Number x = xAxis.getValueForDisplay(xAxisLoc);
-                Number y = yAxis.getValueForDisplay(yAxisLoc);
-                x = x.intValue();
-                y = y.intValue();
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Total Project Costs");
-                alert.setHeaderText(null);
-                alert.setContentText("Year: " + x.toString() + ", Average Total Project Cost: €" + y.toString());
-                alert.show();
-            });
+            Tooltip tooltip = new Tooltip();
+            StringBuilder sb = new StringBuilder();
+            sb.append("Year: ").append(data.getXValue());
+            sb.append("\n");
+            sb.append("Average Total Project Cost: ").append(Math.round(data.getYValue()));
+            tooltip.setText(sb.toString());
+            Tooltip.install(data.getNode(), tooltip);
         }
     }
 
-    public void createContributionNodes(XYChart.Series averageContribution) {
+    public void createContributionTooltips(XYChart.Series averageContribution) {
         XYChart.Series<BigDecimal, Double> series = averageContribution;
         for (Data<BigDecimal, Double> data : series.getData()) {
-            Node node = data.getNode();
-            node.setCursor(Cursor.HAND);
-            node.setOnMouseClicked(e -> {
-                Point2D pointInScene = new Point2D(e.getSceneX(), e.getSceneY());
-                double xAxisLoc = xAxis.sceneToLocal(pointInScene).getX();
-                double yAxisLoc = yAxis.sceneToLocal(pointInScene).getY();
-                Number x = xAxis.getValueForDisplay(xAxisLoc);
-                Number y = yAxis.getValueForDisplay(yAxisLoc);
-                x = x.intValue();
-                y = y.intValue();
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Max EC Contributions");
-                alert.setHeaderText(null);
-                alert.setContentText("Year: " + x.toString() + ", Average Max EC Contributions: €" + y.toString());
-                alert.show();
-            });
+            Tooltip tooltip = new Tooltip();
+            StringBuilder sb = new StringBuilder();
+            sb.append("Year: ").append(data.getXValue());
+            sb.append("\n");
+            sb.append("Average Max EC Contribution: ").append(Math.round(data.getYValue()));
+            tooltip.setText(sb.toString());
+            Tooltip.install(data.getNode(), tooltip);
         }
     }
 
@@ -441,16 +424,16 @@ public class UserDashboardFXMLController implements Initializable {
             averageCost = manager.AreaChartSeries1();
             averageContribution = manager.AreaChartSeries2();
             areaChart.getData().addAll(averageCost, averageContribution);
-            createCostNodes(averageCost);
-            createContributionNodes(averageContribution);
+            createCostTooltips(averageCost);
+            createContributionTooltips(averageContribution);
         } else if (costs.isSelected()) {
             averageCost = manager.AreaChartSeries1();
             areaChart.getData().add(averageCost);
-            createCostNodes(averageCost);
+            createCostTooltips(averageCost);
         } else if (contributions.isSelected()) {
             averageContribution = manager.AreaChartSeries2();
             areaChart.getData().add(averageContribution);
-            createContributionNodes(averageContribution);
+            createContributionTooltips(averageContribution);
         }
     }
 
