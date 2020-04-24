@@ -394,7 +394,7 @@ public class UserDashboardFXMLController implements Initializable {
             StringBuilder sb = new StringBuilder();
             sb.append("Year: ").append(data.getXValue());
             sb.append("\n");
-            sb.append("Average Total Project Cost: ").append(Math.round(data.getYValue()));
+            sb.append("Average Total Project Cost: €").append(Math.round(data.getYValue()));
             tooltip.setText(sb.toString());
             Tooltip.install(data.getNode(), tooltip);
         }
@@ -407,7 +407,7 @@ public class UserDashboardFXMLController implements Initializable {
             StringBuilder sb = new StringBuilder();
             sb.append("Year: ").append(data.getXValue());
             sb.append("\n");
-            sb.append("Average Max EC Contribution: ").append(Math.round(data.getYValue()));
+            sb.append("Average Max EC Contribution: €").append(Math.round(data.getYValue()));
             tooltip.setText(sb.toString());
             Tooltip.install(data.getNode(), tooltip);
         }
