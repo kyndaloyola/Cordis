@@ -6,19 +6,26 @@
 package userdashboard;
 
 import com.jfoenix.controls.JFXCheckBox;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.CategoryAxis;
@@ -27,7 +34,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -37,12 +43,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -51,6 +59,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -280,9 +290,13 @@ public class UserDashboardFXMLController implements Initializable {
     @FXML
     private Pane settingsPane;
     @FXML
-    private Text orgCoordinName;
+    private ComboBox<String> orgSearchSelector;
     @FXML
-    private Text coordinatorText;
+    private TextField searchFieldOrg;
+    @FXML
+    private MenuItem logOutItem;
+    @FXML
+    private Text textOrgVATNum;
 
     /**
      * Initializes the controller class.
@@ -301,6 +315,7 @@ public class UserDashboardFXMLController implements Initializable {
         initaliseHomeCharts();
 
         searchByProjects.getItems().addAll("All", "ID", "RCN", "Acronym");
+        orgSearchSelector.getItems().addAll("Id", "Name", "Activity type", "VAT Number", "Country");
         homePane.setVisible(true);
         kyndaPane.setVisible(false);
         issamPane.setVisible(false);
@@ -349,14 +364,6 @@ public class UserDashboardFXMLController implements Initializable {
         UserDashboardDbManager manager = new UserDashboardDbManager();
         yearSelectorKynda.getItems().addAll("All", "2014", "2015", "2016", "2017", "2018", "2019", "2020");
         projectsPerYearChart.getData().addAll(manager.intialiseChartKyndas("All"));
-         for (Series  <?, ?> serie: projectsPerYearChart.getData()){
-            for (Data<?, ?> item: serie.getData()){
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(item.getYValue().toString()+" Projects");
-                        Tooltip.install(item.getNode(), tooltip);
-               
-            }
-        }  
     }
 
     private void createChartIssam(int lowerBound, int upperBound) {
@@ -609,23 +616,13 @@ public class UserDashboardFXMLController implements Initializable {
         projectsPerYearChart.getData().clear();
         projectsPerYearChart.getData().addAll(manager.intialiseChartKyndas(choice));
 
-         for (Series  <?, ?> serie: projectsPerYearChart.getData()){
-            for (Data<?, ?> item: serie.getData()){
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(item.getYValue().toString()+" Projects");
-                        Tooltip.install(item.getNode(), tooltip);
-               
-            }
-        }  
-        
-
     }
 
     public void setOrganisationTableValues() {
         ArrayList<ArrayList<String>> data;
         UserDashboardDbManager manager = new UserDashboardDbManager();
         data = manager.getOrganisationDetails();
-
+        
         setCellValue(idOrgColumn, 0);
         setCellValue(endOfPartOrgColumn, 1);
         setCellValue(shortNameOrgColumn, 2);
@@ -687,47 +684,29 @@ public class UserDashboardFXMLController implements Initializable {
         ArrayList<ArrayList<String>> data = manager.getProjectDetails();
 
         //textId.setText(data.get(selection).get(0));
-        int id = Integer.parseInt(data.get(selection).get(0));
-        String coordinator= manager.getCoordinator(id);
-        
-        if(coordinator.equals(null)){
-             coordinatorText.setVisible(false);
-             orgCoordinName.setVisible(false);
-         }else{
-             coordinatorText.setVisible(true);
-             orgCoordinName.setVisible(true);
-             orgCoordinName.setText(coordinator);
-         }
-        
-        double ecCon  = Double.parseDouble(data.get(selection).get(11));
-        double budget = Double.parseDouble(data.get(selection).get(9));
-        String bg = ""+String.valueOf(budget);
-        String ec = ""+String.valueOf(ecCon);
         projectAcronymText.setText(data.get(selection).get(2));
         projectTitleText.setText(data.get(selection).get(4));
         projectStartDatetext.setText(data.get(selection).get(5));
         projectEndDatetext.setText(data.get(selection).get(6));
         projectDescripText.setText(data.get(selection).get(8));
-        projectBudgetText.setText(bg);
-        projectEcContributionText.setText(ec);
-        
-        
+        projectBudgetText.setText(data.get(selection).get(9));
+        projectEcContributionText.setText(data.get(selection).get(11));
+
     }
 
     @FXML
     public void displayOrganisationValues() {
-        int selection = organisationsTableView.getSelectionModel().getSelectedCells().get(0).getRow();
-
-        UserDashboardDbManager manager = new UserDashboardDbManager();
-        ArrayList<ArrayList<String>> data = manager.getOrganisationDetails();
-
-        textOrgId.setText(data.get(selection).get(0));
-        textOrgName.setText(data.get(selection).get(3));
-        textOrgActivityType.setText(data.get(selection).get(6));
-        textOrgPostCode.setText(data.get(selection).get(7));
-        textOrgStreet.setText(data.get(selection).get(8));
-        textOrgCity.setText(data.get(selection).get(9));
-        textOrgCountry.setText(data.get(selection).get(10));
+        int selection = organisationsTableView.getSelectionModel().getSelectedCells().get(0).getRow();        
+        ArrayList<String> arr = organisationsTableView.getSelectionModel().getSelectedItem();
+        textOrgId.setText(arr.get(0));
+        textOrgName.setText(arr.get(3));
+        textOrgVATNum.setText(arr.get(5));
+        textOrgActivityType.setText(arr.get(6));
+        textOrgPostCode.setText(arr.get(7));
+        textOrgStreet.setText(arr.get(8));
+        textOrgCity.setText(arr.get(9));
+        textOrgCountry.setText(arr.get(10));
+        
     }
 
     @FXML
@@ -819,7 +798,6 @@ public class UserDashboardFXMLController implements Initializable {
                 a.setContentText("Invalid user Input !");
                 a.show();
             }
-
             //data = manager.getProjectDetails();
         }
     }
@@ -839,16 +817,14 @@ public class UserDashboardFXMLController implements Initializable {
         settingsAnchorPane.setVisible(true);
     }
 
-    @FXML
-    void resetDetails(ActionEvent event) {
+    public void resetDetails(ActionEvent event) {
         fnameTextfield.setText(fname);
         lnameTextfield.setText(lname);
         usernameTextfield.setText(username);
         emailTextfield.setText(email);
     }
 
-    @FXML
-    void saveProfile(ActionEvent event) {
+    public void saveProfile(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         alert.setTitle("Error Dialog");
         StringBuilder errorMessage = new StringBuilder();
@@ -911,8 +887,7 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
-    @FXML
-    void changePassword(ActionEvent event) {
+    public void changePassword(ActionEvent event) {
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         StringBuilder errorMessage = new StringBuilder();
@@ -940,6 +915,66 @@ public class UserDashboardFXMLController implements Initializable {
             alert.setContentText("Your new password is: " + password1Field.getText());
             alert.showAndWait();
             this.password = password1Field.getText();
+        }
+    }
+
+    @FXML
+    private void onSearchOrganisation(KeyEvent event) {
+        //orgSearchSelector.getItems().addAll("All", "Id", "Name", "Activity type", "VAT Number", "Country");
+        organisationsTableView.getItems().clear();
+        UserDashboardDbManager manager = new UserDashboardDbManager();
+        String selector = orgSearchSelector.getSelectionModel().getSelectedItem();
+        String filter = searchFieldOrg.getText();
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        
+        if(!filter.equals("")) {
+            if("Id".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgId", filter);
+            } else if ("Name".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgName", "'"+filter+"'");
+            } else if ("Activity type".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgActivityType", "'"+filter+"'");
+            } else if ("VAT Number".equals(selector)) {
+                data = manager.searchOrganisation("OrgParticipant.orgVATNum", "'"+filter+"'");
+            } else if ("Country".equals(selector)) {
+                data = manager.searchOrganisation("Country.countryName", "'"+filter+"'");
+            }
+            
+            setCellValue(idOrgColumn, 0);
+            setCellValue(endOfPartOrgColumn, 1);
+            setCellValue(shortNameOrgColumn, 2);
+            setCellValue(nameOrgColumn, 3);
+            setCellValue(urlOrgColumn, 4);
+            setCellValue(vatOrgColumn, 5);
+            setCellValue(aTypeOrgColumn, 6);
+            setCellValue(pCodeOrgColumn, 7);
+            setCellValue(streetOrgColumn, 8);
+            setCellValue(cityOrgColumn, 9);
+            setCellValue(countryOrgColumn, 10);
+            organisationsTableView.getItems().addAll(data);
+        } else {
+            setOrganisationTableValues();
+        }
+        
+    }
+
+    @FXML
+    private void OnLogOut(ActionEvent event) {
+        try {
+            System.out.println("LOG OUT");
+            UserDashboardDbManager manager = new UserDashboardDbManager();
+            manager.setLogOutUser(userId);
+            Stage stage = (Stage) ((Node)textOrgVATNum).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            String url = "/login/LoginFXML.fxml";  //gets the file path
+            loader.setLocation(getClass().getResource(url));
+            
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

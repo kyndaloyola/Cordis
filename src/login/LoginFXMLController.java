@@ -92,9 +92,11 @@ public class LoginFXMLController implements Initializable {
             boolean userFound = login.connection(username, password); //starts the connection, returns userType if user found
             if (userFound) { //if user has been found
                 if (login.getUserType().equals("U")) { //if the user is a user, go to user dashboard
+                    login.setLogConnetionDetails();
                     userDashboard(login.getUserType(), login.getUserId(), login.getUsername(),
                     login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
                 } else if (login.getUserType().equals("A")) { //if the user is an admin, go to admin dashboard
+                    login.setLogConnetionDetails();
                     adminDashboard(stage);
                 }
             } else { //if user hasnt been found, username/password is incorrect
