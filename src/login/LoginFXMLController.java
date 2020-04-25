@@ -5,6 +5,8 @@
  */
 package login;
 
+import admindashboard.AdminDashboardDbManager;
+import admindashboard.AdminDashboardFXMLController;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -92,10 +94,12 @@ public class LoginFXMLController implements Initializable {
             boolean userFound = login.connection(username, password); //starts the connection, returns userType if user found
             if (userFound) { //if user has been found
                 if (login.getUserType().equals("U")) { //if the user is a user, go to user dashboard
+                    login.setLogConnetionDetails();
                     userDashboard(login.getUserType(), login.getUserId(), login.getUsername(),
                     login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
                 } else if (login.getUserType().equals("A")) { //if the user is an admin, go to admin dashboard
-                    adminDashboard(stage);
+                    login.setLogConnetionDetails();
+                    adminDashboard(stage, login.getUserId());
                 }
             } else { //if user hasnt been found, username/password is incorrect
                 alert = new Alert(Alert.AlertType.ERROR);
@@ -122,11 +126,14 @@ public class LoginFXMLController implements Initializable {
         }
     }
 
-    void adminDashboard(Stage stage) {
+    void adminDashboard(Stage stage, int adminId) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/admindashboard/AdminDashboardFXML.fxml"));
         try {
             Parent adminDashboard = loader.load();
+            
+            AdminDashboardFXMLController adminController = loader.getController();
+            adminController.setIdAdmin(adminId);
             Scene adminScene = new Scene(adminDashboard);
             stage.setScene(adminScene); //sets new scene for admin dashboard
             stage.show();

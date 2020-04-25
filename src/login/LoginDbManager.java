@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import databaseconnection.DbConnection;
 import encryption.BCrypt;
+import java.sql.Statement;
 
 /**
  *
@@ -54,6 +55,20 @@ public class LoginDbManager {
             Logger.getLogger(LoginFXMain.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public void setLogConnetionDetails() {
+        try {
+            System.out.println("INSERT TRY");
+            Statement stmt = DbConnection.getConnectionLoginDB().createStatement();
+            String sql = "INSERT INTO logFile (username, userId) VALUES ('"+username+"', "+userId+");"; 
+            stmt.execute(sql);
+            stmt.close(); 
+            DbConnection.getConnectionLoginDB().close();
+            System.out.println("INSERT DONE");
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginFXMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getUserId() {
