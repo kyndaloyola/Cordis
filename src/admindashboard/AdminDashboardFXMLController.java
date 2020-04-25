@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import databaseconnection.DbConnection;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +23,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -37,6 +42,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import login.LoginDbManager;
 import login.LoginFXMain;
 import userdashboard.UserDashboardFXMLController;
 
@@ -135,15 +142,17 @@ public class AdminDashboardFXMLController implements Initializable
     private ComboBox<String> manageUserCombobox;
     @FXML
 
-    private ComboBox<String
-            > searchByLogChoiceBox;
+    private ComboBox<String> searchByLogChoiceBox;
     private int userId;
     private String email;
     private String username;
     private String firstName;
     private String surname;
     private String password;
+    @FXML
+    private Pane logOutButton;
 
+    private int adminId;
 
     /**
      * Initializes the controller class.
@@ -219,10 +228,19 @@ public class AdminDashboardFXMLController implements Initializable
     {
         if(event.getSource()==homeBtn) {
             homePane.toFront();
+            homePane.setVisible(true);
+            manageUsersPane.setVisible(false);
+            manageLogPane.setVisible(false);
         } else if (event.getSource()==manageUsersBtn) {
             manageUsersPane.toFront();
+            manageUsersPane.setVisible(true);
+//            homePane.setVisible(false);
+            manageLogPane.setVisible(false);
         } else if (event.getSource()==manageLogsBtn) {
             manageLogPane.toFront();
+            manageLogPane.setVisible(true);
+//            homePane.setVisible(false);
+            manageUsersPane.setVisible(false);
         }
     }
 
@@ -366,8 +384,31 @@ public class AdminDashboardFXMLController implements Initializable
             a.show();
             
         }
+    }
+    
+    public void setIdAdmin(int id) {
+        this.adminId=id;
+    }
+
+    @FXML
+    private void setLogOut(javafx.scene.input.MouseEvent event) {
         
-        
+        try {
+            System.out.println("LOG OUT");
+            AdminDashboardDbManager manager = new AdminDashboardDbManager();
+            manager.setLogOutUser(adminId);
+            Stage stage = (Stage) ((Node)logOutButton).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            String url = "/login/LoginFXML.fxml";  //gets the file path
+            loader.setLocation(getClass().getResource(url));
+            
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

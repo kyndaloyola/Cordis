@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +22,7 @@ import java.util.logging.Logger;
  */
 public class AdminDashboardDbManager
 {
+    private int idAdmin = 0;
     
     public ArrayList retrieveUserInfo() {
         DbConnection connection = new DbConnection();
@@ -356,6 +359,36 @@ public class AdminDashboardDbManager
         return false;
     }
     
-}
+    }
+    
+    public void setIdAdministrator(int id) {
+        this.idAdmin=id;
+    }
+        
+    public void setLogOutUser(int id) {
+        System.out.println("ID: " + id);
+        try {
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter formatedDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = dateTime.format(formatedDateTime);
+            
+            System.out.println("INSERT TRY");
+            Statement stmt = DbConnection.getConnectionLoginDB().createStatement();
+            String sql = "UPDATE logFile SET logOutDateTime='"+formattedDate+"' WHERE userId="+id+" AND logInDate=(SELECT logInDate" +
+                    " FROM logFile" +
+                    " WHERE userId="+id+"" +
+                    " ORDER BY logInDate" +
+                    " DESC LIMIT 1);";
+            // "UPDATE logFile SET logOutDateTime='"+formattedDate+"' WHERE userId="+userId+";";
+            stmt.execute(sql);
+            stmt.close();
+            DbConnection.getConnectionLoginDB().close();
+            System.out.println("INSERT DONE");
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboardDbManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
     
 }
