@@ -35,6 +35,11 @@
                         <Text fill="#131db0" layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log Out" />
                      </children>
                   </Pane>
+                  <Text layoutX="533.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Dashboard">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
          </top>
@@ -57,7 +62,7 @@
                         </Pane>
                         <Pane fx:id="manageUsersBtn" layoutX="10.0" layoutY="10.0" onMouseClicked="#changePanel" prefHeight="70.0" prefWidth="114.0" style="-fx-background-color: grey;">
                            <children>
-                              <Text fx:id="manageUsersText" fill="WHITE" layoutX="17.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Manage Users" textAlignment="CENTER" wrappingWidth="107.4522107760211">
+                              <Text fx:id="manageUsersText" fill="WHITE" layoutX="15.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Manage Users" textAlignment="CENTER" wrappingWidth="107.4522107760211">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
@@ -114,10 +119,10 @@
                   </Pane>
                   <LineChart fx:id="userActivityLineChart" layoutX="83.0" layoutY="256.0" prefHeight="437.0" prefWidth="902.0" title="User Activity">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <CategoryAxis label="Day of month" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" />
+                      <NumberAxis label="New Users" side="LEFT" />
                     </yAxis>
                   </LineChart>
                   <Pane id="manageUsersPane" fx:id="manageUsersPane" prefHeight="771.0" prefWidth="1060.0" style="-fx-background-color: white;" visible="false">
