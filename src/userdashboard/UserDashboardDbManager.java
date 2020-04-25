@@ -229,21 +229,21 @@ public class UserDashboardDbManager {
         // SELECT username, MAX(logInDate) FROM logFile GROUP BY username;
         try {
             stmt = connection.getConnectionDataDB().createStatement();
-            String sql = "SELECT OrgParticipant.orgId,"
-                    + " OrgParticipant.orgEndOfPart,"
-                    + " OrgParticipant.orgShortName,"
-                    + " OrgParticipant.orgName,"
-                    + " OrgParticipant.orgURL,"
-                    + " OrgParticipant.orgVATNum,"
-                    + " OrgParticipant.orgActivityType,"
-                    + " OrgParticipant.orgPostCode,"
-                    + " OrgParticipant.orgStreet,"
-                    + " OrgParticipant.orgCity,"
-                    + " Country.countryName"
-                    + " FROM OrgParticipant"
-                    + " JOIN Country"
-                    + " ON OrgParticipant.countryId=Country.countryId"
-                    + " AND "+source+"="+filter+";";
+            String sql = "SELECT OrgParticipant.orgId," +
+                    " OrgParticipant.orgEndOfPart," +
+                    " OrgParticipant.orgShortName," +
+                    " OrgParticipant.orgName," +
+                    " OrgParticipant.orgURL," +
+                    " OrgParticipant.orgVATNum," +
+                    " OrgParticipant.orgActivityType," +
+                    " OrgParticipant.orgPostCode," +
+                    " OrgParticipant.orgStreet," +
+                    " OrgParticipant.orgCity," +
+                    " Country.countryName" +
+                    " FROM OrgParticipant" +
+                    " JOIN Country" +
+                    " ON OrgParticipant.countryId=Country.countryId" +
+                    " AND instr("+source+", "+filter+");";
 
             stmt.execute(sql);
             ResultSet rs = stmt.getResultSet();

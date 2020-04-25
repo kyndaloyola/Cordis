@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -711,19 +712,17 @@ public class UserDashboardFXMLController implements Initializable {
     }
 
     @FXML
-    public void displayOrganisationValues() {
-        int selection = organisationsTableView.getSelectionModel().getSelectedCells().get(0).getRow();
-
-        UserDashboardDbManager manager = new UserDashboardDbManager();
-        ArrayList<ArrayList<String>> data = manager.getOrganisationDetails();
-
-        textOrgId.setText(data.get(selection).get(0));
-        textOrgName.setText(data.get(selection).get(3));
-        textOrgActivityType.setText(data.get(selection).get(6));
-        textOrgPostCode.setText(data.get(selection).get(7));
-        textOrgStreet.setText(data.get(selection).get(8));
-        textOrgCity.setText(data.get(selection).get(9));
-        textOrgCountry.setText(data.get(selection).get(10));
+    public void displayOrganisationValues() {        
+        ArrayList<String> data = organisationsTableView.getSelectionModel().getSelectedItem();
+        
+        textOrgId.setText(data.get(0));
+        textOrgName.setText(data.get(3));
+        textOrgVATNum.setText(data.get(5));
+        textOrgActivityType.setText(data.get(6));
+        textOrgPostCode.setText(data.get(7));
+        textOrgStreet.setText(data.get(8));
+        textOrgCity.setText(data.get(9));
+        textOrgCountry.setText(data.get(10));
     }
 
     @FXML

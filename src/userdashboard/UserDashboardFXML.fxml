@@ -9,6 +9,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.BubbleChart?>
@@ -37,6 +38,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -302,12 +304,21 @@
                         </Pane>
                         <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;">
                             <children>
+                        <Pane fx:id="orgSearchContainer1" layoutX="16.0" layoutY="71.0" prefHeight="172.0" prefWidth="871.0" style="-fx-border-color: #7DB1D1; -fx-border-width: 1; -fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: transparent;">
+                           <children>
+                              <Line endX="39.0" endY="65.0" layoutX="389.0" layoutY="85.0" startX="39.0" startY="-63.0" stroke="#aeabab" strokeWidth="0.5" />
+                                      <Text layoutX="439.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:">
+                                          <font>
+                                              <Font name="Franklin Gothic Book" size="16.0" />
+                                          </font>
+                                      </Text>
+                           </children></Pane>
                                 <Text layoutX="372.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations">
                                     <font>
                                         <Font name="Franklin Gothic Book" size="28.0" />
                                     </font>
                                 </Text>
-                                <TableView fx:id="organisationsTableView" layoutX="16.0" layoutY="270.0" onMouseClicked="#displayOrganisationValues" prefHeight="382.0" prefWidth="872.0">
+                                <TableView fx:id="organisationsTableView" layoutX="16.0" layoutY="358.0" onMouseClicked="#displayOrganisationValues" prefHeight="294.0" prefWidth="872.0" style="-fx-border-color: #7DB1D1; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 1;">
                                     <columns>
                                         <TableColumn fx:id="idOrgColumn" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="endOfPartOrgColumn" prefWidth="75.0" text="EndOfPart" />
@@ -352,11 +363,6 @@
                                         <Font name="Franklin Gothic Book" size="16.0" />
                                     </font>
                                 </Text>
-                                <Text layoutX="460.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:">
-                                    <font>
-                                        <Font name="Franklin Gothic Book" size="16.0" />
-                                    </font>
-                                </Text>
                                 <Text fx:id="textOrgId" layoutX="169.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                            <font>
                               <Font name="Franklin Gothic Book" size="15.0" />
@@ -394,8 +400,13 @@
                            <font>
                               <Font name="Franklin Gothic Book" size="15.0" />
                            </font></Text>
-                                <ComboBox fx:id="orgSearchSelector" layoutX="60.0" layoutY="234.0" prefWidth="150.0" promptText="All" />
-                                <TextField fx:id="searchFieldOrg" layoutX="217.0" layoutY="234.0" onKeyReleased="#onSearchOrganisation" />
+                        <Pane fx:id="orgSearchContainer2" layoutX="290.0" layoutY="264.0" prefHeight="55.0" prefWidth="339.0" style="-fx-border-color: #7DB1D1; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 1; -fx-background-color: white;">
+                           <children>
+                                      <ComboBox fx:id="orgSearchSelector" layoutX="14.0" layoutY="15.0" prefWidth="150.0" promptText="All" />
+                                      <TextField fx:id="searchFieldOrg" layoutX="173.0" layoutY="15.0" onKeyReleased="#onSearchOrganisation" />
+                           </children>
+                        </Pane>
+                        <Line endX="416.0" layoutX="471.0" layoutY="339.0" startX="-454.0" stroke="#aeabab" strokeWidth="0.5" />
                             </children>
                         </Pane>
                         <Pane fx:id="issamPane" layoutY="1.0" prefHeight="646.0" prefWidth="900.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -29,7 +30,9 @@ public class UserDashboardFXMain extends Application
         Parent root = FXMLLoader.load(getClass().getResource("UserDashboardFXML.fxml"));
         
         Scene scene = new Scene(root);
-        
+        Image image = new Image("/images/Cordis-logo.png");
+        primaryStage.getIcons().add(image);
+        primaryStage.setTitle("Cordis Application");
         primaryStage.setScene(scene);
         primaryStage.show();
         
