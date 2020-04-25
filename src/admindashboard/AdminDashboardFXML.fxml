@@ -23,11 +23,11 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <Pane id="LogoutPane" fx:id="logoutPane" prefHeight="135.0" prefWidth="1200.0" style="-fx-background-color: #7FBAD9;" BorderPane.alignment="CENTER">
+            <Pane id="LogoutPane" fx:id="logoutPane" prefHeight="105.0" prefWidth="1200.0" style="-fx-background-color: #7FBAD9;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="106.0" fitWidth="108.0" layoutX="33.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="81.0" fitWidth="163.0" layoutX="29.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Cordis-logo.png" />
+                        <Image url="@../images/logo--en.png" />
                      </image>
                   </ImageView>
                   <Pane fx:id="logOutButton" layoutX="1101.0" layoutY="32.0" onMouseClicked="#setLogOut" prefHeight="39.0" prefWidth="71.0" style="-fx-border-color: #131db0; -fx-border-radius: 50; -fx-border-width: 2;">
@@ -39,7 +39,7 @@
             </Pane>
          </top>
          <left>
-            <Pane id="menuPane" fx:id="menuPane" prefHeight="920.0" prefWidth="141.0" style="-fx-background-color: #7FBAD9;" BorderPane.alignment="CENTER">
+            <Pane id="menuPane" fx:id="menuPane" prefHeight="821.0" prefWidth="141.0" style="-fx-background-color: #7FBAD9;" BorderPane.alignment="CENTER">
                <children>
                   <VBox id="navBarVbox" fx:id="navBarVbox" layoutY="135.0" onMouseClicked="#changePanel" prefHeight="225.0" prefWidth="141.0">
                      <children>

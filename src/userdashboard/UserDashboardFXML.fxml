@@ -47,14 +47,14 @@
             <top>
                 <HBox prefHeight="56.0" prefWidth="1003.0" style="-fx-background-color: #7DB1D1;" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane prefHeight="52.0" prefWidth="135.0">
-                            <children>
-                                <Text layoutX="32.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis" textAlignment="CENTER" wrappingWidth="71.22900390625">
-                                    <font>
-                                        <Font name="Franklin Gothic Book" size="25.0" />
-                                    </font>
-                                </Text>
-                            </children>
+                        <Pane prefHeight="57.0" prefWidth="164.0">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="134.0" layoutX="15.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logo--en.png" />
+                           </image>
+                        </ImageView>
+                     </children>
                         </Pane>
                         <Separator prefHeight="53.0" prefWidth="396.0" visible="false" />
                         <HBox prefHeight="56.0" prefWidth="334.0">
@@ -99,7 +99,7 @@
                                         </ImageView>
                                     </graphic>
                                     <items>
-                                        <MenuItem id="settingsItem" fx:id="settingsItem" mnemonicParsing="false" onAction="#OnSettingsClick" style="-fx-border-radius: 20%;" text="Settings" />
+                                        <MenuItem id="settingsItem" fx:id="settingsItem" mnemonicParsing="false" onAction="#OnSettingsClick" style="-fx-border-radius: 20%;" text="Edit Profile" />
                                         <SeparatorMenuItem mnemonicParsing="false" />
                                         <MenuItem id="logOutItem" fx:id="logOutItem" mnemonicParsing="false" onAction="#OnLogOut" style="-fx-border-radius: 20%;" text="Log Out" />
                                     </items>
