@@ -6,15 +6,19 @@
 package admindashboard;
 
 import databaseconnection.DbConnection;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.chart.XYChart;
+import userdashboard.UserDashboardFXMLController;
 
 /**
  *
@@ -22,6 +26,7 @@ import java.util.logging.Logger;
  */
 public class AdminDashboardDbManager
 {
+    private XYChart.Series series = new XYChart.Series();
     private int idAdmin = 0;
     
     public ArrayList retrieveUserInfo() {
@@ -391,4 +396,44 @@ public class AdminDashboardDbManager
 
     }
     
+    public XYChart.Series intialiseChart() {
+        String month ;
+        //String date;
+        LocalDate currentDate = LocalDate.now();
+        String dom =Integer.toString(currentDate.getMonthValue());
+        if(dom.length()>1){
+            month= dom;
+        }else{
+           month = "0"+dom;
+        }
+        
+        
+        String sqlSelected = "SELECT STRFTIME('%d',u_regDate)days,COUNT(u_id)NoUsers "
+                + "FROM Login_Credentials WHERE strftime('%m',u_regDate)='" + month + "' GROUP BY STRFTIME('%d',u_regDate);";
+        
+        DbConnection connectionDb = new DbConnection();
+        Connection connection = connectionDb.getConnectionLoginDB();
+
+        try {
+            ResultSet rs;
+            
+            
+                rs = connection.createStatement().executeQuery(sqlSelected);
+                
+            
+            while (rs.next()) {
+                
+
+                    XYChart.Data<String, Number> data1 = new XYChart.Data<>(rs.getString("days"), rs.getInt("NoUsers"));
+                    series.getData().add(data1);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return series;
+    }
+    
+     
 }

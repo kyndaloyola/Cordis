@@ -27,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -128,8 +129,6 @@ public class AdminDashboardFXMLController implements Initializable
     @FXML
     private TableColumn<ArrayList<String>, String> logInColumn;
     @FXML
-    private TableColumn<ArrayList<String>, String> logOutColumn;
-    @FXML
     private Pane manageUsersBtn;
     @FXML
     private Pane manageLogsBtn;
@@ -153,6 +152,8 @@ public class AdminDashboardFXMLController implements Initializable
     private Pane logOutButton;
 
     private int adminId;
+    @FXML
+    private LineChart<?, ?> userActivityLineChart;
 
     /**
      * Initializes the controller class.
@@ -163,6 +164,8 @@ public class AdminDashboardFXMLController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
+        initialiseChart();
+        
         setTableViewManageUsers();
         setTableViewLog();
         setOnlineUserNum();
@@ -173,6 +176,13 @@ public class AdminDashboardFXMLController implements Initializable
         
         searchByLogChoiceBox.getItems().addAll("ID","Email","Username");
         searchByLogChoiceBox.setValue("Search by");
+        
+    }
+    
+    public void initialiseChart(){
+        
+        AdminDashboardDbManager manager = new AdminDashboardDbManager();
+        userActivityLineChart.getData().addAll(manager.intialiseChart());
         
     }
 

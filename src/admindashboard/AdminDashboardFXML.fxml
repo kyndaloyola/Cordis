@@ -112,7 +112,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <LineChart layoutX="83.0" layoutY="256.0" prefHeight="437.0" prefWidth="902.0" title="User Activity">
+                  <LineChart fx:id="userActivityLineChart" layoutX="83.0" layoutY="256.0" prefHeight="437.0" prefWidth="902.0" title="User Activity">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
