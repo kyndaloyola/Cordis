@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
@@ -298,6 +300,18 @@ public class UserDashboardFXMLController implements Initializable {
     private MenuItem logOutItem;
     @FXML
     private Text textOrgVATNum;
+    @FXML
+    private Pane ianPane;
+    @FXML
+    private PieChart IanPieChart;
+    @FXML
+    private Pane orgSearchContainer1;
+    @FXML
+    private Pane orgSearchContainer2;
+    @FXML
+    private PieChart ianPieChartRed;
+    @FXML
+    private Button pieChartBtn;
     /**
      * Initializes the controller class.
      *
@@ -313,6 +327,7 @@ public class UserDashboardFXMLController implements Initializable {
         setProjectTableValues();
 
         initaliseHomeCharts();
+        initialiseIanchart();
 
         searchByProjects.getItems().addAll("All", "ID", "RCN", "Acronym");
         orgSearchSelector.getItems().addAll("Id", "Name", "Activity type", "VAT Number", "Country");
@@ -344,6 +359,22 @@ public class UserDashboardFXMLController implements Initializable {
         trungReducedGraph.getData().addAll(averageCost, averageContribution);
         createCostTooltips(averageCost);
         createContributionTooltips(averageContribution);
+        
+        ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
+        
+        PieChart.Data Germany = new PieChart.Data("Germany EU Contribution € 33 485,15", 50.0);
+        PieChart.Data Greece = new PieChart.Data("Greece EU Contribution € 28 425 ", 5.0);
+        PieChart.Data Poland = new PieChart.Data("Poland EU Contribution € 42 000 ", 35.0);
+        PieChart.Data Estonia = new PieChart.Data("Estonia EU Contribution € 28 000", 5.0);
+        PieChart.Data Spain = new PieChart.Data("Spain EU Contribution € 23 895,53 ", 10.0);
+        
+        list.add(Germany);
+        list.add(Greece);
+        list.add(Poland);
+        list.add(Estonia);
+        list.add(Spain);
+        
+        ianPieChartRed.setData(list);
 
     }
 
@@ -473,6 +504,25 @@ public class UserDashboardFXMLController implements Initializable {
         }
 
     }
+    
+    public void initialiseIanchart(){
+    
+    ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
+        
+        PieChart.Data Germany = new PieChart.Data("Germany EU Contribution € 33 485,15", 50.0);
+        PieChart.Data Greece = new PieChart.Data("Greece EU Contribution € 28 425 ", 5.0);
+        PieChart.Data Poland = new PieChart.Data("Poland EU Contribution € 42 000 ", 35.0);
+        PieChart.Data Estonia = new PieChart.Data("Estonia EU Contribution € 28 000", 5.0);
+        PieChart.Data Spain = new PieChart.Data("Spain EU Contribution € 23 895,53 ", 10.0);
+        
+        list.add(Germany);
+        list.add(Greece);
+        list.add(Poland);
+        list.add(Estonia);
+        list.add(Spain);
+        
+        IanPieChart.setData(list);
+}
 
     @FXML
     private void onKyndaBtn(ActionEvent event) {
@@ -493,6 +543,7 @@ public class UserDashboardFXMLController implements Initializable {
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
+            ianPane.setVisible(false);
         } else if (event.getSource() == issamBtn) {
             issamPane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -505,6 +556,7 @@ public class UserDashboardFXMLController implements Initializable {
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
+            ianPane.setVisible(false);
         } else if (event.getSource() == trungBtn) {
             trungPane.setVisible(true);
             kyndaPane.setVisible(false);
@@ -517,6 +569,7 @@ public class UserDashboardFXMLController implements Initializable {
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
+            ianPane.setVisible(false);
         } else if (event.getSource() == statisticsMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -529,6 +582,7 @@ public class UserDashboardFXMLController implements Initializable {
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
+            ianPane.setVisible(false);
         } else if (event.getSource() == orgMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -541,6 +595,7 @@ public class UserDashboardFXMLController implements Initializable {
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(false);
             projectDetailsPane.setVisible(false);
+            ianPane.setVisible(false);
         } else if (event.getSource() == projectMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
@@ -553,8 +608,23 @@ public class UserDashboardFXMLController implements Initializable {
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(false);
             projectDetailsPane.setVisible(false);
+            ianPane.setVisible(false);
         } else if (event.getSource() == HomeBtn) {
             homePane.setVisible(true);
+            kyndaPane.setVisible(false);
+            issamPane.setVisible(false);
+            trungPane.setVisible(false);
+            statisticsPane.setVisible(false);
+            OrganisationsPane.setVisible(false);
+            projectsPane.setVisible(false);
+            settingsPane.setVisible(false);
+            settingsAnchorPane.setVisible(false);
+            graphMenuItems.setVisible(false);
+            projectDetailsPane.setVisible(false);
+            ianPane.setVisible(false);
+        }else if (event.getSource() == pieChartBtn) {
+            ianPane.setVisible(true);
+            homePane.setVisible(false);
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
             trungPane.setVisible(false);
@@ -674,6 +744,7 @@ public class UserDashboardFXMLController implements Initializable {
         trungPane.setVisible(false);
         statisticsPane.setVisible(false);
         OrganisationsPane.setVisible(false);
+        ianPane.setVisible(false);
         homePane.setVisible(false);
         projectsPane.setVisible(false);
         projectDetailsPane.setVisible(true);
@@ -733,6 +804,7 @@ public class UserDashboardFXMLController implements Initializable {
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
         statisticsPane.setVisible(false);
+        ianPane.setVisible(false);
         homePane.setVisible(false);
         settingsPane.setVisible(false);
         settingsAnchorPane.setVisible(false);
@@ -746,6 +818,7 @@ public class UserDashboardFXMLController implements Initializable {
         trungPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
+        ianPane.setVisible(false);
         statisticsPane.setVisible(false);
         homePane.setVisible(false);
         settingsPane.setVisible(false);
@@ -759,6 +832,7 @@ public class UserDashboardFXMLController implements Initializable {
         kyndaPane.setVisible(false);
         trungPane.setVisible(false);
         OrganisationsPane.setVisible(false);
+        ianPane.setVisible(false);
         projectsPane.setVisible(false);
         statisticsPane.setVisible(false);
         homePane.setVisible(false);
@@ -821,6 +895,7 @@ public class UserDashboardFXMLController implements Initializable {
 
     @FXML
     private void OnSettingsClick(ActionEvent event) {
+        ianPane.setVisible(false);
         homePane.setVisible(false);
         kyndaPane.setVisible(false);
         issamPane.setVisible(false);
@@ -834,7 +909,6 @@ public class UserDashboardFXMLController implements Initializable {
         settingsAnchorPane.setVisible(true);
     }
 
-    @FXML
     void resetDetails(ActionEvent event) {
         fnameTextfield.setText(fname);
         lnameTextfield.setText(lname);
@@ -842,7 +916,6 @@ public class UserDashboardFXMLController implements Initializable {
         emailTextfield.setText(email);
     }
 
-    @FXML
     void saveProfile(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         alert.setTitle("Error Dialog");
@@ -906,7 +979,6 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
-    @FXML
     void changePassword(ActionEvent event) {
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
@@ -996,6 +1068,20 @@ public class UserDashboardFXMLController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void onIanClick(MouseEvent event)
+    {
+        ianPane.setVisible(true);
+        issamPane.setVisible(false);
+        kyndaPane.setVisible(false);
+        trungPane.setVisible(false);
+        OrganisationsPane.setVisible(false);
+        projectsPane.setVisible(false);
+        statisticsPane.setVisible(false);
+        homePane.setVisible(false);
+        graphMenuItems.setVisible(true);
     }
 
 }
