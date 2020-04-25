@@ -137,8 +137,6 @@ public class UserDashboardFXMLController implements Initializable {
     @FXML
     private ToggleGroup fundRangeToggleGroup;
     @FXML
-    private Pane statisticsPane;
-    @FXML
     private Pane OrganisationsPane;
     @FXML
     private Pane projectsPane;
@@ -283,8 +281,6 @@ public class UserDashboardFXMLController implements Initializable {
     @FXML
     private VBox graphMenuItems;
     @FXML
-    private Pane HomeBtn;
-    @FXML
     private AnchorPane settingsAnchorPane;
     @FXML
     private Pane settingsPane;
@@ -312,6 +308,12 @@ public class UserDashboardFXMLController implements Initializable {
     private PieChart ianPieChartRed;
     @FXML
     private Button pieChartBtn;
+    @FXML
+    private Text hometext;
+    @FXML
+    private Text orgText;
+    @FXML
+    private Text projText;
     /**
      * Initializes the controller class.
      *
@@ -335,7 +337,6 @@ public class UserDashboardFXMLController implements Initializable {
         kyndaPane.setVisible(false);
         issamPane.setVisible(false);
         trungPane.setVisible(false);
-        statisticsPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
         graphMenuItems.setVisible(false);
@@ -446,7 +447,7 @@ public class UserDashboardFXMLController implements Initializable {
 
     }
 
-   public void createCostTooltips(XYChart.Series averageCost) {
+    public void createCostTooltips(XYChart.Series averageCost) {
         XYChart.Series<BigDecimal, Double> series = averageCost;
         for (Data<BigDecimal, Double> data : series.getData()) {
             Tooltip tooltip = new Tooltip();
@@ -496,7 +497,6 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
-    @FXML
     public void refreshButtonEnabled(ActionEvent event) {
         if (!(costs.isSelected() || contributions.isSelected())) {
             refreshBtn.setDisable(true); //disables button if both checkboxes are unselected to prevent running queries when the refresh button is pressed
@@ -538,58 +538,71 @@ public class UserDashboardFXMLController implements Initializable {
             trungPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
-            statisticsPane.setVisible(false);
+          
             homePane.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
             ianPane.setVisible(false);
+            hometext.setFill(Color.BLACK);
+            orgText.setFill(Color.BLACK);
+           projText.setFill(Color.BLACK);
         } else if (event.getSource() == issamBtn) {
             issamPane.setVisible(true);
             kyndaPane.setVisible(false);
             trungPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
-            statisticsPane.setVisible(false);
+           
             homePane.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
             ianPane.setVisible(false);
+            hometext.setFill(Color.BLACK);
+            orgText.setFill(Color.BLACK);
+           projText.setFill(Color.BLACK);
         } else if (event.getSource() == trungBtn) {
             trungPane.setVisible(true);
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
-            statisticsPane.setVisible(false);
+            
             homePane.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
             graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
             ianPane.setVisible(false);
+            hometext.setFill(Color.BLACK);
+            orgText.setFill(Color.BLACK);
+           projText.setFill(Color.BLACK);
         } else if (event.getSource() == statisticsMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
             trungPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
-            homePane.setVisible(false);
-            statisticsPane.setVisible(true);
+            homePane.setVisible(true);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
-            graphMenuItems.setVisible(true);
+            graphMenuItems.setVisible(false);
             projectDetailsPane.setVisible(false);
             ianPane.setVisible(false);
+            hometext.setFill(Color.BLUE);
+            orgText.setFill(Color.BLACK);
+            projText.setFill(Color.BLACK);
         } else if (event.getSource() == orgMenuButton) {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
             trungPane.setVisible(false);
             projectsPane.setVisible(false);
-            statisticsPane.setVisible(false);
+            orgText.setFill(Color.BLUE);
+            hometext.setFill(Color.BLACK);
+            projText.setFill(Color.BLACK);
             homePane.setVisible(false);
             OrganisationsPane.setVisible(true);
             settingsPane.setVisible(false);
@@ -601,7 +614,9 @@ public class UserDashboardFXMLController implements Initializable {
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
             trungPane.setVisible(false);
-            statisticsPane.setVisible(false);
+            hometext.setFill(Color.BLACK);
+            orgText.setFill(Color.BLACK);
+           projText.setFill(Color.BLUE);
             OrganisationsPane.setVisible(false);
             homePane.setVisible(false);
             projectsPane.setVisible(true);
@@ -610,26 +625,15 @@ public class UserDashboardFXMLController implements Initializable {
             graphMenuItems.setVisible(false);
             projectDetailsPane.setVisible(false);
             ianPane.setVisible(false);
-        } else if (event.getSource() == HomeBtn) {
-            homePane.setVisible(true);
-            kyndaPane.setVisible(false);
-            issamPane.setVisible(false);
-            trungPane.setVisible(false);
-            statisticsPane.setVisible(false);
-            OrganisationsPane.setVisible(false);
-            projectsPane.setVisible(false);
-            settingsPane.setVisible(false);
-            settingsAnchorPane.setVisible(false);
-            graphMenuItems.setVisible(false);
-            projectDetailsPane.setVisible(false);
-            ianPane.setVisible(false);
-        }else if (event.getSource() == pieChartBtn) {
+        } else if (event.getSource() == pieChartBtn) {
             ianPane.setVisible(true);
             homePane.setVisible(false);
             kyndaPane.setVisible(false);
             issamPane.setVisible(false);
             trungPane.setVisible(false);
-            statisticsPane.setVisible(false);
+            hometext.setFill(Color.BLACK);
+            orgText.setFill(Color.BLACK);
+           projText.setFill(Color.BLACK);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
             settingsPane.setVisible(false);
@@ -743,7 +747,6 @@ public class UserDashboardFXMLController implements Initializable {
         kyndaPane.setVisible(false);
         issamPane.setVisible(false);
         trungPane.setVisible(false);
-        statisticsPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         ianPane.setVisible(false);
         homePane.setVisible(false);
@@ -804,7 +807,9 @@ public class UserDashboardFXMLController implements Initializable {
         issamPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
-        statisticsPane.setVisible(false);
+        hometext.setFill(Color.BLACK);
+        orgText.setFill(Color.BLACK);
+        projText.setFill(Color.BLACK);
         ianPane.setVisible(false);
         homePane.setVisible(false);
         settingsPane.setVisible(false);
@@ -820,7 +825,9 @@ public class UserDashboardFXMLController implements Initializable {
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
         ianPane.setVisible(false);
-        statisticsPane.setVisible(false);
+        hometext.setFill(Color.BLACK);
+        orgText.setFill(Color.BLACK);
+        projText.setFill(Color.BLACK);
         homePane.setVisible(false);
         settingsPane.setVisible(false);
         settingsAnchorPane.setVisible(false);
@@ -835,7 +842,9 @@ public class UserDashboardFXMLController implements Initializable {
         OrganisationsPane.setVisible(false);
         ianPane.setVisible(false);
         projectsPane.setVisible(false);
-        statisticsPane.setVisible(false);
+        hometext.setFill(Color.BLACK);
+        orgText.setFill(Color.BLACK);
+        projText.setFill(Color.BLACK);
         homePane.setVisible(false);
         graphMenuItems.setVisible(true);
     }
@@ -901,7 +910,9 @@ public class UserDashboardFXMLController implements Initializable {
         kyndaPane.setVisible(false);
         issamPane.setVisible(false);
         trungPane.setVisible(false);
-        statisticsPane.setVisible(false);
+        hometext.setFill(Color.BLACK);
+        orgText.setFill(Color.BLACK);
+        projText.setFill(Color.BLACK);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
         graphMenuItems.setVisible(false);
@@ -910,7 +921,6 @@ public class UserDashboardFXMLController implements Initializable {
         settingsAnchorPane.setVisible(true);
     }
 
-    @FXML
     public void resetDetails(ActionEvent event) {
         fnameTextfield.setText(fname);
         lnameTextfield.setText(lname);
@@ -918,7 +928,6 @@ public class UserDashboardFXMLController implements Initializable {
         emailTextfield.setText(email);
     }
 
-    @FXML
     public void saveProfile(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         alert.setTitle("Error Dialog");
@@ -982,7 +991,6 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
-    @FXML
    public void changePassword(ActionEvent event) {
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
@@ -1083,9 +1091,11 @@ public class UserDashboardFXMLController implements Initializable {
         trungPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
-        statisticsPane.setVisible(false);
         homePane.setVisible(false);
         graphMenuItems.setVisible(true);
+        hometext.setFill(Color.BLACK);
+        orgText.setFill(Color.BLACK);
+        projText.setFill(Color.BLACK);
     }
 
 }

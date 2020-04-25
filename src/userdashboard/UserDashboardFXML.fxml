@@ -2,12 +2,12 @@
 
 <!--<?import com.jfoenix.controls.JFXCheckBox?>-->
 <!--<?import com.jfoenix.controls.JFXButton?>-->
-<!--<?import com.jfoenix.controls.JFXCheckBox?>-->
 <!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.BubbleChart?>
@@ -41,9 +41,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1000.0" stylesheets="@userDashboardCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userdashboard.UserDashboardFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #F5F5F5;" stylesheets="@userDashboardCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userdashboard.UserDashboardFXMLController">
     <children>
-        <BorderPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: #F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
                 <HBox prefHeight="56.0" prefWidth="1003.0" style="-fx-background-color: #7DB1D1;" BorderPane.alignment="CENTER">
                     <children>
@@ -59,18 +59,9 @@
                         <Separator prefHeight="53.0" prefWidth="396.0" visible="false" />
                         <HBox prefHeight="56.0" prefWidth="334.0">
                             <children>
-                                <Pane fx:id="HomeBtn" layoutX="208.0" layoutY="10.0" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
-                                    <children>
-                                        <Text layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
-                                            <font>
-                                                <Font name="Franklin Gothic Book" size="12.0" />
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </Pane>
                                 <Pane fx:id="statisticsMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="100.0">
                                     <children>
-                                        <Text layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics">
+                                        <Text fx:id="hometext" layoutX="35.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
                                             <font>
                                                 <Font name="Franklin Gothic Book" size="12.0" />
                                             </font>
@@ -79,7 +70,7 @@
                                 </Pane>
                                 <Pane fx:id="orgMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="98.0">
                                     <children>
-                                        <Text layoutX="11.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations">
+                                        <Text fx:id="orgText" layoutX="11.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organisations">
                                             <font>
                                                 <Font name="Franklin Gothic Book" size="12.0" />
                                             </font>
@@ -88,7 +79,7 @@
                                 </Pane>
                                 <Pane fx:id="projectMenuButton" onMouseClicked="#changeGraph" onMouseEntered="#changeColorBackgroundEntered" onMouseExited="#changeColorBackgroundExited" prefHeight="56.0" prefWidth="93.0">
                                     <children>
-                                        <Text layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
+                                        <Text fx:id="projText" layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
                                             <font>
                                                 <Font name="Franklin Gothic Book" size="12.0" />
                                             </font>
@@ -121,7 +112,7 @@
             <left>
                 <VBox fx:id="graphMenuItems" prefHeight="693.0" prefWidth="100.0" style="-fx-background-color: #F5F5F5;" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="kyndaBtn" mnemonicParsing="false" onAction="#onKyndaBtn" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Projects Per Year">
+                        <Button fx:id="kyndaBtn" mnemonicParsing="false" onAction="#onKyndaBtn" onMouseClicked="#changeGraph" onMouseDragged="#OnKyndaClick" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Projects Per Year">
                             <font>
                                 <Font name="Franklin Gothic Book" size="12.0" />
                             </font>
@@ -310,7 +301,7 @@
                                 </VBox>
                             </children>
                         </Pane>
-                        <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: #F5F5F5;">
+                        <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: #F5F5F5;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                         <Pane fx:id="orgSearchContainer1" layoutX="16.0" layoutY="71.0" prefHeight="172.0" prefWidth="871.0" style="-fx-border-color: #D3D3D3; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: #ffffff;">
                            <children>
@@ -374,11 +365,13 @@
                                 <Text fx:id="textOrgId" layoutX="169.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                            <font>
                               <Font name="Franklin Gothic Book" size="13.0" />
-                           </font></Text>
+                           </font>
+                        </Text>
                                 <Text fx:id="textOrgName" layoutX="169.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                            <font>
                               <Font name="Franklin Gothic Book" size="13.0" />
-                           </font></Text>
+                           </font>
+                        </Text>
                                 <Text fx:id="textOrgActivityType" layoutX="169.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                            <font>
                               <Font name="Franklin Gothic Book" size="13.0" />
@@ -518,18 +511,18 @@
                         </AnchorPane>
                             </children>
                         </Pane>
-                        <Pane fx:id="homePane" layoutX="-101.0" prefHeight="695.0" prefWidth="1003.0" style="-fx-background-color: #F5F5F5;" visible="false">
+                        <Pane fx:id="homePane" layoutX="-101.0" prefHeight="695.0" prefWidth="1003.0" style="-fx-background-color: #F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Text layoutX="405.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis Statistics " textAlignment="CENTER" wrappingWidth="264.00001719594">
+                                <Text layoutX="321.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis Statistics " textAlignment="CENTER" wrappingWidth="264.00001719594">
                                     <font>
                                         <Font name="Franklin Gothic Book" size="28.0" />
                                     </font>
                                 </Text>
-                                <VBox layoutY="110.0" prefHeight="590.0" prefWidth="1003.0">
+                                <VBox layoutY="111.0" prefHeight="589.0" prefWidth="909.0">
                                     <children>
-                                        <HBox prefHeight="268.0" prefWidth="850.0">
+                                        <HBox prefHeight="281.0" prefWidth="896.0">
                                             <children>
-                                                <StackedAreaChart fx:id="trungReducedGraph" onMouseClicked="#onTrungClick" prefHeight="268.0" prefWidth="550.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                                <StackedAreaChart fx:id="trungReducedGraph" onMouseClicked="#onTrungClick" prefHeight="281.0" prefWidth="434.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                                     <xAxis>
                                                         <NumberAxis autoRanging="false" lowerBound="2014.0" minorTickCount="2" minorTickLength="1.0" side="BOTTOM" tickUnit="2.0" upperBound="2026.0" />
                                                     </xAxis>
@@ -540,7 +533,7 @@
                                                         <Insets left="20.0" />
                                                     </HBox.margin>
                                                 </StackedAreaChart>
-                                                <BarChart fx:id="kyndaReducedGraph" onMouseClicked="#OnKyndaClick" prefHeight="268.0" prefWidth="493.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                                <BarChart fx:id="kyndaReducedGraph" onMouseClicked="#OnKyndaClick" prefHeight="281.0" prefWidth="420.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                                     <xAxis>
                                                         <CategoryAxis side="BOTTOM" />
                                                     </xAxis>
@@ -556,9 +549,9 @@
                                                 <Insets bottom="20.0" />
                                             </VBox.margin>
                                         </HBox>
-                              <HBox prefHeight="303.0" prefWidth="903.0">
+                              <HBox prefHeight="286.0" prefWidth="1021.0">
                                  <children>
-                                              <BubbleChart fx:id="issamReducedGraph" onMouseClicked="#onIssamClick" prefHeight="293.0" prefWidth="820.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                              <BubbleChart fx:id="issamReducedGraph" onMouseClicked="#onIssamClick" prefHeight="266.0" prefWidth="431.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                                   <xAxis>
                                                       <NumberAxis side="BOTTOM" />
                                                   </xAxis>
@@ -569,7 +562,7 @@
                                           <Insets bottom="20.0" left="20.0" right="20.0" />
                                        </HBox.margin>
                                               </BubbleChart>
-                                    <PieChart fx:id="ianPieChartRed" onMouseClicked="#onIanClick" prefHeight="303.0" prefWidth="768.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                    <PieChart fx:id="ianPieChartRed" onMouseClicked="#onIanClick" prefHeight="266.0" prefWidth="417.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                        <HBox.margin>
                                           <Insets bottom="20.0" right="20.0" />
                                        </HBox.margin>
@@ -578,35 +571,30 @@
                               </HBox>
                                     </children>
                                 </VBox>
+                        <Text layoutX="355.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on graphs for more information" />
                             </children>
                         </Pane>
-                        <Pane fx:id="statisticsPane" prefHeight="694.0" prefWidth="902.0" style="-fx-background-color: white;" visible="false">
+                        <Pane fx:id="projectsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: #F5F5F5;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Text layoutX="393.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics">
-                                    <font>
-                                        <Font name="Franklin Gothic Book" size="30.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </Pane>
-                        <Pane fx:id="projectsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;" visible="false">
-                            <children>
-                                <Text layoutX="404.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
+                                <Text layoutX="404.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
                                     <font>
                                         <Font name="Franklin Gothic Book" size="28.0" />
                                     </font>
                                 </Text>
-                                <HBox layoutX="54.0" layoutY="145.0" prefHeight="57.0" prefWidth="405.0">
+                                <HBox layoutX="249.0" layoutY="147.0" prefHeight="57.0" prefWidth="405.0" style="-fx-border-color: #D3D3D3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 2;">
                                     <children>
-                                        <ComboBox fx:id="searchByProjects" prefWidth="150.0" promptText="Search by" />
+                                        <ComboBox fx:id="searchByProjects" prefWidth="150.0" promptText="Search by">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="10.0" top="20.0" />
+                                 </HBox.margin></ComboBox>
                                         <TextField fx:id="inputTextSearchProj">
                                             <HBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                                             </HBox.margin>
                                         </TextField>
                                         <ImageView fx:id="searchProjectBtn" fitHeight="25.0" fitWidth="29.0" onMouseClicked="#onProjectSearch" pickOnBounds="true" preserveRatio="true">
                                             <HBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                                             </HBox.margin>
                                             <image>
                                                 <Image url="@searchicon.png" />
@@ -614,7 +602,7 @@
                                         </ImageView>
                                     </children>
                                 </HBox>
-                                <TableView fx:id="projectTableView" layoutX="45.0" layoutY="269.0" onMouseClicked="#displayProjectValues" prefHeight="371.0" prefWidth="827.0">
+                                <TableView fx:id="projectTableView" layoutX="45.0" layoutY="269.0" onMouseClicked="#displayProjectValues" prefHeight="371.0" prefWidth="827.0" style="-fx-border-color: #D3D3D3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-width: 2;">
                                     <columns>
                                         <TableColumn fx:id="projectIdColumn" prefWidth="39.0" text="Id" />
                                         <TableColumn fx:id="projectRCNColumn" prefWidth="51.0" text="RCN" />
