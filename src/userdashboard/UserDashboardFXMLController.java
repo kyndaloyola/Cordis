@@ -446,7 +446,7 @@ public class UserDashboardFXMLController implements Initializable {
 
     }
 
-    void createCostTooltips(XYChart.Series averageCost) {
+   public void createCostTooltips(XYChart.Series averageCost) {
         XYChart.Series<BigDecimal, Double> series = averageCost;
         for (Data<BigDecimal, Double> data : series.getData()) {
             Tooltip tooltip = new Tooltip();
@@ -496,6 +496,7 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
+    @FXML
     public void refreshButtonEnabled(ActionEvent event) {
         if (!(costs.isSelected() || contributions.isSelected())) {
             refreshBtn.setDisable(true); //disables button if both checkboxes are unselected to prevent running queries when the refresh button is pressed
@@ -633,7 +634,7 @@ public class UserDashboardFXMLController implements Initializable {
             projectsPane.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
-            graphMenuItems.setVisible(false);
+            graphMenuItems.setVisible(true);
             projectDetailsPane.setVisible(false);
         }
     }
@@ -909,14 +910,16 @@ public class UserDashboardFXMLController implements Initializable {
         settingsAnchorPane.setVisible(true);
     }
 
-    void resetDetails(ActionEvent event) {
+    @FXML
+    public void resetDetails(ActionEvent event) {
         fnameTextfield.setText(fname);
         lnameTextfield.setText(lname);
         usernameTextfield.setText(username);
         emailTextfield.setText(email);
     }
 
-    void saveProfile(ActionEvent event) {
+    @FXML
+    public void saveProfile(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         alert.setTitle("Error Dialog");
         StringBuilder errorMessage = new StringBuilder();
@@ -979,7 +982,8 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
-    void changePassword(ActionEvent event) {
+    @FXML
+   public void changePassword(ActionEvent event) {
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         StringBuilder errorMessage = new StringBuilder();

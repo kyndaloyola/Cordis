@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--<?import com.jfoenix.controls.JFXCheckBox?>-->
-<!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
 <!--<?import com.jfoenix.controls.JFXButton?>-->
 <!--<?import com.jfoenix.controls.JFXCheckBox?>-->
 <!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>-->
@@ -10,11 +9,13 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.BubbleChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.StackedAreaChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -120,7 +121,7 @@
                 </HBox>
             </top>
             <left>
-                <VBox fx:id="graphMenuItems" prefHeight="693.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false" BorderPane.alignment="CENTER">
+                <VBox fx:id="graphMenuItems" prefHeight="693.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="kyndaBtn" mnemonicParsing="false" onAction="#onKyndaBtn" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Projects Per Year">
                             <font>
@@ -146,7 +147,7 @@
                         <Font name="Franklin Gothic Book" size="12.0" />
                      </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="104.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="122.0" style="-fx-background-radius: 0; -fx-background-color: grey;" text="Button">
+                        <Button fx:id="pieChartBtn" layoutX="10.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-radius: 0; -fx-background-color: grey;" text="Pie Chart">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
@@ -160,6 +161,11 @@
             <center>
                 <AnchorPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                     <children>
+                  <Pane fx:id="ianPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <PieChart fx:id="IanPieChart" layoutX="202.0" layoutY="150.0" />
+                     </children>
+                  </Pane>
                         <Pane fx:id="projectDetailsPane" layoutX="-1.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Pane layoutX="59.0" layoutY="55.0" prefHeight="79.0" prefWidth="399.0">
@@ -302,7 +308,7 @@
                                 </VBox>
                             </children>
                         </Pane>
-                        <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;">
+                        <Pane fx:id="OrganisationsPane" prefHeight="695.0" prefWidth="903.0" style="-fx-background-color: white;" visible="false">
                             <children>
                         <Pane fx:id="orgSearchContainer1" layoutX="16.0" layoutY="71.0" prefHeight="172.0" prefWidth="871.0" style="-fx-border-color: #7DB1D1; -fx-border-width: 1; -fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: transparent;">
                            <children>
@@ -494,7 +500,7 @@
                                 <JFXCheckBox fx:id="contributions" layoutX="421.0" layoutY="59.0" onAction="#refreshButtonEnabled" text="Max EC Contributions" unCheckedColor="#e0e0e0" />
                             </children>
                         </Pane>
-                        <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0" visible="false">
+                        <Pane fx:id="homePane" prefHeight="695.0" prefWidth="902.0">
                             <children>
                                 <Text layoutX="319.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cordis Statistics " textAlignment="CENTER" wrappingWidth="264.00001719594">
                                     <font>
@@ -524,7 +530,7 @@
                                                         <NumberAxis side="LEFT" />
                                                     </yAxis>
                                                     <HBox.margin>
-                                                        <Insets left="20.0" />
+                                                        <Insets left="20.0" right="20.0" />
                                                     </HBox.margin>
                                                 </BarChart>
                                             </children>
@@ -532,14 +538,26 @@
                                                 <Insets bottom="20.0" />
                                             </VBox.margin>
                                         </HBox>
-                                        <BubbleChart fx:id="issamReducedGraph" onMouseClicked="#onIssamClick" prefHeight="310.0" prefWidth="861.0">
-                                            <xAxis>
-                                                <NumberAxis side="BOTTOM" />
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT" />
-                                            </yAxis>
-                                        </BubbleChart>
+                              <HBox prefHeight="303.0" prefWidth="903.0">
+                                 <children>
+                                              <BubbleChart fx:id="issamReducedGraph" onMouseClicked="#onIssamClick" prefHeight="310.0" prefWidth="861.0">
+                                                  <xAxis>
+                                                      <NumberAxis side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                      <NumberAxis side="LEFT" />
+                                                  </yAxis>
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                              </BubbleChart>
+                                    <PieChart fx:id="ianPieChartRed" onMouseClicked="#onIanClick" prefHeight="303.0" prefWidth="768.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </PieChart>
+                                 </children>
+                              </HBox>
                                     </children>
                                 </VBox>
                             </children>
