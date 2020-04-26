@@ -29,13 +29,18 @@ public class UserDashboardDbManager {
     private XYChart.Series series = new XYChart.Series();
     private XYChart.Series seriesLineChartHome = new XYChart.Series();
 
-    public XYChart.Series intialiseChartKyndas(String year) {
+    //kynda initalises the barchart
+    public XYChart.Series intialiseBarChart(String year) {
         String date;
+        //query to retrive the number of projects per year
         String sqll = "SELECT STRFTIME('%Y',projectStartDate)years,COUNT(projectId)NoProjects  "
                 + "FROM Project WHERE years NOT NULL GROUP BY STRFTIME('%Y',projectStartDate);";
-        String sqlCreateView = "SELECT * FROM projectsPerYear;";
+        
+        
+       //query to retrive the number of projects across the months in the selected year.
         String sqlSelected = "SELECT STRFTIME('%m',projectStartDate)months,COUNT(projectId)NoProjects  "
                 + "FROM Project WHERE strftime('%Y', projectStartDate)='" + year + "' GROUP BY STRFTIME('%m',projectStartDate);";
+        //connect to the database
         DbConnection connectionDb = new DbConnection();
         Connection connection = connectionDb.getConnectionDataDB();
 
@@ -43,7 +48,7 @@ public class UserDashboardDbManager {
             ResultSet rs;
             if (year.equals("All")) {
                 date = "years";
-
+                 
                 rs = connection.createStatement().executeQuery(sqll);
                 series.setName("Projects per year");
             } else {
@@ -53,7 +58,7 @@ public class UserDashboardDbManager {
             }
             while (rs.next()) {
                 if (date.equals("years")) {
-
+                    //adds the retrived data to the datastructure
                     XYChart.Data<String, Number> data = new XYChart.Data<>(rs.getString(date), rs.getInt("NoProjects"));
                     series.getData().add(data);
                 } else {
@@ -62,14 +67,16 @@ public class UserDashboardDbManager {
                     series.getData().add(data1);
                 }
             }
+            //catches sql exception
         } catch (SQLException ex) {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        //returns the data structure after all the data have been filled.
         return series;
     }
 
-    public ArrayList<XYChart.Series> intialiseChartIssam(int lowerBound, int upperBound) {
+    //issam
+    public ArrayList<XYChart.Series> initialiseBubbleChart(int lowerBound, int upperBound) {
         ArrayList<XYChart.Series> bubbleChartSeries = new ArrayList<>();
         Statement stmt;
         DbConnection connection = new DbConnection();
@@ -131,7 +138,7 @@ public class UserDashboardDbManager {
 
         return bubbleChartSeries;
     }
-
+//trung
     public XYChart.Series AreaChartSeries1() {
         String query = "SELECT strftime('%Y' ,projectEndDate) AS endDate, AVG(projectTotalCost), AVG(projectMaxEcContribution) FROM Project  WHERE endDate <> '' GROUP by endDate;";
         XYChart.Series series1 = new XYChart.Series<>(); //creates a new series for the costs line
@@ -148,7 +155,7 @@ public class UserDashboardDbManager {
         }
         return series1;
     }
-
+//trung
     public XYChart.Series AreaChartSeries2() {
         String query = "SELECT strftime('%Y' ,projectEndDate) AS endDate, AVG(projectTotalCost), AVG(projectMaxEcContribution) FROM Project  WHERE endDate <> '' GROUP by endDate;";
         XYChart.Series series2 = new XYChart.Series<>(); //creates a new series for the contributions line
@@ -167,6 +174,7 @@ public class UserDashboardDbManager {
         return series2;
     }
 
+    //issam
     public ArrayList getOrganisationDetails() {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();
@@ -278,12 +286,15 @@ public class UserDashboardDbManager {
         return data;
     }
     
+    //kynda retrives the coordinator of the project selected
     public String getCoordinator (int pid){
         DbConnection connection = new DbConnection();
         Statement stmt;
         String cordiname = null;
         try {
             stmt = connection.getConnectionDataDB().createStatement(); 
+            
+            //joins the organisations and the projects to retrive thr coordinator based on the project given.
             String sql = "SELECT Project.projectId,"+"OrgParticipant.orgName"+
                          " FROM Project" +
                             " JOIN OrgParticipant" +
@@ -313,7 +324,7 @@ public class UserDashboardDbManager {
        return cordiname;
     }
     
-
+// kynda retrives the project details from the database
     public ArrayList getProjectDetails() {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();
@@ -450,6 +461,7 @@ public class UserDashboardDbManager {
         return data;
     }
 
+    //kynda gets the month as a word based on the as a number
     public String getMonthKynda(String month) {
         String m = "";
         if (month.equals("01")) {
@@ -483,7 +495,7 @@ public class UserDashboardDbManager {
         return m;
 
     }
-
+//kynda retrives the name of the databse row based on the option the user selected 
     public String getRowProj(String selection) {
 
         String row;
@@ -499,7 +511,7 @@ public class UserDashboardDbManager {
 
         return row;
     }
-
+//kynda searches for thr project based on the users inputted values
     public boolean searchProj(String selection, String values, ArrayList<ArrayList<String>> d) {
         //String table = getRowLog(selection);
         Statement stmt;
@@ -511,7 +523,7 @@ public class UserDashboardDbManager {
         try {
 
             stmt = connection.getConnectionDataDB().createStatement();
-            // String sql = "SELECT * FROM logFile WHERE "+table+"='"+values+"';"; 
+            ; 
             String sqlSelect = "SELECT Project.projectId,"
                     + " Project.projectRCN,"
                     + " Project.projectAcronym,"
@@ -670,6 +682,7 @@ public class UserDashboardDbManager {
         }
     }
 
+    //trung
     boolean checkUsername(String username) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
@@ -692,7 +705,7 @@ public class UserDashboardDbManager {
         }
         return false;
     }
-
+//trung
     boolean checkEmail(String email) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
@@ -717,7 +730,7 @@ public class UserDashboardDbManager {
 
         return false;
     }
-
+//trung
     void updateProfile(int userId, String fname, String lname, String username, String email) {
         String query = "UPDATE Login_Credentials SET u_fname = ?, u_sname = ?, u_username = ?, u_email =  ? WHERE u_id = ?";
         try { //updates data using user id
@@ -733,7 +746,7 @@ public class UserDashboardDbManager {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+//trung
     void updatePassword(int userId, String password) {
         String query = "UPDATE Login_Credentials SET u_password = ? WHERE u_id = ?";
         password = BCrypt.hashpw(password, BCrypt.gensalt(12)); //hashes password
@@ -747,7 +760,7 @@ public class UserDashboardDbManager {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+//trung
     public void setLogOutUser(int userId) {
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter formatedDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

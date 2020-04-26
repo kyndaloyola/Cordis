@@ -29,12 +29,14 @@ public class AdminDashboardDbManager
     private XYChart.Series series = new XYChart.Series();
     private int idAdmin = 0;
     
+    //kynda retrives the user details from the database
     public ArrayList retrieveUserInfo() {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();        
         Statement stmt;
         // SELECT username, MAX(logInDate) FROM logFile GROUP BY username;
         try {
+            
             stmt = connection.getConnectionLoginDB().createStatement(); 
             String sql = "SELECT Login_Credentials.u_id, Login_Credentials.u_fname, Login_Credentials.u_sname, Login_Credentials.u_email, Login_Credentials.u_username, Login_Credentials.u_type, Login_Credentials.u_regDate AS logInDate"+
                     " FROM Login_Credentials";
@@ -67,7 +69,7 @@ public class AdminDashboardDbManager
         }
         return data;        
     }
-    
+    //issam
     public ArrayList retrieveLogInfo() {
         ArrayList<ArrayList<String>> data = new ArrayList<>();        
         Statement stmt;
@@ -107,7 +109,7 @@ public class AdminDashboardDbManager
         }
         return data;        
     }
-    
+    //issam
     public String setUserOnlineValue() {       
         Statement stmt;
         int counter = 0;
@@ -132,7 +134,7 @@ public class AdminDashboardDbManager
         }
         return String.valueOf(counter);
     }
-    
+    //issam
     public String setNumberOfRegistration() {       
         Statement stmt;
         String counter="";
@@ -156,7 +158,7 @@ public class AdminDashboardDbManager
         return counter;
     }
     
-    
+    ///kynda retrives the users value based on the admins input.
     public boolean searchUser(String values,String selection,ArrayList<ArrayList<String>> data){
          String table = getRowLoginCred(selection);
          Statement statement;
@@ -201,7 +203,7 @@ public class AdminDashboardDbManager
     }
      
     }
-    
+   //issam 
     public String getRowLoginCred(String selection){
         
         String row ;
@@ -219,7 +221,7 @@ public class AdminDashboardDbManager
         
         return row;
     }
-
+    //issam
     public String getRowLog(String selection){
         
         String row = null;
@@ -238,7 +240,7 @@ public class AdminDashboardDbManager
         
         return row;
     }
-
+    //issam
     public boolean searchLog(String values,String selection,ArrayList<ArrayList<String>> data){
          //String table = getRowLog(selection);
          Statement statement;
@@ -292,6 +294,7 @@ public class AdminDashboardDbManager
           
       }
     
+    //kynda deletes a user based on the user id provided 
     public boolean deleteUser(String id){
         Statement statement;
         DbConnection connection = new DbConnection();
@@ -309,6 +312,7 @@ public class AdminDashboardDbManager
         
     }
     
+    //kynda checks if the user exists before deleting it
     public boolean checkIfUserExists(String id){
         Statement statement;
         DbConnection connection = new DbConnection();
@@ -347,6 +351,7 @@ public class AdminDashboardDbManager
         }
     }
     
+    //kynda adds a user to the database (used for testing)
     public boolean addUser(String fname,String lname,String email,String username,String password,String type){
         Statement statement;
         DbConnection connection = new DbConnection();
@@ -365,11 +370,11 @@ public class AdminDashboardDbManager
     }
     
     }
-    
+    //issam
     public void setIdAdministrator(int id) {
         this.idAdmin=id;
     }
-        
+       //issam 
     public void setLogOutUser(int id) {
         System.out.println("ID: " + id);
         try {
@@ -396,6 +401,7 @@ public class AdminDashboardDbManager
 
     }
     
+    //kynda inilaises the line chart
     public XYChart.Series intialiseChart() {
         String month ;
         //String date;

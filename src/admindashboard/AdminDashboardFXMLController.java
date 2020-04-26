@@ -161,7 +161,7 @@ public class AdminDashboardFXMLController implements Initializable
      * @param rb
      */
     
-   
+   //issam
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -181,6 +181,7 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
     
+    //kynda initialise the user activity linechart
     public void initialiseChart(){
         
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
@@ -188,6 +189,7 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
 
+    //kynda sets the values in the manager user table 
     public void setTableViewManageUsers() {        
         ArrayList<ArrayList<String>> data;
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
@@ -210,6 +212,7 @@ public class AdminDashboardFXMLController implements Initializable
         });
     }
     
+    //issam
     public void setTableViewLog() { 
        
         ArrayList<ArrayList<String>> data;
@@ -225,16 +228,17 @@ public class AdminDashboardFXMLController implements Initializable
         logTable.getItems().addAll(data);
     }
     
+    //issam
     public void setOnlineUserNum() {
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
         userOnlineValue.setText(manager.setUserOnlineValue());
     }
-    
+    //issam
     public void setNumberOfNewUser() {
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
         newUsersValue.setText(manager.setNumberOfRegistration());
     }
-
+//issam
     @FXML
     private void changePanel(javafx.scene.input.MouseEvent event)
     {
@@ -256,6 +260,7 @@ public class AdminDashboardFXMLController implements Initializable
         }
     }
 
+    //when the search button is clicked this method is fired which searches for the user based on the input
     @FXML
     private void OnSearchUser(javafx.scene.input.MouseEvent event)
     {
@@ -263,11 +268,11 @@ public class AdminDashboardFXMLController implements Initializable
         String value;
         String choice;
         ArrayList<ArrayList<String>> data = new ArrayList();
-        
+        //retives the choice from combobox
         choice= manageUserCombobox.getSelectionModel().getSelectedItem();
         
         value = searchByTextArea.getText();
-        
+        //validation 
         if (choice.equals("")){
              a.setAlertType(AlertType.ERROR);
             a.setContentText("Invalid Selection !");
@@ -278,7 +283,7 @@ public class AdminDashboardFXMLController implements Initializable
             setTableViewManageUsers();
             
         }else{
-            
+            //adds values to the table
              AdminDashboardDbManager manager = new AdminDashboardDbManager();
              
              if(manager.searchUser(value,choice,data)){
@@ -302,7 +307,7 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
     
-    
+    //issam
 
     @FXML
     private void onSearchLog(javafx.scene.input.MouseEvent event)
@@ -351,11 +356,11 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
 
+    //kynda deletes a user from the database
     @FXML
     private void onUserDelete(ActionEvent event)
     {
-//         AdminDashboardDbManager manager = new AdminDashboardDbManager();
-//         manager.addUser("jane", "john", "jane@jane.com","janejane", "jane","U");
+
         Alert a = new Alert(AlertType.NONE); 
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
         String userId= deleteUserTextArea.getText();
@@ -370,7 +375,7 @@ public class AdminDashboardFXMLController implements Initializable
             
             if(manager.deleteUser(userId)){
                 
-                
+                //validating user input
             if(!manager.checkIfUserExists(userId)){
                  a.setAlertType(AlertType.INFORMATION);
                  a.setContentText("User with ID "+userId+"Sucessfully deleted");
@@ -401,7 +406,7 @@ public class AdminDashboardFXMLController implements Initializable
     public void setIdAdmin(int id) {
         this.adminId=id;
     }
-
+//issam
     @FXML
     private void setLogOut(javafx.scene.input.MouseEvent event) {
         
