@@ -66,7 +66,8 @@ import javafx.stage.Stage;
  *
  * @author kynda
  */
-public class UserDashboardFXMLController implements Initializable {
+public class UserDashboardFXMLController implements Initializable
+{
 
     @FXML
     private BarChart<?, ?> projectsPerYearChart;
@@ -87,11 +88,11 @@ public class UserDashboardFXMLController implements Initializable {
     @FXML
     private MenuItem settingsItem;
     @FXML
-    private Button kyndaBtn;
+    private Button barChartBtn;
     @FXML
-    private Pane kyndaPane;
+    private Pane barChartPane;
     @FXML
-    private Button SubmitKyndaGraph;
+    private Button submitBarChartBtn;
     @FXML
     private Pane issamPane;
     private LineChart<?, ?> lineChartIssam;
@@ -101,9 +102,9 @@ public class UserDashboardFXMLController implements Initializable {
     private AnchorPane organisationsPane1;
 
     @FXML
-    private Button trungBtn;
+    private Button stackedAreaChartBtn;
     @FXML
-    private Pane trungPane;
+    private Pane stackedAreaChartPane;
     @FXML
     private StackedAreaChart<BigDecimal, Double> areaChart;
     @FXML
@@ -118,7 +119,7 @@ public class UserDashboardFXMLController implements Initializable {
     @FXML
     private NumberAxis yAxis;
     @FXML
-    private BubbleChart<Integer, Integer> bubbleChartIssam;
+    private BubbleChart<Integer, Integer> bubbleChart;
     @FXML
     private NumberAxis numOfPro;
     @FXML
@@ -267,11 +268,11 @@ public class UserDashboardFXMLController implements Initializable {
     @FXML
     private Text projectEcContributionText;
     @FXML
-    private StackedAreaChart<BigDecimal, Double> trungReducedGraph;
+    private StackedAreaChart<BigDecimal, Double> stackedAreaGraphReduced;
     @FXML
-    private BarChart<?, ?> kyndaReducedGraph;
+    private BarChart<?, ?> barChartReduced;
     @FXML
-    private BubbleChart<?, ?> issamReducedGraph;
+    private BubbleChart<?, ?> bubbleChartReduced;
     @FXML
     private ImageView searchProjectBtn;
     @FXML
@@ -314,29 +315,32 @@ public class UserDashboardFXMLController implements Initializable {
     private Text orgText;
     @FXML
     private Text projText;
+
     /**
      * Initializes the controller class.
      *
      * @param url
      * @param rb
      */
+    //kynda: inalises the graphs and displays the home pane as a default. 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        createChartKyndas();
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        createBarChart();
         createAreaChart();
-        createChartIssam(0, Integer.MAX_VALUE);
+        createBubbleChart(0, Integer.MAX_VALUE);
         setOrganisationTableValues();
         setProjectTableValues();
 
         initaliseHomeCharts();
-        initialiseIanchart();
+        initialisePieChart();
 
         searchByProjects.getItems().addAll("All", "ID", "RCN", "Acronym");
         orgSearchSelector.getItems().addAll("Id", "Name", "Activity type", "VAT Number", "Country");
         homePane.setVisible(true);
-        kyndaPane.setVisible(false);
+        barChartPane.setVisible(false);
         issamPane.setVisible(false);
-        trungPane.setVisible(false);
+        stackedAreaChartPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
         graphMenuItems.setVisible(false);
@@ -346,40 +350,49 @@ public class UserDashboardFXMLController implements Initializable {
 
     }
 
-    public void initaliseHomeCharts() {
+    //kynda initliases the charts in their reduced version to be displayed in the home section. 
+    public void initaliseHomeCharts()
+    {
+        //initilaises the reduced bar chart 
         UserDashboardDbManager manager = new UserDashboardDbManager();
-        kyndaReducedGraph.getData().addAll(manager.intialiseChartKyndas("All"));
+        barChartReduced.getData().addAll(manager.intialiseBarChart("All"));
 
-        ArrayList<XYChart.Series> bubbleChartSeries = manager.intialiseChartIssam(0, Integer.MAX_VALUE);
-        for (int i = 0; i < bubbleChartSeries.size(); i++) {
-            issamReducedGraph.getData().add(bubbleChartSeries.get(i));
+        //initalises the reduced bubble chart
+        ArrayList<XYChart.Series> bubbleChartSeries = manager.initialiseBubbleChart(0, Integer.MAX_VALUE);
+        for (int i = 0; i < bubbleChartSeries.size(); i++)
+        {
+            bubbleChartReduced.getData().add(bubbleChartSeries.get(i));
         }
 
+        //initalises the stakced area chart
         XYChart.Series<BigDecimal, Double> averageCost = manager.AreaChartSeries1();
         XYChart.Series<BigDecimal, Double> averageContribution = manager.AreaChartSeries2();
-        trungReducedGraph.getData().addAll(averageCost, averageContribution);
+        stackedAreaGraphReduced.getData().addAll(averageCost, averageContribution);
         createCostTooltips(averageCost);
         createContributionTooltips(averageContribution);
-        
+
+        // initalises the reduced pie chart
         ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
-        
+
         PieChart.Data Germany = new PieChart.Data("Germany EU Contribution € 33 485,15", 50.0);
         PieChart.Data Greece = new PieChart.Data("Greece EU Contribution € 28 425 ", 5.0);
         PieChart.Data Poland = new PieChart.Data("Poland EU Contribution € 42 000 ", 35.0);
         PieChart.Data Estonia = new PieChart.Data("Estonia EU Contribution € 28 000", 5.0);
         PieChart.Data Spain = new PieChart.Data("Spain EU Contribution € 23 895,53 ", 10.0);
-        
+
         list.add(Germany);
         list.add(Greece);
         list.add(Poland);
         list.add(Estonia);
         list.add(Spain);
-        
+
         ianPieChartRed.setData(list);
 
     }
 
-    public void setUserDetails(int userId, String username, String email, String password, String fname, String lname) {
+//trung 
+    public void setUserDetails(int userId, String username, String email, String password, String fname, String lname)
+    {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -392,50 +405,69 @@ public class UserDashboardFXMLController implements Initializable {
         emailTextfield.setText(email);
     }
 
-    private void createChartKyndas() {
+    //kynda creats the main bar chart by using the method from the database to retrive the data.
+    private void createBarChart()
+    {
         UserDashboardDbManager manager = new UserDashboardDbManager();
+        // adds the values to the combobox
         yearSelectorKynda.getItems().addAll("All", "2014", "2015", "2016", "2017", "2018", "2019", "2020");
-        projectsPerYearChart.getData().addAll(manager.intialiseChartKyndas("All"));
-         for (Series  <?, ?> serie: projectsPerYearChart.getData()){
-            for (Data<?, ?> item: serie.getData()){
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(item.getYValue().toString()+" Projects");
-                        Tooltip.install(item.getNode(), tooltip);
-               
-            }
-        }  
-    }
+        //initalises the chart with the years by passing all 
+        projectsPerYearChart.getData().addAll(manager.intialiseBarChart("All"));
+        //adds a tooltip fpr each node in the barchart that displays the value
+        for (Series<?, ?> serie : projectsPerYearChart.getData())
+        {
+            for (Data<?, ?> item : serie.getData())
+            {
+                Tooltip tooltip = new Tooltip();
+                tooltip.setText(item.getYValue().toString() + " Projects");
+                Tooltip.install(item.getNode(), tooltip);
 
-    private void createChartIssam(int lowerBound, int upperBound) {
-        UserDashboardDbManager manager = new UserDashboardDbManager();
-        ArrayList<XYChart.Series> bubbleChartSeries = manager.intialiseChartIssam(lowerBound, upperBound);
-        for (int i = 0; i < bubbleChartSeries.size(); i++) {
-            bubbleChartIssam.getData().add(bubbleChartSeries.get(i));
+            }
         }
     }
+//issam
+
+    private void createBubbleChart(int lowerBound, int upperBound)
+    {
+        UserDashboardDbManager manager = new UserDashboardDbManager();
+        ArrayList<XYChart.Series> bubbleChartSeries = manager.initialiseBubbleChart(lowerBound, upperBound);
+        for (int i = 0; i < bubbleChartSeries.size(); i++)
+        {
+            bubbleChart.getData().add(bubbleChartSeries.get(i));
+        }
+    }
+//issam
 
     @FXML
-    private void applyChangesToBubbleChart(MouseEvent event) {
-        if (sup75M.isSelected()) {
-            bubbleChartIssam.getData().clear();
-            createChartIssam(50000000, Integer.MAX_VALUE);
-        } else if (sup50M.isSelected()) {
-            bubbleChartIssam.getData().clear();
-            createChartIssam(20000000, 49999999);
-        } else if (sup25M.isSelected()) {
-            bubbleChartIssam.getData().clear();
-            createChartIssam(5000000, 19999999);
-        } else if (sup15M.isSelected()) {
-            bubbleChartIssam.getData().clear();
-            createChartIssam(0, 4999999);
-        } else {
-            bubbleChartIssam.getData().clear();
-            createChartIssam(0, Integer.MAX_VALUE);
+    private void applyChangesToBubbleChart(MouseEvent event)
+    {
+        if (sup75M.isSelected())
+        {
+            bubbleChart.getData().clear();
+            createBubbleChart(50000000, Integer.MAX_VALUE);
+        } else if (sup50M.isSelected())
+        {
+            bubbleChart.getData().clear();
+            createBubbleChart(20000000, 49999999);
+        } else if (sup25M.isSelected())
+        {
+            bubbleChart.getData().clear();
+            createBubbleChart(5000000, 19999999);
+        } else if (sup15M.isSelected())
+        {
+            bubbleChart.getData().clear();
+            createBubbleChart(0, 4999999);
+        } else
+        {
+            bubbleChart.getData().clear();
+            createBubbleChart(0, Integer.MAX_VALUE);
         }
 
     }
 
-    private void createAreaChart() {
+    //trung
+    private void createAreaChart()
+    {
         costs.setSelected(true); //checkbox is marked green
         contributions.setSelected(true); //checkbox is marked green
         UserDashboardDbManager manager = new UserDashboardDbManager();
@@ -446,10 +478,13 @@ public class UserDashboardFXMLController implements Initializable {
         createContributionTooltips(averageContribution);
 
     }
+//trung
 
-    public void createCostTooltips(XYChart.Series averageCost) {
+    public void createCostTooltips(XYChart.Series averageCost)
+    {
         XYChart.Series<BigDecimal, Double> series = averageCost;
-        for (Data<BigDecimal, Double> data : series.getData()) {
+        for (Data<BigDecimal, Double> data : series.getData())
+        {
             Tooltip tooltip = new Tooltip();
             StringBuilder sb = new StringBuilder();
             sb.append("Year: ").append(data.getXValue());
@@ -459,10 +494,13 @@ public class UserDashboardFXMLController implements Initializable {
             Tooltip.install(data.getNode(), tooltip);
         }
     }
+//trung
 
-    public void createContributionTooltips(XYChart.Series averageContribution) {
+    public void createContributionTooltips(XYChart.Series averageContribution)
+    {
         XYChart.Series<BigDecimal, Double> series = averageContribution;
-        for (Data<BigDecimal, Double> data : series.getData()) {
+        for (Data<BigDecimal, Double> data : series.getData())
+        {
             Tooltip tooltip = new Tooltip();
             StringBuilder sb = new StringBuilder();
             sb.append("Year: ").append(data.getXValue());
@@ -472,73 +510,81 @@ public class UserDashboardFXMLController implements Initializable {
             Tooltip.install(data.getNode(), tooltip);
         }
     }
+//trung
 
     @FXML
-    public void refreshAreaChart(ActionEvent event) {
+    public void refreshAreaChart(ActionEvent event)
+    {
         XYChart.Series<BigDecimal, Double> averageCost;
         XYChart.Series<BigDecimal, Double> averageContribution;
         UserDashboardDbManager manager = new UserDashboardDbManager();
         areaChart.getData().removeAll(areaChart.getData());
 
-        if (costs.isSelected() && contributions.isSelected()) {
+        if (costs.isSelected() && contributions.isSelected())
+        {
             averageCost = manager.AreaChartSeries1();
             averageContribution = manager.AreaChartSeries2();
             areaChart.getData().addAll(averageCost, averageContribution);
             createCostTooltips(averageCost);
             createContributionTooltips(averageContribution);
-        } else if (costs.isSelected()) {
+        } else if (costs.isSelected())
+        {
             averageCost = manager.AreaChartSeries1();
             areaChart.getData().add(averageCost);
             createCostTooltips(averageCost);
-        } else if (contributions.isSelected()) {
+        } else if (contributions.isSelected())
+        {
             averageContribution = manager.AreaChartSeries2();
             areaChart.getData().add(averageContribution);
             createContributionTooltips(averageContribution);
         }
     }
+    //trung
 
-    public void refreshButtonEnabled(ActionEvent event) {
-        if (!(costs.isSelected() || contributions.isSelected())) {
+    public void refreshButtonEnabled(ActionEvent event)
+    {
+        if (!(costs.isSelected() || contributions.isSelected()))
+        {
             refreshBtn.setDisable(true); //disables button if both checkboxes are unselected to prevent running queries when the refresh button is pressed
-        } else {
+        } else
+        {
             refreshBtn.setDisable(false);
         }
 
     }
-    
-    public void initialiseIanchart(){
-    
-    ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
-        
+
+    public void initialisePieChart()
+    {
+
+        ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
+
         PieChart.Data Germany = new PieChart.Data("Germany EU Contribution € 33 485,15", 50.0);
         PieChart.Data Greece = new PieChart.Data("Greece EU Contribution € 28 425 ", 5.0);
         PieChart.Data Poland = new PieChart.Data("Poland EU Contribution € 42 000 ", 35.0);
         PieChart.Data Estonia = new PieChart.Data("Estonia EU Contribution € 28 000", 5.0);
         PieChart.Data Spain = new PieChart.Data("Spain EU Contribution € 23 895,53 ", 10.0);
-        
+
         list.add(Germany);
         list.add(Greece);
         list.add(Poland);
         list.add(Estonia);
         list.add(Spain);
-        
+
         IanPieChart.setData(list);
-}
-
-    @FXML
-    private void onKyndaBtn(ActionEvent event) {
-
     }
 
+// kynda method to switch betweens panes based on the buttons clicked
     @FXML
-    private void changeGraph(MouseEvent event) {
-        if (event.getSource() == kyndaBtn) {
-            kyndaPane.setVisible(true);
+    private void changeGraph(MouseEvent event)
+    {
+        if (event.getSource() == barChartBtn)
+        {
+            barChartPane.setVisible(true);
             issamPane.setVisible(false);
-            trungPane.setVisible(false);
+            stackedAreaChartPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
-          
+
             homePane.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
@@ -547,14 +593,15 @@ public class UserDashboardFXMLController implements Initializable {
             ianPane.setVisible(false);
             hometext.setFill(Color.BLACK);
             orgText.setFill(Color.BLACK);
-           projText.setFill(Color.BLACK);
-        } else if (event.getSource() == issamBtn) {
+            projText.setFill(Color.BLACK);
+        } else if (event.getSource() == issamBtn)
+        {
             issamPane.setVisible(true);
-            kyndaPane.setVisible(false);
-            trungPane.setVisible(false);
+            barChartPane.setVisible(false);
+            stackedAreaChartPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
-           
+
             homePane.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
@@ -563,14 +610,15 @@ public class UserDashboardFXMLController implements Initializable {
             ianPane.setVisible(false);
             hometext.setFill(Color.BLACK);
             orgText.setFill(Color.BLACK);
-           projText.setFill(Color.BLACK);
-        } else if (event.getSource() == trungBtn) {
-            trungPane.setVisible(true);
-            kyndaPane.setVisible(false);
+            projText.setFill(Color.BLACK);
+        } else if (event.getSource() == stackedAreaChartBtn)
+        {
+            stackedAreaChartPane.setVisible(true);
+            barChartPane.setVisible(false);
             issamPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
-            
+
             homePane.setVisible(false);
             settingsPane.setVisible(false);
             settingsAnchorPane.setVisible(false);
@@ -579,11 +627,12 @@ public class UserDashboardFXMLController implements Initializable {
             ianPane.setVisible(false);
             hometext.setFill(Color.BLACK);
             orgText.setFill(Color.BLACK);
-           projText.setFill(Color.BLACK);
-        } else if (event.getSource() == statisticsMenuButton) {
-            kyndaPane.setVisible(false);
+            projText.setFill(Color.BLACK);
+        } else if (event.getSource() == statisticsMenuButton)
+        {
+            barChartPane.setVisible(false);
             issamPane.setVisible(false);
-            trungPane.setVisible(false);
+            stackedAreaChartPane.setVisible(false);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
             homePane.setVisible(true);
@@ -595,10 +644,11 @@ public class UserDashboardFXMLController implements Initializable {
             hometext.setFill(Color.BLUE);
             orgText.setFill(Color.BLACK);
             projText.setFill(Color.BLACK);
-        } else if (event.getSource() == orgMenuButton) {
-            kyndaPane.setVisible(false);
+        } else if (event.getSource() == orgMenuButton)
+        {
+            barChartPane.setVisible(false);
             issamPane.setVisible(false);
-            trungPane.setVisible(false);
+            stackedAreaChartPane.setVisible(false);
             projectsPane.setVisible(false);
             orgText.setFill(Color.BLUE);
             hometext.setFill(Color.BLACK);
@@ -610,13 +660,14 @@ public class UserDashboardFXMLController implements Initializable {
             graphMenuItems.setVisible(false);
             projectDetailsPane.setVisible(false);
             ianPane.setVisible(false);
-        } else if (event.getSource() == projectMenuButton) {
-            kyndaPane.setVisible(false);
+        } else if (event.getSource() == projectMenuButton)
+        {
+            barChartPane.setVisible(false);
             issamPane.setVisible(false);
-            trungPane.setVisible(false);
+            stackedAreaChartPane.setVisible(false);
             hometext.setFill(Color.BLACK);
             orgText.setFill(Color.BLACK);
-           projText.setFill(Color.BLUE);
+            projText.setFill(Color.BLUE);
             OrganisationsPane.setVisible(false);
             homePane.setVisible(false);
             projectsPane.setVisible(true);
@@ -625,15 +676,16 @@ public class UserDashboardFXMLController implements Initializable {
             graphMenuItems.setVisible(false);
             projectDetailsPane.setVisible(false);
             ianPane.setVisible(false);
-        } else if (event.getSource() == pieChartBtn) {
+        } else if (event.getSource() == pieChartBtn)
+        {
             ianPane.setVisible(true);
             homePane.setVisible(false);
-            kyndaPane.setVisible(false);
+            barChartPane.setVisible(false);
             issamPane.setVisible(false);
-            trungPane.setVisible(false);
+            stackedAreaChartPane.setVisible(false);
             hometext.setFill(Color.BLACK);
             orgText.setFill(Color.BLACK);
-           projText.setFill(Color.BLACK);
+            projText.setFill(Color.BLACK);
             OrganisationsPane.setVisible(false);
             projectsPane.setVisible(false);
             settingsPane.setVisible(false);
@@ -643,57 +695,72 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
-    private void onOrgClick(ActionEvent event) {
+    private void onOrgClick(ActionEvent event)
+    {
         organisationsPane1.toFront();
     }
+//trung
 
     @FXML
-    private void changeColorBackgroundExited(MouseEvent event) {
+    private void changeColorBackgroundExited(MouseEvent event)
+    {
         BackgroundFill background_fill = new BackgroundFill(Color.rgb(125, 177, 209), CornerRadii.EMPTY, Insets.EMPTY);
         Background background = new Background(background_fill);
-        if (event.getSource() == statisticsMenuButton) {
+        if (event.getSource() == statisticsMenuButton)
+        {
             statisticsMenuButton.setBackground(background);
-        } else if (event.getSource() == orgMenuButton) {
+        } else if (event.getSource() == orgMenuButton)
+        {
             orgMenuButton.setBackground(background);
-        } else if (event.getSource() == projectMenuButton) {
+        } else if (event.getSource() == projectMenuButton)
+        {
             projectMenuButton.setBackground(background);
         }
     }
+//trung
 
     @FXML
-    private void changeColorBackgroundEntered(MouseEvent event) {
+    private void changeColorBackgroundEntered(MouseEvent event)
+    {
         BackgroundFill background_fill = new BackgroundFill(Color.rgb(53, 113, 151), CornerRadii.EMPTY, Insets.EMPTY);
         Background background = new Background(background_fill);
-        if (event.getSource() == statisticsMenuButton) {
+        if (event.getSource() == statisticsMenuButton)
+        {
             statisticsMenuButton.setBackground(background);
-        } else if (event.getSource() == orgMenuButton) {
+        } else if (event.getSource() == orgMenuButton)
+        {
             orgMenuButton.setBackground(background);
-        } else if (event.getSource() == projectMenuButton) {
+        } else if (event.getSource() == projectMenuButton)
+        {
             projectMenuButton.setBackground(background);
         }
     }
 
+    //kynda when the submit button is clicked the data displayed changes based on user selection 
     @FXML
-    private void OnSubmitKynda(ActionEvent event) {
+    private void onBarChartSubmit(ActionEvent event)
+    {
         UserDashboardDbManager manager = new UserDashboardDbManager();
         String choice = yearSelectorKynda.getSelectionModel().getSelectedItem();
 
         projectsPerYearChart.getData().clear();
-        projectsPerYearChart.getData().addAll(manager.intialiseChartKyndas(choice));
+        projectsPerYearChart.getData().addAll(manager.intialiseBarChart(choice));
+//adds the tootip for thr charts nodes to display the number of projects when hovered.
+        for (Series<?, ?> serie : projectsPerYearChart.getData())
+        {
+            for (Data<?, ?> item : serie.getData())
+            {
+                Tooltip tooltip = new Tooltip();
+                tooltip.setText(item.getYValue().toString() + " Projects");
+                Tooltip.install(item.getNode(), tooltip);
 
-         for (Series  <?, ?> serie: projectsPerYearChart.getData()){
-            for (Data<?, ?> item: serie.getData()){
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(item.getYValue().toString()+" Projects");
-                        Tooltip.install(item.getNode(), tooltip);
-               
             }
-        }  
-        
+        }
 
     }
 
-    public void setOrganisationTableValues() {
+    public void setOrganisationTableValues()
+    {
         ArrayList<ArrayList<String>> data;
         UserDashboardDbManager manager = new UserDashboardDbManager();
         data = manager.getOrganisationDetails();
@@ -712,7 +779,9 @@ public class UserDashboardFXMLController implements Initializable {
         organisationsTableView.getItems().addAll(data);
     }
 
-    public void setProjectTableValues() {
+//sets the table view for the projects pane 
+    public void setProjectTableValues()
+    {
         ArrayList<ArrayList<String>> data;
         UserDashboardDbManager manager = new UserDashboardDbManager();
         data = manager.getProjectDetails();
@@ -735,18 +804,22 @@ public class UserDashboardFXMLController implements Initializable {
         projectTableView.getItems().addAll(data);
     }
 
-    private void setCellValue(TableColumn<ArrayList<String>, String> table, int index) {
-        table.setCellValueFactory((p) -> {
+    private void setCellValue(TableColumn<ArrayList<String>, String> table, int index)
+    {
+        table.setCellValueFactory((p) ->
+        {
             ArrayList<String> x = p.getValue();
             return new SimpleStringProperty(x != null && x.size() > 0 ? x.get(index) : "<no name>");
         });
     }
 
+    // kynda displays the value of the project based on the project selected from the graph 
     @FXML
-    public void displayProjectValues() {
-        kyndaPane.setVisible(false);
+    public void displayProjectValues()
+    {
+        barChartPane.setVisible(false);
         issamPane.setVisible(false);
-        trungPane.setVisible(false);
+        stackedAreaChartPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         ianPane.setVisible(false);
         homePane.setVisible(false);
@@ -760,21 +833,28 @@ public class UserDashboardFXMLController implements Initializable {
 
         //textId.setText(data.get(selection).get(0));
         int id = Integer.parseInt(data.get(selection).get(0));
-        String coordinator= manager.getCoordinator(id);
-        
-        if(coordinator.equals(null)){
-             coordinatorText.setVisible(false);
-             orgCoordinName.setVisible(false);
-         }else{
-             coordinatorText.setVisible(true);
-             orgCoordinName.setVisible(true);
-             orgCoordinName.setText(coordinator);
-         }
-        
-        double ecCon  = Double.parseDouble(data.get(selection).get(11));
+        String coordinator = manager.getCoordinator(id);
+
+        //if the project has no coordinator hide the fields related to the coordinator
+        if (coordinator.equals(null))
+        {
+            coordinatorText.setVisible(false);
+            orgCoordinName.setVisible(false);
+            //else display the coordinator
+        } else
+        {
+            coordinatorText.setVisible(true);
+            orgCoordinName.setVisible(true);
+            orgCoordinName.setText(coordinator);
+        }
+
+        //used to display the ec contribution and budget in the correct format
+        double ecCon = Double.parseDouble(data.get(selection).get(11));
         double budget = Double.parseDouble(data.get(selection).get(9));
-        String bg = ""+String.valueOf(budget);
-        String ec = ""+String.valueOf(ecCon);
+        String bg = "" + String.valueOf(budget);
+        String ec = "" + String.valueOf(ecCon);
+
+        //displays the rest of the projects values
         projectAcronymText.setText(data.get(selection).get(2));
         projectTitleText.setText(data.get(selection).get(4));
         projectStartDatetext.setText(data.get(selection).get(5));
@@ -782,14 +862,15 @@ public class UserDashboardFXMLController implements Initializable {
         projectDescripText.setText(data.get(selection).get(8));
         projectBudgetText.setText(bg);
         projectEcContributionText.setText(ec);
-        
-        
+
     }
 
+    //issam
     @FXML
-    public void displayOrganisationValues() {        
+    public void displayOrganisationValues()
+    {
         ArrayList<String> data = organisationsTableView.getSelectionModel().getSelectedItem();
-        
+
         textOrgId.setText(data.get(0));
         textOrgName.setText(data.get(3));
         textOrgVATNum.setText(data.get(5));
@@ -800,10 +881,12 @@ public class UserDashboardFXMLController implements Initializable {
         textOrgCountry.setText(data.get(10));
     }
 
+    // kynda when the reudced area chart is clicked a new pane is displayed with the interactive version
     @FXML
-    private void onTrungClick(MouseEvent event) {
-        trungPane.setVisible(true);
-        kyndaPane.setVisible(false);
+    private void onReducedStackedAreaChartClick(MouseEvent event)
+    {
+        stackedAreaChartPane.setVisible(true);
+        barChartPane.setVisible(false);
         issamPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
@@ -816,12 +899,14 @@ public class UserDashboardFXMLController implements Initializable {
         settingsAnchorPane.setVisible(false);
         graphMenuItems.setVisible(true);
     }
+//kynda when the reudced Bar chart is clicked a new pane is displayed with the interactive version
 
     @FXML
-    private void OnKyndaClick(MouseEvent event) {
-        kyndaPane.setVisible(true);
+    private void onReducedBarChartClicked(MouseEvent event)
+    {
+        barChartPane.setVisible(true);
         issamPane.setVisible(false);
-        trungPane.setVisible(false);
+        stackedAreaChartPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
         ianPane.setVisible(false);
@@ -833,12 +918,14 @@ public class UserDashboardFXMLController implements Initializable {
         settingsAnchorPane.setVisible(false);
         graphMenuItems.setVisible(true);
     }
+// kynda when the reudced Bubble chart is clicked a new pane is displayed with the interactive version
 
     @FXML
-    private void onIssamClick(MouseEvent event) {
+    private void onReducedBubbleChartClick(MouseEvent event)
+    {
         issamPane.setVisible(true);
-        kyndaPane.setVisible(false);
-        trungPane.setVisible(false);
+        barChartPane.setVisible(false);
+        stackedAreaChartPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         ianPane.setVisible(false);
         projectsPane.setVisible(false);
@@ -849,8 +936,10 @@ public class UserDashboardFXMLController implements Initializable {
         graphMenuItems.setVisible(true);
     }
 
+    //kynda this method is reponsible for searching, it is fired when the search button in the projects pane is clicked
     @FXML
-    private void onProjectSearch(MouseEvent event) {
+    private void onProjectSearch(MouseEvent event)
+    {
         String sel;
         String userInput;
         Alert a = new Alert(AlertType.NONE);
@@ -860,22 +949,28 @@ public class UserDashboardFXMLController implements Initializable {
 
         sel = searchByProjects.getSelectionModel().getSelectedItem();
         userInput = inputTextSearchProj.getText();
-
-        if (sel.equals("")) {
+//checks that the selecion isnt empty
+        if (sel.equals(""))
+        {
             a.setAlertType(AlertType.ERROR);
             a.setContentText("Invalid Selection !");
             a.show();
-        } else if (userInput.equals("") && sel.equals("")) {
+        } else if (userInput.equals("") && sel.equals(""))
+        {
             a.setAlertType(AlertType.ERROR);
             a.setContentText("Invalid Input !");
             a.show();
-        } else if (sel.equals("All")) {
+        } else if (sel.equals("All"))
+        {
             setProjectTableValues();
-        } else {
+        } else
+        {
+            //calls the searh project method in the database class to search based on the users input 
             projectTableView.getItems().clear();
 
-            if (manager.searchProj(sel, userInput, data)) {
-
+            if (manager.searchProj(sel, userInput, data))
+            {
+                //displays the value in the table
                 setCellValue(projectIdColumn, 0);
                 setCellValue(projectRCNColumn, 1);
                 setCellValue(projectAcronymColumn, 2);
@@ -893,7 +988,9 @@ public class UserDashboardFXMLController implements Initializable {
                 setCellValue(projectCoordinatorColumn, 14);
 
                 projectTableView.getItems().addAll(data);
-            } else {
+                //validation for user input 
+            } else
+            {
                 a.setAlertType(AlertType.ERROR);
                 a.setContentText("Invalid user Input !");
                 a.show();
@@ -903,13 +1000,15 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
+    //kynda when the edit profile is clicked the edit profile pane is displayed
     @FXML
-    private void OnSettingsClick(ActionEvent event) {
+    private void OnEditProfileClick(ActionEvent event)
+    {
         ianPane.setVisible(false);
         homePane.setVisible(false);
-        kyndaPane.setVisible(false);
+        barChartPane.setVisible(false);
         issamPane.setVisible(false);
-        trungPane.setVisible(false);
+        stackedAreaChartPane.setVisible(false);
         hometext.setFill(Color.BLACK);
         orgText.setFill(Color.BLACK);
         projText.setFill(Color.BLACK);
@@ -921,14 +1020,18 @@ public class UserDashboardFXMLController implements Initializable {
         settingsAnchorPane.setVisible(true);
     }
 
-    public void resetDetails(ActionEvent event) {
+    //trung
+    public void resetDetails(ActionEvent event)
+    {
         fnameTextfield.setText(fname);
         lnameTextfield.setText(lname);
         usernameTextfield.setText(username);
         emailTextfield.setText(email);
     }
+//trung
 
-    public void saveProfile(ActionEvent event) {
+    public void saveProfile(ActionEvent event)
+    {
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         alert.setTitle("Error Dialog");
         StringBuilder errorMessage = new StringBuilder();
@@ -937,44 +1040,55 @@ public class UserDashboardFXMLController implements Initializable {
         String emailPattern = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"; //validation for email
 
         if (fnameTextfield.getText().equals(fname) && lnameTextfield.getText().equals(lname)
-                && usernameTextfield.getText().equals(username) && emailTextfield.getText().equals(email)) { //if fields havent been changed, do nothing
+                && usernameTextfield.getText().equals(username) && emailTextfield.getText().equals(email))
+        { //if fields havent been changed, do nothing
         } else if (!fnameTextfield.getText().matches(namePattern) || !lnameTextfield.getText().matches(namePattern) //if the fields contain invalid characters
-                || !usernameTextfield.getText().matches(usernamePattern) || !emailTextfield.getText().matches(emailPattern)) {
+                || !usernameTextfield.getText().matches(usernamePattern) || !emailTextfield.getText().matches(emailPattern))
+        {
 
             alert.setHeaderText("The following field(s) have invalid characters:");
 
-            if (!fnameTextfield.getText().matches(namePattern)) {
+            if (!fnameTextfield.getText().matches(namePattern))
+            {
                 errorMessage.append("First Name");
                 errorMessage.append("\n");
             }
-            if (!lnameTextfield.getText().matches(namePattern)) {
+            if (!lnameTextfield.getText().matches(namePattern))
+            {
                 errorMessage.append("Last Name");
                 errorMessage.append("\n");
             }
-            if (!usernameTextfield.getText().matches(usernamePattern)) {
+            if (!usernameTextfield.getText().matches(usernamePattern))
+            {
                 errorMessage.append("Username");
                 errorMessage.append("\n");
             }
-            if (!emailTextfield.getText().matches(emailPattern)) {
+            if (!emailTextfield.getText().matches(emailPattern))
+            {
                 errorMessage.append("Email");
                 errorMessage.append("\n");
             }
 
             alert.setContentText(errorMessage.toString()); //prints out names of fields with invalid characters
             alert.showAndWait();
-        } else {
+        } else
+        {
             UserDashboardDbManager DbManager = new UserDashboardDbManager();
             boolean usernameFound;
             boolean emailFound;
-            if (!usernameTextfield.getText().equals(username)) { //checks if username already exists
+            if (!usernameTextfield.getText().equals(username))
+            { //checks if username already exists
                 usernameFound = DbManager.checkUsername(usernameTextfield.getText());
-                if (usernameFound) {
+                if (usernameFound)
+                {
                     return;
                 }
             }
-            if (!emailTextfield.getText().equals(email)) { //checks if email already exists
+            if (!emailTextfield.getText().equals(email))
+            { //checks if email already exists
                 emailFound = DbManager.checkEmail(emailTextfield.getText());
-                if (emailFound) {
+                if (emailFound)
+                {
                     return;
                 }
             } //will update profile from new fields
@@ -991,27 +1105,32 @@ public class UserDashboardFXMLController implements Initializable {
         }
     }
 
-   public void changePassword(ActionEvent event) {
+    public void changePassword(ActionEvent event)
+    {
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
         StringBuilder errorMessage = new StringBuilder();
 
-        if (password1Field.getText().equals(password) && password2Field.getText().equals(password)) { //if password fields are empty
+        if (password1Field.getText().equals(password) && password2Field.getText().equals(password))
+        { //if password fields are empty
             alert.setHeaderText("You cannot change your password!");
             alert.setContentText("The password is the same for your login credentials.");
             alert.show();
-        } else if (!password1Field.getText().equals(password2Field.getText())) { //if password fields dont match
+        } else if (!password1Field.getText().equals(password2Field.getText()))
+        { //if password fields dont match
             alert.setHeaderText("Passwords do not match!");
             alert.setContentText("Please re-check your password.");
             alert.showAndWait();
-        } else if (!password1Field.getText().matches(passwordPattern) || !password2Field.getText().matches(passwordPattern)) { //if password is in a invalid format
+        } else if (!password1Field.getText().matches(passwordPattern) || !password2Field.getText().matches(passwordPattern))
+        { //if password is in a invalid format
             alert.setHeaderText("Your password must contain:");
             errorMessage.append("At least 1 uppercase letter (A-Z)\n");
             errorMessage.append("At least one number (0-9\n)");
             errorMessage.append("At least 6 characters");
             alert.setContentText(errorMessage.toString());
             alert.showAndWait();
-        } else { //passes validation test
+        } else
+        { //passes validation test
             UserDashboardDbManager DbManager = new UserDashboardDbManager();
             DbManager.updatePassword(userId, password1Field.getText()); //updates password in database
             alert = new Alert(Alert.AlertType.INFORMATION); //new alert
@@ -1021,29 +1140,37 @@ public class UserDashboardFXMLController implements Initializable {
             this.password = password1Field.getText();
         }
     }
+//issam
 
     @FXML
-    private void onSearchOrganisation(KeyEvent event) {
+    private void onSearchOrganisation(KeyEvent event)
+    {
         //orgSearchSelector.getItems().addAll("All", "Id", "Name", "Activity type", "VAT Number", "Country");
         organisationsTableView.getItems().clear();
         UserDashboardDbManager manager = new UserDashboardDbManager();
         String selector = orgSearchSelector.getSelectionModel().getSelectedItem();
         String filter = searchFieldOrg.getText();
         ArrayList<ArrayList<String>> data = new ArrayList<>();
-        
-        if(!filter.equals("")) {
-            if("Id".equals(selector)) {
+
+        if (!filter.equals(""))
+        {
+            if ("Id".equals(selector))
+            {
                 data = manager.searchOrganisation("OrgParticipant.orgId", filter);
-            } else if ("Name".equals(selector)) {
-                data = manager.searchOrganisation("OrgParticipant.orgName", "'"+filter+"'");
-            } else if ("Activity type".equals(selector)) {
-                data = manager.searchOrganisation("OrgParticipant.orgActivityType", "'"+filter+"'");
-            } else if ("VAT Number".equals(selector)) {
-                data = manager.searchOrganisation("OrgParticipant.orgVATNum", "'"+filter+"'");
-            } else if ("Country".equals(selector)) {
-                data = manager.searchOrganisation("Country.countryName", "'"+filter+"'");
+            } else if ("Name".equals(selector))
+            {
+                data = manager.searchOrganisation("OrgParticipant.orgName", "'" + filter + "'");
+            } else if ("Activity type".equals(selector))
+            {
+                data = manager.searchOrganisation("OrgParticipant.orgActivityType", "'" + filter + "'");
+            } else if ("VAT Number".equals(selector))
+            {
+                data = manager.searchOrganisation("OrgParticipant.orgVATNum", "'" + filter + "'");
+            } else if ("Country".equals(selector))
+            {
+                data = manager.searchOrganisation("Country.countryName", "'" + filter + "'");
             }
-            
+
             setCellValue(idOrgColumn, 0);
             setCellValue(endOfPartOrgColumn, 1);
             setCellValue(shortNameOrgColumn, 2);
@@ -1056,39 +1183,45 @@ public class UserDashboardFXMLController implements Initializable {
             setCellValue(cityOrgColumn, 9);
             setCellValue(countryOrgColumn, 10);
             organisationsTableView.getItems().addAll(data);
-        } else {
+        } else
+        {
             setOrganisationTableValues();
         }
-        
+
     }
+//trung
 
     @FXML
-    private void OnLogOut(ActionEvent event) {
-        try {
+    private void OnLogOut(ActionEvent event)
+    {
+        try
+        {
             System.out.println("LOG OUT");
             UserDashboardDbManager manager = new UserDashboardDbManager();
             manager.setLogOutUser(userId);
-            Stage stage = (Stage) ((Node)textOrgVATNum).getScene().getWindow();
+            Stage stage = (Stage) ((Node) textOrgVATNum).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
             String url = "/login/LoginFXML.fxml";  //gets the file path
             loader.setLocation(getClass().getResource(url));
-            
+
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+//kynda displays the pane for the pie chart. 
 
     @FXML
-    private void onIanClick(MouseEvent event)
+    private void onPieChartClick(MouseEvent event)
     {
         ianPane.setVisible(true);
         issamPane.setVisible(false);
-        kyndaPane.setVisible(false);
-        trungPane.setVisible(false);
+        barChartPane.setVisible(false);
+        stackedAreaChartPane.setVisible(false);
         OrganisationsPane.setVisible(false);
         projectsPane.setVisible(false);
         homePane.setVisible(false);
