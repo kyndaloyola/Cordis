@@ -99,7 +99,7 @@
                                         </ImageView>
                                     </graphic>
                                     <items>
-                                        <MenuItem id="settingsItem" fx:id="settingsItem" mnemonicParsing="false" onAction="#OnSettingsClick" style="-fx-border-radius: 20%;" text="Edit Profile" />
+                                        <MenuItem id="settingsItem" fx:id="settingsItem" mnemonicParsing="false" onAction="#OnEditProfileClick" style="-fx-border-radius: 20%;" text="Edit Profile" />
                                         <SeparatorMenuItem mnemonicParsing="false" />
                                         <MenuItem id="logOutItem" fx:id="logOutItem" mnemonicParsing="false" onAction="#OnLogOut" style="-fx-border-radius: 20%;" text="Log Out" />
                                     </items>
@@ -112,7 +112,7 @@
             <left>
                 <VBox fx:id="graphMenuItems" prefHeight="693.0" prefWidth="100.0" style="-fx-background-color: #F5F5F5;" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="kyndaBtn" mnemonicParsing="false" onAction="#onKyndaBtn" onMouseClicked="#changeGraph" onMouseDragged="#OnKyndaClick" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Projects Per Year">
+                        <Button fx:id="barChartBtn" mnemonicParsing="false"  onMouseClicked="#changeGraph"  prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Projects Per Year">
                             <font>
                                 <Font name="Franklin Gothic Book" size="12.0" />
                             </font>
@@ -128,7 +128,7 @@
                         <Font name="Franklin Gothic Book" size="12.0" />
                      </font>
                         </Button>
-                        <Button fx:id="trungBtn" layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Average">
+                        <Button fx:id="stackedAreaChartBtn" layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#changeGraph" prefHeight="47.0" prefWidth="122.0" style="-fx-background-color: grey; -fx-background-radius: 0;" text="Average">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
@@ -150,7 +150,7 @@
             <center>
                 <AnchorPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                     <children>
-                  <Pane fx:id="ianPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Pane fx:id="ianPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F5F5F5;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="51.0" layoutY="30.0" prefHeight="640.0" prefWidth="805.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #D3D3D3; -fx-border-width: 3px;">
                            <children>
@@ -419,7 +419,7 @@
                             <children>
                         <AnchorPane layoutX="51.0" layoutY="30.0" prefHeight="640.0" prefWidth="805.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-color: #D3D3D3; -fx-border-radius: 15px; -fx-border-width: 3px;">
                            <children>
-                                      <BubbleChart fx:id="bubbleChartIssam" layoutX="24.0" layoutY="36.0" prefHeight="569.0" prefWidth="665.0" title="The Total Number Of Projects and Participating Organisations per Country">
+                                      <BubbleChart fx:id="bubbleChart" layoutX="24.0" layoutY="36.0" prefHeight="569.0" prefWidth="665.0" title="The Total Number Of Projects and Participating Organisations per Country">
                                           <xAxis>
                                               <NumberAxis fx:id="numOfOrg" label="Total number of participating organisations" side="BOTTOM" />
                                           </xAxis>
@@ -460,7 +460,7 @@
                         </AnchorPane>
                             </children>
                         </Pane>
-                        <Pane fx:id="kyndaPane" prefHeight="343.0" prefWidth="500.0" style="-fx-background-color: #F5F5F5;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Pane fx:id="barChartPane" prefHeight="343.0" prefWidth="500.0" style="-fx-background-color: #F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                         <AnchorPane layoutX="51.0" layoutY="30.0" prefHeight="650.0" prefWidth="805.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #D3D3D3; -fx-border-width: 3px;">
                            <children>
@@ -473,7 +473,7 @@
                                               <NumberAxis fx:id="NoOfProjectsXAxis" label="Total Projects" side="LEFT" />
                                           </yAxis>
                                       </BarChart>
-                                      <Button fx:id="SubmitKyndaGraph" layoutX="377.0" layoutY="605.0" mnemonicParsing="false" onAction="#OnSubmitKynda" prefHeight="11.0" prefWidth="55.0" style="-fx-background-color: #7DB1D1;" text="submit">
+                                      <Button fx:id="barChartSubmitBtn" layoutX="377.0" layoutY="605.0" mnemonicParsing="false" onAction="#onBarChartSubmit" prefHeight="11.0" prefWidth="55.0" style="-fx-background-color: #7DB1D1;" text="submit">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -488,7 +488,7 @@
                         </AnchorPane>
                             </children>
                         </Pane>
-                        <Pane fx:id="trungPane" prefHeight="700.0" prefWidth="907.0" style="-fx-background-color: #F5F5F5;" visible="false">
+                        <Pane fx:id="stackedAreaChartPane" prefHeight="700.0" prefWidth="907.0" style="-fx-background-color: #F5F5F5;" visible="false">
                             <children>
                         <AnchorPane layoutX="51.0" layoutY="30.0" prefHeight="650.0" prefWidth="805.0" style="-fx-border-color: #D3D3D3; -fx-border-radius: 15px; -fx-border-width: 3px; -fx-background-radius: 15px; -fx-background-color: #ffffff;">
                            <children>
@@ -527,7 +527,7 @@
                                     <children>
                                         <HBox prefHeight="281.0" prefWidth="896.0">
                                             <children>
-                                                <StackedAreaChart fx:id="trungReducedGraph" onMouseClicked="#onTrungClick" prefHeight="281.0" prefWidth="434.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                                <StackedAreaChart fx:id="stackedAreaGraphReduced" onMouseClicked="#onReducedStackedAreaChartClick" prefHeight="281.0" prefWidth="434.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                                     <xAxis>
                                                         <NumberAxis autoRanging="false" lowerBound="2014.0" minorTickCount="2" minorTickLength="1.0" side="BOTTOM" tickUnit="2.0" upperBound="2026.0" />
                                                     </xAxis>
@@ -538,7 +538,7 @@
                                                         <Insets left="20.0" />
                                                     </HBox.margin>
                                                 </StackedAreaChart>
-                                                <BarChart fx:id="kyndaReducedGraph" onMouseClicked="#OnKyndaClick" prefHeight="281.0" prefWidth="420.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                                <BarChart fx:id="barChartReduced" onMouseClicked="#onReducedBarChartClicked" prefHeight="281.0" prefWidth="420.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                                     <xAxis>
                                                         <CategoryAxis side="BOTTOM" />
                                                     </xAxis>
@@ -556,7 +556,7 @@
                                         </HBox>
                               <HBox prefHeight="286.0" prefWidth="1021.0">
                                  <children>
-                                              <BubbleChart fx:id="issamReducedGraph" onMouseClicked="#onIssamClick" prefHeight="266.0" prefWidth="431.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                              <BubbleChart fx:id="bubbleChartReduced" onMouseClicked="#onReducedBubbleChartClick" prefHeight="266.0" prefWidth="431.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                                   <xAxis>
                                                       <NumberAxis side="BOTTOM" />
                                                   </xAxis>
@@ -567,7 +567,7 @@
                                           <Insets bottom="20.0" left="20.0" right="20.0" />
                                        </HBox.margin>
                                               </BubbleChart>
-                                    <PieChart fx:id="ianPieChartRed" onMouseClicked="#onIanClick" prefHeight="266.0" prefWidth="417.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
+                                    <PieChart fx:id="ianPieChartRed" onMouseClicked="#onPieChartClick" prefHeight="266.0" prefWidth="417.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #D3D3D3; -fx-border-width: 2px;">
                                        <HBox.margin>
                                           <Insets bottom="20.0" right="20.0" />
                                        </HBox.margin>

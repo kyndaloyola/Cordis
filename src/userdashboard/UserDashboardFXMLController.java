@@ -92,9 +92,8 @@ public class UserDashboardFXMLController implements Initializable
     @FXML
     private Pane barChartPane;
     @FXML
-    private Button submitBarChartBtn;
-    @FXML
     private Pane issamPane;
+    
     private LineChart<?, ?> lineChartIssam;
     @FXML
     private Button issamBtn;
@@ -315,6 +314,8 @@ public class UserDashboardFXMLController implements Initializable
     private Text orgText;
     @FXML
     private Text projText;
+    @FXML
+    private Button barChartSubmitBtn;
 
     /**
      * Initializes the controller class.
@@ -541,6 +542,7 @@ public class UserDashboardFXMLController implements Initializable
     }
     //trung
 
+    @FXML
     public void refreshButtonEnabled(ActionEvent event)
     {
         if (!(costs.isSelected() || contributions.isSelected()))
@@ -738,7 +740,7 @@ public class UserDashboardFXMLController implements Initializable
 
     //kynda when the submit button is clicked the data displayed changes based on user selection 
     @FXML
-    private void onBarChartSubmit(ActionEvent event)
+    public void onBarChartSubmit(ActionEvent event)
     {
         UserDashboardDbManager manager = new UserDashboardDbManager();
         String choice = yearSelectorKynda.getSelectionModel().getSelectedItem();
@@ -883,7 +885,7 @@ public class UserDashboardFXMLController implements Initializable
 
     // kynda when the reudced area chart is clicked a new pane is displayed with the interactive version
     @FXML
-    private void onReducedStackedAreaChartClick(MouseEvent event)
+    public void onReducedStackedAreaChartClick(MouseEvent event)
     {
         stackedAreaChartPane.setVisible(true);
         barChartPane.setVisible(false);
@@ -902,7 +904,7 @@ public class UserDashboardFXMLController implements Initializable
 //kynda when the reudced Bar chart is clicked a new pane is displayed with the interactive version
 
     @FXML
-    private void onReducedBarChartClicked(MouseEvent event)
+    public void onReducedBarChartClicked(MouseEvent event)
     {
         barChartPane.setVisible(true);
         issamPane.setVisible(false);
@@ -920,8 +922,7 @@ public class UserDashboardFXMLController implements Initializable
     }
 // kynda when the reudced Bubble chart is clicked a new pane is displayed with the interactive version
 
-    @FXML
-    private void onReducedBubbleChartClick(MouseEvent event)
+    public void onReducedBubbleChartClick(MouseEvent event)
     {
         issamPane.setVisible(true);
         barChartPane.setVisible(false);
@@ -1000,8 +1001,8 @@ public class UserDashboardFXMLController implements Initializable
         }
     }
 
-    //kynda when the edit profile is clicked the edit profile pane is displayed
     @FXML
+    //kynda when the edit profile is clicked the edit profile pane is displayed
     private void OnEditProfileClick(ActionEvent event)
     {
         ianPane.setVisible(false);
@@ -1021,6 +1022,7 @@ public class UserDashboardFXMLController implements Initializable
     }
 
     //trung
+    @FXML
     public void resetDetails(ActionEvent event)
     {
         fnameTextfield.setText(fname);
@@ -1030,6 +1032,7 @@ public class UserDashboardFXMLController implements Initializable
     }
 //trung
 
+    @FXML
     public void saveProfile(ActionEvent event)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR); //sets the alert for incoming errors
@@ -1105,6 +1108,7 @@ public class UserDashboardFXMLController implements Initializable
         }
     }
 
+    @FXML
     public void changePassword(ActionEvent event)
     {
         String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,128})"; //validation for password
@@ -1214,7 +1218,6 @@ public class UserDashboardFXMLController implements Initializable
         }
     }
 //kynda displays the pane for the pie chart. 
-
     @FXML
     private void onPieChartClick(MouseEvent event)
     {
@@ -1230,5 +1233,7 @@ public class UserDashboardFXMLController implements Initializable
         orgText.setFill(Color.BLACK);
         projText.setFill(Color.BLACK);
     }
+
+
 
 }
