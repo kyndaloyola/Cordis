@@ -51,7 +51,7 @@ import userdashboard.UserDashboardFXMLController;
 /**
  * FXML Controller class
  *
- * @author kynda
+ * @author Issam
  */
 public class AdminDashboardFXMLController implements Initializable
 {
@@ -180,8 +180,11 @@ public class AdminDashboardFXMLController implements Initializable
         searchByLogChoiceBox.setValue("Search by");
         
     }
-    
-    //kynda initialise the user activity linechart
+
+    /**
+     * Kynda
+     * Initiliase the user activity Line Chart.
+     */
     public void initialiseChart(){
         
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
@@ -189,7 +192,10 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
 
-    //kynda sets the values in the manager user table 
+    /**
+     * Kynda
+     * Set the values in the manager User Table.
+     */
     public void setTableViewManageUsers() {        
         ArrayList<ArrayList<String>> data;
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
@@ -205,6 +211,12 @@ public class AdminDashboardFXMLController implements Initializable
         usersTableView.getItems().addAll(data);
     }
     
+    /**
+     * Issam
+     * Method to set the cell of a table with an ArrayList
+     * @param table
+     * @param index 
+     */
     private void setCellValue(TableColumn<ArrayList<String>, String> table, int index) {
         table.setCellValueFactory((p)->{
             ArrayList<String> x = p.getValue();
@@ -212,7 +224,10 @@ public class AdminDashboardFXMLController implements Initializable
         });
     }
     
-    //issam
+    /**
+     * Issam
+     * Method used to set the values of the activity log table within the Admin Dashboard.
+     */
     public void setTableViewLog() { 
        
         ArrayList<ArrayList<String>> data;
@@ -228,17 +243,29 @@ public class AdminDashboardFXMLController implements Initializable
         logTable.getItems().addAll(data);
     }
     
-    //issam
+    /**
+     * Issam
+     * Method to set the text of the Admin Dashboard displaying the number of Online User
+     */
     public void setOnlineUserNum() {
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
         userOnlineValue.setText(manager.setUserOnlineValue());
     }
-    //issam
+    
+    /**
+     * Issam
+     * Method to set the text of the Admin Dashboard displaying the number of new User
+     */
     public void setNumberOfNewUser() {
         AdminDashboardDbManager manager = new AdminDashboardDbManager();
         newUsersValue.setText(manager.setNumberOfRegistration());
     }
-//issam
+
+    /**
+     * Issam
+     * The method is triggered after an event and display the different panes when buttons are clicked
+     * @param event - OnClick
+     */
     @FXML
     private void changePanel(javafx.scene.input.MouseEvent event)
     {
@@ -260,7 +287,11 @@ public class AdminDashboardFXMLController implements Initializable
         }
     }
 
-    //when the search button is clicked this method is fired which searches for the user based on the input
+    /**
+     * Kynda
+     * When the search button is clicked this method is fired which searches for the user based on the input
+     * @param event 
+     */
     @FXML
     private void OnSearchUser(javafx.scene.input.MouseEvent event)
     {
@@ -307,8 +338,14 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
     
-    //issam
-
+    /**
+     * Issam
+     * Method building the activity log table.
+     * The user select a choice within the combobox.
+     * When the user type an event is triggered on key release which fire the method.
+     * The data matching the search filter are retrieved from the database and displayed using the method.
+     * @param event - OnAction on the ComboBox
+     */
     @FXML
     private void onSearchLog(javafx.scene.input.MouseEvent event)
     {
@@ -356,7 +393,11 @@ public class AdminDashboardFXMLController implements Initializable
         
     }
 
-    //kynda deletes a user from the database
+    /**
+     * Kynda
+     * Deletes a user from the database
+     * @param event 
+     */
     @FXML
     private void onUserDelete(ActionEvent event)
     {
@@ -406,7 +447,13 @@ public class AdminDashboardFXMLController implements Initializable
     public void setIdAdmin(int id) {
         this.adminId=id;
     }
-//issam
+
+    /**
+     * Issam
+     * When the admin click the logout button a TimeStamp is added to the database.
+     * This method redirect the admin to the Login Window.
+     * @param event - OnClick
+     */
     @FXML
     private void setLogOut(javafx.scene.input.MouseEvent event) {
         

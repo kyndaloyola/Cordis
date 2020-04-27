@@ -29,7 +29,11 @@ public class AdminDashboardDbManager
     private XYChart.Series series = new XYChart.Series();
     private int idAdmin = 0;
     
-    //kynda retrives the user details from the database
+    /**
+     * Kynda
+     * Retrives the user details from the database
+     * @return 
+     */
     public ArrayList retrieveUserInfo() {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();        
@@ -69,7 +73,12 @@ public class AdminDashboardDbManager
         }
         return data;        
     }
-    //issam
+
+    /**
+     * Issam
+     * Method retrieving the activity log from the database.
+     * @return 
+     */
     public ArrayList retrieveLogInfo() {
         ArrayList<ArrayList<String>> data = new ArrayList<>();        
         Statement stmt;
@@ -109,7 +118,12 @@ public class AdminDashboardDbManager
         }
         return data;        
     }
-    //issam
+
+    /**
+     * Issam
+     * Method counting the number of user online (which have a null value as logout value in the database)
+     * @return - String type which is caster from an integer countring the number of online users.
+     */
     public String setUserOnlineValue() {       
         Statement stmt;
         int counter = 0;
@@ -134,7 +148,13 @@ public class AdminDashboardDbManager
         }
         return String.valueOf(counter);
     }
-    //issam
+
+    /**
+     * Issam
+     * Method counting the number of new registration within this month.
+     * If the registration has been done before this month, the user won't be counted as a new user.
+     * @return String casted from an integer counting the number of new users. 
+     */
     public String setNumberOfRegistration() {       
         Statement stmt;
         String counter="";
@@ -158,7 +178,14 @@ public class AdminDashboardDbManager
         return counter;
     }
     
-    ///kynda retrives the users value based on the admins input.
+    /**
+     * Kynda
+     * Retrives the users value based on the admins input.
+     * @param values
+     * @param selection
+     * @param data
+     * @return 
+     */
     public boolean searchUser(String values,String selection,ArrayList<ArrayList<String>> data){
          String table = getRowLoginCred(selection);
          Statement statement;
@@ -203,9 +230,14 @@ public class AdminDashboardDbManager
     }
      
     }
-   //issam 
+
+    /**
+     * Issam
+     * Method used to manage users; The selection from the user is converted in terms usable in a SQL query.
+     * @param selection - Input String from user.
+     * @return String usable within a SQL query
+     */
     public String getRowLoginCred(String selection){
-        
         String row ;
         if(selection.equals("ID")){
             row = "u_id";
@@ -221,7 +253,13 @@ public class AdminDashboardDbManager
         
         return row;
     }
-    //issam
+    
+    /**
+     * Issam
+     * Method used to manage log activity; The selection from the user is converted in terms usable in a SQL query
+     * @param selection - Input String from the user
+     * @return String usable within a SQL query
+     */
     public String getRowLog(String selection){
         
         String row = null;
@@ -240,7 +278,15 @@ public class AdminDashboardDbManager
         
         return row;
     }
-    //issam
+    
+    /**
+     * Issam
+     * Method used to search the log activity with a specified value.
+     * @param values - String type representing the filter from the search
+     * @param selection - Selected input converted in a different method
+     * @param data 
+     * @return - boolean (no semantic value but avoid to return a null value)
+     */
     public boolean searchLog(String values,String selection,ArrayList<ArrayList<String>> data){
          //String table = getRowLog(selection);
          Statement statement;
@@ -294,7 +340,12 @@ public class AdminDashboardDbManager
           
       }
     
-    //kynda deletes a user based on the user id provided 
+    /**
+     * Kynda
+     * Deletes a user based on the user id provided 
+     * @param id
+     * @return 
+     */
     public boolean deleteUser(String id){
         Statement statement;
         DbConnection connection = new DbConnection();
@@ -312,7 +363,12 @@ public class AdminDashboardDbManager
         
     }
     
-    //kynda checks if the user exists before deleting it
+    /**
+     * Kynda
+     * Checks if the user exists before deleting it
+     * @param id
+     * @return 
+     */
     public boolean checkIfUserExists(String id){
         Statement statement;
         DbConnection connection = new DbConnection();
@@ -351,7 +407,17 @@ public class AdminDashboardDbManager
         }
     }
     
-    //kynda adds a user to the database (used for testing)
+    /**
+     * Kynda
+     * Adds a user to the database (used for testing)
+     * @param fname
+     * @param lname
+     * @param email
+     * @param username
+     * @param password
+     * @param type
+     * @return 
+     */
     public boolean addUser(String fname,String lname,String email,String username,String password,String type){
         Statement statement;
         DbConnection connection = new DbConnection();
@@ -370,11 +436,22 @@ public class AdminDashboardDbManager
     }
     
     }
-    //issam
+    
+    /**
+     * Issam
+     * @param id - Integer: Identification Number
+     * Method used to set the identification member of an administrator.
+     * Used to access private Id within this class.
+     */
     public void setIdAdministrator(int id) {
         this.idAdmin=id;
     }
-       //issam 
+    
+    /**
+     * Issam
+     * @param id - Integer: Identification Number
+     * Method add a TimeStamp to the database when an administrator logout from the Admin Dashboard
+     */
     public void setLogOutUser(int id) {
         System.out.println("ID: " + id);
         try {
@@ -401,7 +478,11 @@ public class AdminDashboardDbManager
 
     }
     
-    //kynda inilaises the line chart
+    /**
+     * Kynda
+     * Initialises the Line chart
+     * @return 
+     */
     public XYChart.Series intialiseChart() {
         String month ;
         //String date;

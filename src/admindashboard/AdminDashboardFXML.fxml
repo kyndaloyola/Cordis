@@ -62,7 +62,7 @@
                         </Pane>
                         <Pane fx:id="manageUsersBtn" layoutX="10.0" layoutY="10.0" onMouseClicked="#changePanel" prefHeight="70.0" prefWidth="114.0" style="-fx-background-color: grey;">
                            <children>
-                              <Text fx:id="manageUsersText" fill="WHITE" layoutX="15.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Manage Users" textAlignment="CENTER" wrappingWidth="107.4522107760211">
+                              <Text fx:id="manageUsersText" fill="WHITE" layoutX="18.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Manage Users" textAlignment="CENTER" wrappingWidth="107.4522107760211">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
