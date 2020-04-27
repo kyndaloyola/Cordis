@@ -29,7 +29,12 @@ public class UserDashboardDbManager {
     private XYChart.Series series = new XYChart.Series();
     private XYChart.Series seriesLineChartHome = new XYChart.Series();
 
-    //kynda initalises the barchart
+    /**
+     * Kynda
+     * @param year - The initialisation of the Bar Chart requires a String representing the year
+     * @return XYChart.Series type to populate the Bar Chart of the User Dashboard
+     * The method is used to initialise a Bar Chart on the User Dashboard
+     */
     public XYChart.Series intialiseBarChart(String year) {
         String date;
         //query to retrive the number of projects per year
@@ -75,7 +80,13 @@ public class UserDashboardDbManager {
         return series;
     }
 
-    //issam
+    /**
+     * Issam
+     * @param lowerBound - Integer representing the lower bound of the range for the Bubble Chart
+     * @param upperBound - Integer representing the upper bound of the range for the Bubble Chart
+     * @return ArrayList<XYChart.Series> type to populate the Bubble Chart of the User Dashboard
+     * The method is used to initialise the Bubble Chart of the User Dashboard
+     */
     public ArrayList<XYChart.Series> initialiseBubbleChart(int lowerBound, int upperBound) {
         ArrayList<XYChart.Series> bubbleChartSeries = new ArrayList<>();
         Statement stmt;
@@ -138,7 +149,11 @@ public class UserDashboardDbManager {
 
         return bubbleChartSeries;
     }
-//trung
+
+    /**
+     * Trung
+     * @return XYChart.Series to populate the first serie of the Area Chart of the User Dashboard
+     */
     public XYChart.Series AreaChartSeries1() {
         String query = "SELECT strftime('%Y' ,projectEndDate) AS endDate, AVG(projectTotalCost), AVG(projectMaxEcContribution) FROM Project  WHERE endDate <> '' GROUP by endDate;";
         XYChart.Series series1 = new XYChart.Series<>(); //creates a new series for the costs line
@@ -155,7 +170,11 @@ public class UserDashboardDbManager {
         }
         return series1;
     }
-//trung
+
+    /**
+     * Trung
+     * @return XYChart.Series to populate the second serie of the Area Chart of the User Dashboard
+     */
     public XYChart.Series AreaChartSeries2() {
         String query = "SELECT strftime('%Y' ,projectEndDate) AS endDate, AVG(projectTotalCost), AVG(projectMaxEcContribution) FROM Project  WHERE endDate <> '' GROUP by endDate;";
         XYChart.Series series2 = new XYChart.Series<>(); //creates a new series for the contributions line
@@ -174,7 +193,11 @@ public class UserDashboardDbManager {
         return series2;
     }
 
-    //issam
+    /**
+     * Issam
+     * The method retrieve the organisation details from the database to be displayed on the User Dashboard
+     * @return ArrayList allow a different method to used the details of an organisation 
+     */
     public ArrayList getOrganisationDetails() {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();
@@ -230,6 +253,12 @@ public class UserDashboardDbManager {
         return data;
     }
     
+    /**
+     * Issam
+     * @param source - The source is column to search within the database via a SQL query
+     * @param filter - To parameter search within the data of the 'source' column
+     * @return ArrayList of the organisation matching the search filter - It is then used to populate the table
+     */
     public ArrayList searchOrganisation(String source, String filter) {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();
@@ -286,7 +315,12 @@ public class UserDashboardDbManager {
         return data;
     }
     
-    //kynda retrives the coordinator of the project selected
+    /**
+     * Kynda
+     * The method retrives the coordinator of the project selected
+     * @param pid - Project Identification Number
+     * @return a String representing the coordinator of a project
+     */
     public String getCoordinator (int pid){
         DbConnection connection = new DbConnection();
         Statement stmt;
@@ -324,7 +358,11 @@ public class UserDashboardDbManager {
        return cordiname;
     }
     
-// kynda retrives the project details from the database
+    /**
+     * Kynda
+     * The method retrives the project details from the database
+     * @return ArrayList with the details of one or more project(s)
+     */
     public ArrayList getProjectDetails() {
         DbConnection connection = new DbConnection();
         ArrayList<ArrayList<String>> data = new ArrayList<>();
@@ -461,7 +499,11 @@ public class UserDashboardDbManager {
         return data;
     }
 
-    //kynda gets the month as a word based on the as a number
+    /**
+     * Kynda
+     * @param month - A String type representing the month selected by the user
+     * @return a String representing the month in full letters
+     */
     public String getMonthKynda(String month) {
         String m = "";
         if (month.equals("01")) {
@@ -495,7 +537,13 @@ public class UserDashboardDbManager {
         return m;
 
     }
-//kynda retrives the name of the databse row based on the option the user selected 
+    
+    /**
+     * Kynda
+     * @param selection - String type representing the selection choice of the user
+     * @return a String used for the SQL database query
+     * The method retrives the name of the databse row based on the option the user selected 
+     */
     public String getRowProj(String selection) {
 
         String row;
@@ -511,7 +559,15 @@ public class UserDashboardDbManager {
 
         return row;
     }
-//kynda searches for thr project based on the users inputted values
+
+    /**
+     * Kynda
+     * @param selection
+     * @param values
+     * @param d
+     * @return 
+     * The method searches for thr project based on the users inputted values
+     */
     public boolean searchProj(String selection, String values, ArrayList<ArrayList<String>> d) {
         //String table = getRowLog(selection);
         Statement stmt;
@@ -682,7 +738,11 @@ public class UserDashboardDbManager {
         }
     }
 
-    //trung
+    /**
+     * Trung
+     * @param username - The input from the user
+     * @return - True if user is not in the database - False if already in the database
+     */
     boolean checkUsername(String username) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
@@ -705,7 +765,12 @@ public class UserDashboardDbManager {
         }
         return false;
     }
-//trung
+    
+    /**
+     * Trung
+     * @param email - Input from the user
+     * @return  - True if email is not in the database - False if already in the database
+     */
     boolean checkEmail(String email) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
@@ -730,7 +795,15 @@ public class UserDashboardDbManager {
 
         return false;
     }
-//trung
+    
+    /**
+     * Trung
+     * @param userId
+     * @param fname
+     * @param lname
+     * @param username
+     * @param email 
+     */
     void updateProfile(int userId, String fname, String lname, String username, String email) {
         String query = "UPDATE Login_Credentials SET u_fname = ?, u_sname = ?, u_username = ?, u_email =  ? WHERE u_id = ?";
         try { //updates data using user id
@@ -746,7 +819,12 @@ public class UserDashboardDbManager {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//trung
+
+    /**
+     * Trung
+     * @param userId - Identification number of the user
+     * @param password - New password input from the user
+     */
     void updatePassword(int userId, String password) {
         String query = "UPDATE Login_Credentials SET u_password = ? WHERE u_id = ?";
         password = BCrypt.hashpw(password, BCrypt.gensalt(12)); //hashes password
@@ -760,7 +838,12 @@ public class UserDashboardDbManager {
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//trung
+
+    /**
+     * Issam
+     * @param userId - Identification number of the user
+     * The method write within the log file a TimeStamp on Logout and redirect the user to the Login window.
+     */
     public void setLogOutUser(int userId) {
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter formatedDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

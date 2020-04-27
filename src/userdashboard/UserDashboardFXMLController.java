@@ -351,7 +351,10 @@ public class UserDashboardFXMLController implements Initializable
 
     }
 
-    //kynda initliases the charts in their reduced version to be displayed in the home section. 
+    /**
+     * Kynda
+     * Initliases the charts in their reduced version to be displayed in the home section. 
+     */
     public void initaliseHomeCharts()
     {
         //initilaises the reduced bar chart 
@@ -391,7 +394,15 @@ public class UserDashboardFXMLController implements Initializable
 
     }
 
-//trung 
+    /**
+     * Trung
+     * @param userId
+     * @param username
+     * @param email
+     * @param password
+     * @param fname
+     * @param lname 
+     */
     public void setUserDetails(int userId, String username, String email, String password, String fname, String lname)
     {
         this.userId = userId;
@@ -406,7 +417,10 @@ public class UserDashboardFXMLController implements Initializable
         emailTextfield.setText(email);
     }
 
-    //kynda creats the main bar chart by using the method from the database to retrive the data.
+    /**
+     * Kynda
+     * Creats the main bar chart by using the method from the database to retrive the data.
+     */
     private void createBarChart()
     {
         UserDashboardDbManager manager = new UserDashboardDbManager();
@@ -426,8 +440,13 @@ public class UserDashboardFXMLController implements Initializable
             }
         }
     }
-//issam
 
+    /**
+     * Issam
+     * @param lowerBound - Integer type representing the lower bound selected by the user; allow to display a range within the chart
+     * @param upperBound - Integer type representing the upper bound selected by the user; allow to display a range within the chart
+     * The method retrieve an ArrayList<XYChart.Series> and populate the Bubble Chart to be displayed to the user
+     */
     private void createBubbleChart(int lowerBound, int upperBound)
     {
         UserDashboardDbManager manager = new UserDashboardDbManager();
@@ -437,8 +456,12 @@ public class UserDashboardFXMLController implements Initializable
             bubbleChart.getData().add(bubbleChartSeries.get(i));
         }
     }
-//issam
 
+    /**
+     * Issam
+     * @param event - Even triggered when the user select a different range using the radio button of the user dashboard
+     * The method modify the graph when an event is triggered; Ranges are selected and the graph modified via this method
+     */
     @FXML
     private void applyChangesToBubbleChart(MouseEvent event)
     {
@@ -466,7 +489,9 @@ public class UserDashboardFXMLController implements Initializable
 
     }
 
-    //trung
+    /**
+     * TRung
+     */
     private void createAreaChart()
     {
         costs.setSelected(true); //checkbox is marked green
@@ -479,8 +504,11 @@ public class UserDashboardFXMLController implements Initializable
         createContributionTooltips(averageContribution);
 
     }
-//trung
 
+    /**
+     * Trung
+     * @param averageCost 
+     */
     public void createCostTooltips(XYChart.Series averageCost)
     {
         XYChart.Series<BigDecimal, Double> series = averageCost;
@@ -495,8 +523,11 @@ public class UserDashboardFXMLController implements Initializable
             Tooltip.install(data.getNode(), tooltip);
         }
     }
-//trung
 
+    /**
+     * Trung
+     * @param averageContribution 
+     */
     public void createContributionTooltips(XYChart.Series averageContribution)
     {
         XYChart.Series<BigDecimal, Double> series = averageContribution;
@@ -511,8 +542,11 @@ public class UserDashboardFXMLController implements Initializable
             Tooltip.install(data.getNode(), tooltip);
         }
     }
-//trung
 
+    /**
+     * Trung
+     * @param event 
+     */
     @FXML
     public void refreshAreaChart(ActionEvent event)
     {
@@ -540,8 +574,11 @@ public class UserDashboardFXMLController implements Initializable
             createContributionTooltips(averageContribution);
         }
     }
-    //trung
-
+    
+    /**
+     * Trung
+     * @param event 
+     */
     @FXML
     public void refreshButtonEnabled(ActionEvent event)
     {
@@ -555,6 +592,9 @@ public class UserDashboardFXMLController implements Initializable
 
     }
 
+    /**
+     * 
+     */
     public void initialisePieChart()
     {
 
@@ -575,7 +615,11 @@ public class UserDashboardFXMLController implements Initializable
         IanPieChart.setData(list);
     }
 
-// kynda method to switch betweens panes based on the buttons clicked
+    /**
+     * Kynda
+     * Method to switch betweens panes based on the buttons clicked
+     * @param event 
+     */
     @FXML
     private void changeGraph(MouseEvent event)
     {
@@ -697,12 +741,20 @@ public class UserDashboardFXMLController implements Initializable
         }
     }
 
+    /**
+     * 
+     * @param event 
+     */
     private void onOrgClick(ActionEvent event)
     {
         organisationsPane1.toFront();
     }
-//trung
 
+    /**
+     * Issam
+     * @param event - Event triggered when the mouse of the user is exit a button
+     * The method modify the background color when the mouse of the user exit a button
+     */
     @FXML
     private void changeColorBackgroundExited(MouseEvent event)
     {
@@ -719,8 +771,12 @@ public class UserDashboardFXMLController implements Initializable
             projectMenuButton.setBackground(background);
         }
     }
-//trung
 
+    /**
+     * Issam
+     * @param event - Event triggered when the mouse of the user enter a button
+     * The method modify the background color when the mouse of the user enter a button
+     */
     @FXML
     private void changeColorBackgroundEntered(MouseEvent event)
     {
@@ -738,7 +794,11 @@ public class UserDashboardFXMLController implements Initializable
         }
     }
 
-    //kynda when the submit button is clicked the data displayed changes based on user selection 
+    /**
+     * Kynda
+     * @param event - OnClick
+     * When the submit button is clicked the data displayed changes based on user selection
+     */
     @FXML
     public void onBarChartSubmit(ActionEvent event)
     {
@@ -747,7 +807,7 @@ public class UserDashboardFXMLController implements Initializable
 
         projectsPerYearChart.getData().clear();
         projectsPerYearChart.getData().addAll(manager.intialiseBarChart(choice));
-//adds the tootip for thr charts nodes to display the number of projects when hovered.
+        //adds the tootip for thr charts nodes to display the number of projects when hovered.
         for (Series<?, ?> serie : projectsPerYearChart.getData())
         {
             for (Data<?, ?> item : serie.getData())
@@ -761,6 +821,10 @@ public class UserDashboardFXMLController implements Initializable
 
     }
 
+    /**
+     * Issam
+     * The method populate the organisation table with the values retrieved from the database.
+     */
     public void setOrganisationTableValues()
     {
         ArrayList<ArrayList<String>> data;
@@ -781,7 +845,10 @@ public class UserDashboardFXMLController implements Initializable
         organisationsTableView.getItems().addAll(data);
     }
 
-//sets the table view for the projects pane 
+    /**
+     * Kynda
+     * sets the table view for the projects pane
+     */
     public void setProjectTableValues()
     {
         ArrayList<ArrayList<String>> data;
@@ -806,6 +873,12 @@ public class UserDashboardFXMLController implements Initializable
         projectTableView.getItems().addAll(data);
     }
 
+    /**
+     * Issam
+     * @param table
+     * @param index 
+     * Method used to populate the cell of columns with an Array List
+     */
     private void setCellValue(TableColumn<ArrayList<String>, String> table, int index)
     {
         table.setCellValueFactory((p) ->
@@ -815,7 +888,10 @@ public class UserDashboardFXMLController implements Initializable
         });
     }
 
-    // kynda displays the value of the project based on the project selected from the graph 
+    /**
+     * Kynda
+     * Displays the value of the project based on the project selected from the graph 
+     */
     @FXML
     public void displayProjectValues()
     {
@@ -867,7 +943,11 @@ public class UserDashboardFXMLController implements Initializable
 
     }
 
-    //issam
+    /**
+     * Issam
+     * When a row is selected the values of the row are displayed on the organisation pane. 
+     * The user can see more clearly the values this way. 
+     */
     @FXML
     public void displayOrganisationValues()
     {
@@ -883,7 +963,11 @@ public class UserDashboardFXMLController implements Initializable
         textOrgCountry.setText(data.get(10));
     }
 
-    // kynda when the reudced area chart is clicked a new pane is displayed with the interactive version
+    /**
+     * Kynda
+     * When the reudced area chart is clicked a new pane is displayed with the interactive version
+     * @param event 
+     */
     @FXML
     public void onReducedStackedAreaChartClick(MouseEvent event)
     {
@@ -901,8 +985,12 @@ public class UserDashboardFXMLController implements Initializable
         settingsAnchorPane.setVisible(false);
         graphMenuItems.setVisible(true);
     }
-//kynda when the reudced Bar chart is clicked a new pane is displayed with the interactive version
 
+    /**
+     * Kynda
+     * When the reudced Bar chart is clicked a new pane is displayed with the interactive version
+     * @param event 
+     */
     @FXML
     public void onReducedBarChartClicked(MouseEvent event)
     {
@@ -920,8 +1008,12 @@ public class UserDashboardFXMLController implements Initializable
         settingsAnchorPane.setVisible(false);
         graphMenuItems.setVisible(true);
     }
-// kynda when the reudced Bubble chart is clicked a new pane is displayed with the interactive version
 
+    /**
+     * Kynda
+     * When the reudced Bubble chart is clicked a new pane is displayed with the interactive version
+     * @param event 
+     */
     public void onReducedBubbleChartClick(MouseEvent event)
     {
         issamPane.setVisible(true);
@@ -937,7 +1029,11 @@ public class UserDashboardFXMLController implements Initializable
         graphMenuItems.setVisible(true);
     }
 
-    //kynda this method is reponsible for searching, it is fired when the search button in the projects pane is clicked
+    /**
+     * Kynda
+     * This method is reponsible for searching, it is fired when the search button in the projects pane is clicked
+     * @param event 
+     */
     @FXML
     private void onProjectSearch(MouseEvent event)
     {
@@ -950,7 +1046,7 @@ public class UserDashboardFXMLController implements Initializable
 
         sel = searchByProjects.getSelectionModel().getSelectedItem();
         userInput = inputTextSearchProj.getText();
-//checks that the selecion isnt empty
+        //checks that the selecion isnt empty
         if (sel.equals(""))
         {
             a.setAlertType(AlertType.ERROR);
@@ -1002,7 +1098,10 @@ public class UserDashboardFXMLController implements Initializable
     }
 
     @FXML
-    //kynda when the edit profile is clicked the edit profile pane is displayed
+    /**
+     * Kynda
+     * When the edit profile is clicked the edit profile pane is displayed
+     */
     private void OnEditProfileClick(ActionEvent event)
     {
         ianPane.setVisible(false);
@@ -1021,7 +1120,10 @@ public class UserDashboardFXMLController implements Initializable
         settingsAnchorPane.setVisible(true);
     }
 
-    //trung
+    /**
+     * Trung
+     * @param event 
+     */
     @FXML
     public void resetDetails(ActionEvent event)
     {
@@ -1030,8 +1132,11 @@ public class UserDashboardFXMLController implements Initializable
         usernameTextfield.setText(username);
         emailTextfield.setText(email);
     }
-//trung
 
+    /**
+     * Trung
+     * @param event 
+     */
     @FXML
     public void saveProfile(ActionEvent event)
     {
@@ -1108,6 +1213,10 @@ public class UserDashboardFXMLController implements Initializable
         }
     }
 
+    /**
+     * Trung
+     * @param event 
+     */
     @FXML
     public void changePassword(ActionEvent event)
     {
@@ -1144,8 +1253,13 @@ public class UserDashboardFXMLController implements Initializable
             this.password = password1Field.getText();
         }
     }
-//issam
 
+    /**
+     * Issam
+     * @param event - On Key Released
+     * When the user type within the search text field the event is triggered.
+     * It clears the previous data of the table and populate with the data corresponding to the search filter.
+     */
     @FXML
     private void onSearchOrganisation(KeyEvent event)
     {
@@ -1193,8 +1307,11 @@ public class UserDashboardFXMLController implements Initializable
         }
 
     }
-//trung
 
+    /**
+     * Trung
+     * @param event 
+     */
     @FXML
     private void OnLogOut(ActionEvent event)
     {
@@ -1217,7 +1334,12 @@ public class UserDashboardFXMLController implements Initializable
             Logger.getLogger(UserDashboardFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//kynda displays the pane for the pie chart. 
+
+    /**
+     * Kynda
+     * Displays the pane for the pie chart. 
+     * @param event 
+     */
     @FXML
     private void onPieChartClick(MouseEvent event)
     {
@@ -1233,7 +1355,4 @@ public class UserDashboardFXMLController implements Initializable
         orgText.setFill(Color.BLACK);
         projText.setFill(Color.BLACK);
     }
-
-
-
 }
