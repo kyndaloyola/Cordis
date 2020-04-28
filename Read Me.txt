@@ -6,6 +6,8 @@ The Cordis application provides information on all EU-supported R&D activities i
 
 Installation/Setup - Download of database
 
+MAKE SURE YOU CLEAN AND BUILD PROJECT BEFORE RUNNING THE PROGRAM
+
 Git hub: 
 
 Cloning with Https:
