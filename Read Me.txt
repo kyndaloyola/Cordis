@@ -1,0 +1,71 @@
+Cordis Application
+
+The Cordis application provides information on all EU-supported R&D activities including the projects and organisations. Users are able to create an account and sign-in to view this information including infographics of the graphs that the authors have made.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Installation/Setup - Download of database
+
+Git hub: 
+
+Cloning with Https:
+ https://github.com/kyndaloyola/Cordis.git
+
+Cloning with ssh: 
+git@github.com:kyndaloyola/Cordis.git
+
+The databases aren’t included in the github repository.Therefore, in order for the program to run effectively please ensure that you add the database to the file.
+
+Jar Files:
+In the event of a missing Jar file, the application will raise an error. All Jar files are included within this program in the folder ‘JarFiles’. 
+To resolve an issue related to Jar files, click right on the program, at the bottom of the list click ‘Resolve Project Problem’. And then select the missing Jar files from the file of the program. 
+
+
+Using zip file provided: 
+
+Unlike GIthub adding the database to the file isn’t necessary as the databases are already included.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Functionalities of Program
+
+1. Users can create an account by registering an account from the sign-up panel
+2. Users/Admins can either log in to either the user or admin dashboard depending on their user type
+3. Users can view the dashboard and do the following:
+	Click on the graphs on the homepage to open on a different pane that can be filtered
+	View the organisations on the organisations tab
+	View the projects on the projects tabs
+	Edit profile of the user including their first name, last name, username, email and password
+	Admins can view the dashboard and do the following:
+4. View user activity i.e. if users are online
+	Check users details from a table
+	Delete users from user id and username
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Username/Password for User
+
+Username: w1701438
+
+Email: W1701438@westminster.ac.uk
+
+Password: Westminster1
+
+Username/Password for Admin
+
+Username: AdminW1
+
+Email: AdminW1@westminster.ac.uk
+
+Password: Admwest1
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Authors:
+
+Kynda Loyola - w1701438
+Trung Le - w1712736
+Issam Nedjai - w1710249
+Ian Jaingue - w1603034
+
+
