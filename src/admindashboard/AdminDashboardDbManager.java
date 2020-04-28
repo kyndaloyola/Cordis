@@ -21,7 +21,7 @@ import javafx.scene.chart.XYChart;
 import userdashboard.UserDashboardFXMLController;
 
 /**
- *
+ * @author Issam
  * @author kynda
  */
 public class AdminDashboardDbManager
@@ -87,7 +87,7 @@ public class AdminDashboardDbManager
         // SELECT username, MAX(logInDate) FROM logFile GROUP BY username;
         try {
             
-            
+            // SQL query to retrieve all the activity log
             stmt = connection.getConnectionLoginDB().createStatement(); 
             String sql = "SELECT Login_Credentials.u_id, Login_Credentials.u_fname, Login_Credentials.u_sname, Login_Credentials.u_email, Login_Credentials.u_username, logFile.logInDate,  IFNULL(logFile.logOutDateTime, 'N/A') AS logOutDateTime "+ 
                 "FROM Login_Credentials JOIN logFile ON Login_Credentials.u_username=logFile.username;";
@@ -110,7 +110,7 @@ public class AdminDashboardDbManager
             } finally {
                 rs.close();
             }
-            
+            // SQL close stqtement and connection to the database
             stmt.close(); 
             connection.getConnectionDataDB().close();
         } catch (SQLException e) {
