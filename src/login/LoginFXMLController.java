@@ -5,7 +5,6 @@
  */
 package login;
 
-import admindashboard.AdminDashboardDbManager;
 import admindashboard.AdminDashboardFXMLController;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -29,7 +28,7 @@ import userdashboard.UserDashboardFXMLController;
 
 /**
  *
- * @author 44796
+ * @author Trung
  */
 public class LoginFXMLController implements Initializable {
 
@@ -91,14 +90,14 @@ public class LoginFXMLController implements Initializable {
             alert.showAndWait();
         } else {
             LoginDbManager login = new LoginDbManager();
-            boolean userFound = login.connection(username, password); //starts the connection, returns userType if user found
+            boolean userFound = login.findUserDetails(username, password); //starts the connection, returns userType if user found
             if (userFound) { //if user has been found
                 if (login.getUserType().equals("U")) { //if the user is a user, go to user dashboard
-                    login.setLogConnetionDetails();
+                    login.setLogInTimestamp();
                     userDashboard(login.getUserType(), login.getUserId(), login.getUsername(),
                     login.getEmail(), password, login.getFirstName(), login.getSurname(), stage);
                 } else if (login.getUserType().equals("A")) { //if the user is an admin, go to admin dashboard
-                    login.setLogConnetionDetails();
+                    login.setLogInTimestamp();
                     adminDashboard(stage, login.getUserId());
                 }
             } else { //if user hasnt been found, username/password is incorrect

@@ -15,15 +15,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert;
 import databaseconnection.DbConnection;
 import encryption.BCrypt;
 import java.sql.Statement;
 
-/**
- *
- * @author 44796
- */
+
+ // @author: Trung
+
 public class LoginDbManager {
 
     private int userId;
@@ -33,7 +31,7 @@ public class LoginDbManager {
     private String email;
     private String userType;
 
-    boolean connection(String username, String password) {
+    boolean findUserDetails(String username, String password) {
         String query = "SELECT * FROM Login_Credentials"; //Selects data from Login Credentials
 
         try {
@@ -57,7 +55,7 @@ public class LoginDbManager {
         return false;
     }
     
-    public void setLogConnetionDetails() {
+    public void setLogInTimestamp() {
         try {
             System.out.println("INSERT TRY");
             Statement stmt = DbConnection.getConnectionLoginDB().createStatement();
