@@ -802,11 +802,20 @@ public class UserDashboardFXMLController implements Initializable
     @FXML
     public void onBarChartSubmit(ActionEvent event)
     {
+        
         UserDashboardDbManager manager = new UserDashboardDbManager();
+        
+       
         String choice = yearSelectorKynda.getSelectionModel().getSelectedItem();
-
+        
+        if(choice == null){
+        projectsPerYearChart.getData().clear();
+        projectsPerYearChart.getData().addAll(manager.intialiseBarChart("All")); 
+        }else{
         projectsPerYearChart.getData().clear();
         projectsPerYearChart.getData().addAll(manager.intialiseBarChart(choice));
+        }
+        
         //adds the tootip for thr charts nodes to display the number of projects when hovered.
         for (Series<?, ?> serie : projectsPerYearChart.getData())
         {

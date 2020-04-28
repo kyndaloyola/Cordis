@@ -42,7 +42,8 @@ public class AdminDashboardDbManager
         try {
             
             stmt = connection.getConnectionLoginDB().createStatement(); 
-            String sql = "SELECT Login_Credentials.u_id, Login_Credentials.u_fname, Login_Credentials.u_sname, Login_Credentials.u_email, Login_Credentials.u_username, Login_Credentials.u_type, Login_Credentials.u_regDate AS logInDate"+
+            String sql = "SELECT Login_Credentials.u_id, Login_Credentials.u_fname, Login_Credentials.u_sname, "
+                    + "Login_Credentials.u_email, Login_Credentials.u_username, Login_Credentials.u_type, Login_Credentials.u_regDate AS logInDate"+
                     " FROM Login_Credentials";
                     
             stmt.execute(sql);
